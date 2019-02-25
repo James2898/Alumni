@@ -1,92 +1,44 @@
 <?php
 	class Admin extends CI_Controller {
 
-		public function __construct(){
+		function __construct(){
 			parent::__construct();
-			$this->load->model('faqs_model');
-			$this->load->helper('url_helper');
+			$this->load->database();
+	        $this->load->library('session');
+			
+	       /*cache control*/
+			$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+			$this->output->set_header('Pragma: no-cache');
 		}
 
-		public function index(){
-			$data['faqs'] = $this->faqs_model->get_faqs();
-			$data['title'] = 'Faqs archive';
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('faqs/index', $data);
-			$this->load->view('templates/footer');
+		function index(){
+			$page_data['page_name']		=	'dashboard';
+			$this->load->view('backend/index', $page_data);
 		}
 
-		public function view($slug = NULL){
-			$data['faqs_item'] = $this->faqs_model->get_faqs($slug);
-
-			if (empty($data['faqs_item'])){
-				show_404();
-			}
-
-			$data['title'] = $data['faqs_item']['title'];
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('faqs/view', $data);
-			$this->load->view('templates/footer');
+		function dashboard(){
+			$page_data['page_name']		=	'dashboard';
+			$this->load->view('backend/index', $page_data);
 		}
 
-		public function create(){
-			$this->load->helper('form');
-			$this->load->library('form_validation');
-
-			$data['title'] = 'Create a FAQ item';
-
-			$this->form_validation->set_rules('title', 'Title', 'required');
-			$this->form_validation->set_rules('text', 'Text', 'required');
-
-			if ($this->form_validation->run() === FALSE){
-				$this->load->view('templates/header', $data);
-				$this->load->view('faqs/create');
-				$this->load->view('templates/footer');
-			}else{
-				$this->faqs_model->set_faqs();
-				$this->load->view('templates/header', $data);
-				$this->load->view('faqs/success');
-				$this->load->view('templates/footer');
-			}
+		function alumni_add(){
+			$page_data['page_name']		= 	'alumni_add';
+			$this->load->view('backend/index', $page_data);
 		}
 
-		public function edit(){
-			$id = $this->uri->segment(3);
-
-			if (empty($id)){
-				show_404();
-			}
-
-			$this->load->helper('form');
-			$this->load->library('form_validation');
-
-			$data['title'] = 'Edit a faqs item';
-			$data['faqs_item'] = $this->faqs_model->get_faqs_by_id($id);
-
-			$this->form_validation->set_rules('title', 'Title', 'required');
-			$this->form_validation->set_rules('text', 'Text', 'required');
-
-			if ($this->form_validation->run() === FALSE){
-				$this->load->view('templates/header', $data);
-				$this->load->view('faqs/edit', $data);
-				$this->load->view('templates/footer');
-			}else{
-				$this->faqs_model->set_faqs($id);
-				redirect( base_url() . 'index.php/faqs');
-			}
+		function alumni_list(){
+			$page_data['page_name']		= 	'alumni_list';
+			$this->load->view('backend/index',$page_data);
 		}
 
-		public function delete(){
-			$id = $this->uri->segment(3);
-			if (empty($id)){
-				show_404();
-			}
+		function announcement(){
+			$page_data['page_name']		=	'announcement';
+			$this->load->view('backend/index',$page_data);
+		}
 
-			$faqs_item = $this->faqs_model->get_faqs_by_id($id);
-
-			$this->faqs_model->delete_faqs($id);
-			redirect( base_url() . 'index.php/faqs');
+		function profile(){
+			$page_data['page_name']		= 	'profile';
+			$this->load->view('backend/index', $page_data);
 		}
 	}
 ?>

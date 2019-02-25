@@ -7,9 +7,9 @@
                 <div class="sidebar-wrapper">
                     <ul class="nav">
                         <li class="nav-item active  ">
-                            <a class="nav-link" href="./dashboard.html">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php?admin/dashboard">
                                 <i class="material-icons">dashboard</i>
-                                <p>Dashboard</p>
+                                <p>Dashboward</p>
                             </a>
                         </li>
                         <li class="nav-item ">

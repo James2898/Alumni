@@ -20,7 +20,7 @@ class Homepage extends CI_Controller {
 	 */
 	public function index()
 	{
-		$page_data['page_name'] = 'Homepage';
+		$page_data['page_name'] = 'dashboard';
         $this->load->view('index', $page_data);
 	}
 }

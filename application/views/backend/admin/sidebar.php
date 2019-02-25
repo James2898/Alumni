@@ -1,4 +1,4 @@
-            <div class="sidebar" data-color="danger" data-background-color="white" data-image="assets/img/sidebar-1.jpg">
+            <div class="sidebar" data-color="danger" data-background-color="white" data-image="<?php echo base_url(); ?>assets/img/sidebar-1.jpg">
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text logo-normal">
                       Creative Tim
@@ -6,22 +6,28 @@
                 </div>
                 <div class="sidebar-wrapper">
                     <ul class="nav">
-                        <li class="nav-item active  ">
-                            <a class="nav-link" href="./dashboard.html">
+                        <li class="nav-item <?php if($page_name == 'dashboard') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/dashboard">
                                 <i class="material-icons">dashboard</i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./user.html">
-                                <i class="material-icons">person</i>
-                                <p>User Profile</p>
+                        <li class="nav-item <?php if($page_name == 'alumni_add') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/alumni_add">
+                                <i class="material-icons">person_add</i>
+                                <p>Add new Alumni</p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./tables.html">
-                                <i class="material-icons">content_paste</i>
-                                <p>Table List</p>
+                        <li class="nav-item <?php if($page_name == 'alumni_list') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/alumni_list">
+                                <i class="material-icons">group</i>
+                                <p>Alumni List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?php if($page_name == 'announcement') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/announcement">
+                                <i class="material-icons">announcement</i>
+                                <p>Announcement</p>
                             </a>
                         </li>
                         <li class="nav-item ">

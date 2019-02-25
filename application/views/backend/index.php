@@ -3,12 +3,10 @@
 	<head>
   		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
- 		<title>
-    		Material Dashboard by Creative Tim
-  		</title>
+ 		<title><?php echo ucwords(str_replace("_", " ", $page_name)); ?></title>
   		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   		<?php  
-  			include 'include/include_top.php';
+  			include 'include_top.php';
   		?>
 	</head>
 
@@ -18,7 +16,7 @@
 		    <div class="main-panel">
 		    	<?php  include 'admin/navbar.php';?>
 			    <div class="content">
-					<?php  include 'admin/dashboard.php';?>
+					<?php  include 'admin'.'/'.$page_name.'.php';?>
 				</div>
 				<footer class="footer">
 					<div class="container-fluid">
@@ -26,7 +24,7 @@
 							<ul>
 				              	<li>
 					                <a href="https://www.creative-tim.com">
-				                  		Creative Tim
+				                  		Creative Timxxxx
 				                	</a>
 				              	</li>
 				              	<li>
@@ -80,12 +78,12 @@
 		        <li class="header-title">Images</li>
 		        <li class="active">
 		          <a class="img-holder switch-trigger" href="javascript:void(0)">
-		            <img src="assets/img/sidebar-1.jpg" alt="">
+		            <img src="<?php echo base_url(); ?>assets/img/sidebar-1.jpg" alt="">
 		          </a>
 		        </li>
 		        <li>
 		          <a class="img-holder switch-trigger" href="javascript:void(0)">
-		            <img src="assets/img/sidebar-2.jpg" alt="">
+		            <img src="<?php echo base_url(); ?>assets/img/sidebar-2.jpg" alt="">
 		          </a>
 		        </li>
 		        <li>
@@ -126,7 +124,7 @@
 		    </div>
 	  	</div>
 	  	<?php  
-	  		include 'include/include_bottom.php';
+	  		include 'include_bottom.php';
 	  	?>
 </body>
 
