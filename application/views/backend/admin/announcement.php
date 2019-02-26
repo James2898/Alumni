@@ -4,7 +4,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-danger">
-                  <h4 class="card-title ">Announcement</h4>
+                  <h4 class="card-title ">Announcement <a class="btn-sm btn-white text-danger"><i class="material-icons"></i>Add</a></h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -25,7 +25,6 @@
                           <td>10/19/19</td>
                           <td>Sample Announcement 1</td>
                           <td>
-                                
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
                                         Action <span class="caret"></span>
@@ -34,11 +33,13 @@
                                         
                                         <!-- teacher EDITING LINK -->
                                         <li>
-                                          <a href="#">sdads</a>
+                                          <a href="#"><i class="material-icons">remove_red_eye</i> View</a>
                                         </li>
-                                        <li class="divider"></li>
                                         <li>
-                                          <a href="#">asdsad</a>
+                                          <a href="#"><i class="material-icons">edit</i> Edit</a>
+                                        </li>
+                                        <li>
+                                          <a href="#"><i class="material-icons">delete</i> Delete</a>
                                         </li>
                                     </ul>
                                 </div>

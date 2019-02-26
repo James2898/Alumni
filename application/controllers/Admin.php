@@ -12,8 +12,8 @@
 		}
 
 		function index(){
-			$page_data['page_name']		=	'dashboard';
-			$this->load->view('backend/index', $page_data);
+			 if ($this->session->userdata('admin_login') != 1)
+            	redirect(base_url() . 'index.php/login', 'refresh');
 		}
 
 		function dashboard(){
@@ -21,18 +21,24 @@
 			$this->load->view('backend/index', $page_data);
 		}
 
-		function alumni_add(){
-			$page_data['page_name']		= 	'alumni_add';
-			$this->load->view('backend/index', $page_data);
-		}
-
-		function alumni_list(){
-			$page_data['page_name']		= 	'alumni_list';
+		function announcement(){
+			$page_data['page_name']		=	'announcement';
 			$this->load->view('backend/index',$page_data);
 		}
 
-		function announcement(){
-			$page_data['page_name']		=	'announcement';
+		function alumni(){
+			$page_data['page_name']		=	'alumni';
+			$this->load->view('backend/index',$page_data);
+		}
+
+
+		function notifications(){
+			$page_data['page_name']		=	'notifications';
+			$this->load->view('backend/index',$page_data);
+		}
+
+		function appointment(){
+			$page_data['page_name']		=	'appointment';
 			$this->load->view('backend/index',$page_data);
 		}
 

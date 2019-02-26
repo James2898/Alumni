@@ -11,7 +11,7 @@
 	</head>
 
 	<body class="">
-	  	<div class="wrapper ">
+	  	<div class="wrapper">
 	    	<?php  include 'admin/sidebar.php';?>
 		    <div class="main-panel">
 		    	<?php  include 'admin/navbar.php';?>

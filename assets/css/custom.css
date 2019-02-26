@@ -1,4 +1,9 @@
-#example{
-	overflow-y:scroll;
-	overflow-x:hidden;
+
+.profile-img{
+    text-align: center;
 }
+.profile-img img{
+    width: auto;
+    height: auto;
+}
+

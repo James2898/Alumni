@@ -1,7 +1,7 @@
             <div class="sidebar" data-color="danger" data-background-color="white" data-image="<?php echo base_url(); ?>assets/img/sidebar-1.jpg">
                 <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                      Creative Tim
+                    <a href="<?php echo base_url()?>index.php" class="simple-text logo-normal">
+                      <small>Alumni Management System</small>
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
@@ -12,16 +12,22 @@
                                 <p>Dashboard</p>
                             </a>
                         </li>
-                        <li class="nav-item <?php if($page_name == 'alumni_add') echo 'active' ?>">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/alumni_add">
-                                <i class="material-icons">person_add</i>
-                                <p>Add new Alumni</p>
+                        <li class="nav-item <?php if($page_name == 'alumni') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/alumni">
+                                <i class="material-icons">school</i>
+                                <p>Alumni</p>
                             </a>
                         </li>
-                        <li class="nav-item <?php if($page_name == 'alumni_list') echo 'active' ?>">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/alumni_list">
-                                <i class="material-icons">group</i>
-                                <p>Alumni List</p>
+                        <li class="nav-item <?php if($page_name == 'profile') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/profile">
+                                <i class="material-icons">person</i>
+                                <p>Profile</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?php if($page_name == 'notifications') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/notifications">
+                                <i class="material-icons">notifications</i>
+                                <p>Notifications</p>
                             </a>
                         </li>
                         <li class="nav-item <?php if($page_name == 'announcement') echo 'active' ?>">
@@ -30,16 +36,10 @@
                                 <p>Announcement</p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./typography.html">
-                                <i class="material-icons">library_books</i>
-                                <p>Typography</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./icons.html">
-                                <i class="material-icons">bubble_chart</i>
-                                <p>Icons</p>
+                        <li class="nav-item <?php if($page_name == 'appointment') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url();?>index.php/admin/appointment">
+                                <i class="material-icons">event</i>
+                                <p>Appointment</p>
                             </a>
                         </li>
                         <li class="nav-item ">
