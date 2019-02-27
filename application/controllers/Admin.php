@@ -14,6 +14,7 @@
 		function index(){
 			 if ($this->session->userdata('admin_login') != 1)
             	redirect(base_url() . 'index.php/login', 'refresh');
+             
 		}
 
 		function dashboard(){

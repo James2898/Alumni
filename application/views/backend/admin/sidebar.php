@@ -1,6 +1,6 @@
             <div class="sidebar" data-color="danger" data-background-color="white" data-image="<?php echo base_url(); ?>assets/img/sidebar-1.jpg">
                 <div class="logo">
-                    <a href="<?php echo base_url()?>index.php" class="simple-text logo-normal">
+                    <a href="<?php echo base_url()?>" class="simple-text logo-normal">
                       <small>Alumni Management System</small>
                     </a>
                 </div>
