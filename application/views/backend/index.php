@@ -125,6 +125,8 @@
 	  	</div>
 	  	<?php  
 	  		include 'include_bottom.php';
+
+	  		include 'modal.php';
 	  	?>
 </body>
 

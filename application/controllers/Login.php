@@ -16,12 +16,9 @@
 		}	
 
 		public function index(){
-			if ($this->session->userdata('admin_login') == 1){
-				$page_data['page_name']		=	'dashboard';
-            	$this->load->view('backend/index', $page_data);
-			}else{
-				$this->load->view('backend/login');	
-			}
+			if ($this->session->userdata('login_level') == 1)
+            	redirect(base_url() . 'index.php/admin/dashboard', 'refresh');
+        	$this->load->view('backend/login');
 		}
 
 
@@ -32,7 +29,7 @@
 			$this->form_validation->set_rules('password', 'password', 'trim|required|xss_clean');
 
 			if ($this->form_validation->run() == FALSE) {
-				if(isset($this->session->userdata['logged_in'])){
+				if(isset($this->session->userdata['account_type'])){
 					$this->load->view('backend/index');
 				}else{
 					$this->load->view('backend/login');
@@ -48,8 +45,17 @@
 					$user_ID = $this->input->post('user_ID');
 					$result = $this->login_model->read_user_information($user_ID);
 					if ($result != false) {
-						$this->session->set_userdata('admin_login','1');
-						redirect(base_url(). 'index.php/admin/dashboard', 'refresh');
+						$login_level = $this->login_model->get_login_level($user_ID);
+						if($login_level == '1'){
+							$this->session->set_userdata('account_type','admin');
+							$this->session->set_userdata('admin_login','1');
+							$this->session->set_userdata('login_level','1');
+							redirect(base_url(). 'index.php/admin/dashboard', 'refresh');
+						}
+						
+						
+						
+						
 					}
 				}else{
 					$data = array(
@@ -60,6 +66,8 @@
 			}
 		}
 
+
+
 		// Logout from admin page
 		public function logout() {
 
@@ -67,7 +75,7 @@
 			$sess_array = array(
 				'user_ID' => ''
 			);
-			$this->session->unset_userdata('admin_login');
+			$this->session->unset_userdata('login_level');
 			$data['message_display'] = 'Successfully Logout';
 			redirect(base_url().'index.php/login');
 			//$this->load->view('backend/login', $data);

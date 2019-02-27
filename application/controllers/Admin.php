@@ -12,9 +12,11 @@
 		}
 
 		function index(){
-			 if ($this->session->userdata('admin_login') != 1)
+			if ($this->session->userdata('admin_login') != 1)
             	redirect(base_url() . 'index.php/login', 'refresh');
-             
+            if($this->session->userdata('admin_login') == 1)
+            	redirect(base_url() . 'index.php/admin/dashboard', 'refresh');
+
 		}
 
 		function dashboard(){

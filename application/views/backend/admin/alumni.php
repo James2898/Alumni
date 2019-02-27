@@ -26,6 +26,9 @@
                           <div class="card-body">
                               <div class="tab-content">
                                 <div class="tab-pane table-responsive active" id="profile">
+                                  <p>
+                                      <?php print_r($this->session->all_userdata()); ?>
+                                  </p>
                                     <table class="table" id="example">
                                       <thead class="text-danger">
                                         <th>
@@ -44,39 +47,48 @@
                                           Work Status
                                         </th>
                                         <th>
-                                          Action
-                                        </th>
-                                        
+                                          Action 
+                                        </th>                          
                                       </thead>
                                       <tbody>
+                                        
+                                        <?php  
+
+                                          $this->db->select("*");
+                                          $this->db->from('alumni');
+
+                                          $query = $this->db->get()->result_array();
+                                          foreach($query as $row):
+
+                                        ?>
                                         <tr>
-                                          <td>16004187600</td>
-                                          <td>James Emmanuel M. Martinez</td>
-                                          <td>BSIT - Network Administration</td>
-                                          <td>2019</td>
-                                          <td>Active</td>
+                                          <td><?php echo $row['alumni_student_ID'] ?></td>
+                                          <td><?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?></td>
+                                          <td><?php echo $row['alumni_degree']."-".$row['alumni_major'] ?></td>
+                                          <td><?php echo $row['alumni_grad_year'] ?></td>
+                                          <td><?php echo 'Working' ?></td>
                                           <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                        Action <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-danger pull-right" role="menu">
-                                                        
-                                                        <!-- teacher EDITING LINK -->
-                                                        <li>
-                                                          <a href="#"><i class="material-icons">remove_red_eye</i> View</a>
-                                                        </li>
-                                                        <li>
-                                                          <a href="#"><i class="material-icons">edit</i> Edit</a>
-                                                        </li>
-                                                        <li>
-                                                          <a href="#"><i class="material-icons">delete</i> Delete</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
+                                            <div class="btn-group">
+                                              <button class="btn btn-danger btn-sm dropdown-toggle" data-toggle='dropdown'>
+                                                Action
+                                              </button>
+                                              <ul class="dropdown-menu drop-down-danger pull-right" role="menu">
+                                                  <li>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/')"><i class="material-icons">remove_red_eye</i> View</a>
+                                                    <a href="#"><i class="material-icons">edit</i> Edit</a>
+                                                    <a href="#"><i class="material-icons">delete</i> Delete</a>
+                                                  </li>
+                                                  <li></li>
+                                                  <li></li>
+                                                  <li></li>
+                                              </ul>
+                                            </div>
+                                          </td>
                                         </tr>
 
+                                        <?php 
+                                          endforeach;
+                                        ?>
                                       </tbody>
                                     </table>
                                 </div>

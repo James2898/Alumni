@@ -26,9 +26,12 @@
                             echo "</div>";
                         ?>
                         <span class="login100-form-title p-b-43">
+
                             Login to continue
                         </span>
-                        
+                        <p>
+                            <?php print_r($this->session->all_userdata()); ?>
+                        </p>
                         <div class="validate-input login100 form-input bg-white" data-validate = "Valid email is required">
                            <label class="bmd-label-floating text-center">User ID</label>
                             <input type="text" class="form-control text-center" value="1" name="user_ID">

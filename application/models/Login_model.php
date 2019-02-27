@@ -38,6 +38,22 @@
 			}
 		}
 
+		//GET USER ACCOUNT TYPE
+		public function get_login_level($user_ID){
+			$condition = "login_user_ID =" . "'" . $user_ID . "'";
+			$this->db->select('login_level');
+			$this->db->from('login');
+			$this->db->where($condition);
+			$this->db->limit(1);
+			$query = $this->db->get();
+
+			if ($query->num_rows() == 1) {
+				return $query->row()->login_level;
+			} else {
+				return false;
+			}
+		}
+
 	}
 
 ?>
