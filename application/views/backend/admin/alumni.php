@@ -26,9 +26,6 @@
                           <div class="card-body">
                               <div class="tab-content">
                                 <div class="tab-pane table-responsive active" id="profile">
-                                  <p>
-                                      <?php print_r($this->session->all_userdata()); ?>
-                                  </p>
                                     <table class="table" id="example">
                                       <thead class="text-danger">
                                         <th>

@@ -3,19 +3,17 @@
 
 		function __construct(){
 			parent::__construct();
+
+			session_start();
+
 			$this->load->database();
-	        $this->load->library('session');
-			
 	       /*cache control*/
 			$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			$this->output->set_header('Pragma: no-cache');
 		}
 
 		function index(){
-			if ($this->session->userdata('admin_login') != 1)
-            	redirect(base_url() . 'index.php/login', 'refresh');
-            if($this->session->userdata('admin_login') == 1)
-            	redirect(base_url() . 'index.php/admin/dashboard', 'refresh');
+			
 
 		}
 

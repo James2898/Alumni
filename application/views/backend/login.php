@@ -1,3 +1,6 @@
+<?php 
+    //session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,7 +19,7 @@
             <div class="container-login100">
                 <div class="wrap-login100">
                     <!-- <form class="login100-form validate-form" method="post" role="form" id="form_login"> -->
-                        <?php echo form_open('Login/user_login_process', 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
+                        <?php echo form_open('Login/login', 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
                         <?php
                             echo "<div class='error_msg'>";
                             if (isset($error_message)) {
@@ -26,11 +29,10 @@
                             echo "</div>";
                         ?>
                         <span class="login100-form-title p-b-43">
-
-                            Login to continue
+                            Login to continue 
                         </span>
                         <p>
-                            <?php print_r($this->session->all_userdata()); ?>
+                            <?php print_r($_SESSION) ?>
                         </p>
                         <div class="validate-input login100 form-input bg-white" data-validate = "Valid email is required">
                            <label class="bmd-label-floating text-center">User ID</label>

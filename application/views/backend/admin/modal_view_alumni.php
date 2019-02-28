@@ -1,9 +1,12 @@
 <?php  
 
-    $view_data  =   $this->db->get_where('alumni', array('alumni_student_ID' => $param2))-result_array();
-    foreach ($edit_data as $row):
+    $this->db->select("*");
+    $this->db->from('alumni');
+    $this->db->get_where('alum_')
+    $query = $this->db->get()->result_array();
+    foreach ($query as $row):
 ?>
-
+asdsd
 <?php  
     endforeach;
 ?>
