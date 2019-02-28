@@ -53,7 +53,7 @@
 
                                           $this->db->select("*");
                                           $this->db->from('alumni');
-
+                                          $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
                                           $query = $this->db->get()->result_array();
                                           foreach($query as $row):
 
@@ -61,7 +61,7 @@
                                         <tr>
                                           <td><?php echo $row['alumni_student_ID'] ?></td>
                                           <td><?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?></td>
-                                          <td><?php echo $row['alumni_degree']."-".$row['alumni_major'] ?></td>
+                                          <td><?php echo $row['course_title']." - ".$row['alumni_major'] ?></td>
                                           <td><?php echo $row['alumni_grad_year'] ?></td>
                                           <td><?php echo 'Working' ?></td>
                                           <td>

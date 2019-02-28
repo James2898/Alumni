@@ -42,10 +42,10 @@
                                 <p>Appointment</p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./map.html">
-                                <i class="material-icons">location_ons</i>
-                                <p>Maps</p>
+                        <li class="nav-item <?php if($page_name == 'upload_form') echo 'active' ?>">
+                            <a class="nav-link" href="<?php echo base_url();?>index.php/admin/upload_form">
+                                <i class="material-icons">cloud_upload</i>
+                                <p>Upload</p>
                             </a>
                         </li>
                         <li class="nav-item ">
