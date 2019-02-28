@@ -3,7 +3,7 @@
 						<div class="container-fluid">
 		          			<div class="navbar-wrapper">
 		            			<a class="navbar-brand" href="#pablo">
-		            				<?php echo $_SESSION['account_type'] ?>
+		            				<?php echo ucwords(str_replace("_", " ", $page_name)); ?>
 		            			</a>
 
 		          			</div>

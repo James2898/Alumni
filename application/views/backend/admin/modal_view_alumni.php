@@ -102,29 +102,84 @@
 	                        </div>
 	                      </div>
 	                  </div>
-	                  <div class="card">
+	                  <div class="card"><!-- CURRENTLY WORKS AT -->
 	                      <div class="card-header card-header-danger">
-	                        <h4 class="card-title"><i class="fa fa-briefcase"></i>  Work</h4>
+	                        <h4 class="card-title"><i class="fa fa-briefcase"></i> Currently Works At</h4>
 	                      </div>
 	                      <div class="card-body">
 	                        <div class="table-responsive">
 	                          <table class="table text-center">
 	                            <thead class="text-danger">
-	                              <th>Date</th>
+	                              <th>Salary Range</th>
 	                              <th>Company</th>
 	                              <th>Position</th>
+	                              <th>Since</th>
 	                            </thead>
 	                            <tbody>
+	                              <?php  
+	                              	$this->db->select("*");
+								    $this->db->from('work');
+								    $this->db->join('alumni','alumni.alumni_student_ID = work.work_alumni_student_ID');
+								    $this->db->where('alumni_student_ID',$param1);
+								    $this->db->where('work_alumni_status !=','Inactive');
+
+								    $query2 = $this->db->get()->result_array();
+   									foreach ($query2 as $row2):
+	                              ?>
 	                              <tr>
-	                                <td>2019</td>
-	                                <td>Rushtek Inc.</td>
-	                                <td>Software Engineer</td>
+	                                <td><?php echo $row2['work_company_name'] ?></td>
+	                                <td><?php echo $row2['work_alumni_position'] ?></td>
+	                                <td><?php echo $row2['work_alumni_salary_range'] ?></td>
+	                                <td><?php echo $row2['work_alumni_start'] ?></td>
 	                              </tr>
+	                              <?php  
+	                              	endforeach;
+	                              ?>
 	                            </tbody>
 	                          </table>
 	                        </div>
 	                      </div>
-	                  </div>
+	                  </div><!-- END -->
+	                  <div class="card"><!-- CURRENTLY WORKS AT -->
+	                      <div class="card-header card-header-danger">
+	                        <h4 class="card-title"><i class="fa fa-briefcase"></i> Worked At</h4>
+	                      </div>
+	                      <div class="card-body">
+	                        <div class="table-responsive">
+	                          <table class="table text-center">
+	                            <thead class="text-danger">
+	                              <th>Salary Range</th>
+	                              <th>Company</th>
+	                              <th>Position</th>
+	                              <th>Since</th>
+	                              <th>Left</th>
+	                            </thead>
+	                            <tbody>
+	                              <?php  
+	                              	$this->db->select("*");
+								    $this->db->from('work');
+								    $this->db->join('alumni','alumni.alumni_student_ID = work.work_alumni_student_ID');
+								    $this->db->where('alumni_student_ID',$param1);
+								    $this->db->where('work_alumni_status','Inactive');
+
+								    $query2 = $this->db->get()->result_array();
+   									foreach ($query2 as $row2):
+	                              ?>
+	                              <tr>
+	                                <td><?php echo $row2['work_company_name'] ?></td>
+	                                <td><?php echo $row2['work_alumni_position'] ?></td>
+	                                <td><?php echo $row2['work_alumni_salary_range'] ?></td>
+	                                <td><?php echo $row2['work_alumni_start'] ?></td>
+	                                <td><?php echo $row2['work_alumni_end'] ?></td>
+	                              </tr>
+	                              <?php  
+	                              	endforeach;
+	                              ?>
+	                            </tbody>
+	                          </table>
+	                        </div>
+	                      </div>
+	                  </div><!-- END -->
 	                </div>
 
 	              </div>
