@@ -74,7 +74,7 @@
                                               </button>
                                               <ul class="dropdown-menu drop-down-danger pull-right" role="menu">
                                                   <li>
-                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/')"><i class="material-icons">remove_red_eye</i> View</a>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_alumni/<?php echo $row['alumni_student_ID'] ?>')"><i class="material-icons">remove_red_eye</i> View</a>
                                                     <a href="#"><i class="material-icons">edit</i> Edit</a>
                                                     <a href="#"><i class="material-icons">delete</i> Delete</a>
                                                   </li>

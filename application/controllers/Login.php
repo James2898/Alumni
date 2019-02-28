@@ -11,12 +11,12 @@
         	parent::__construct();
         	$this->load->model('login_model');
         	$this->load->database();
-        	$this->load->library('session','form_validation');
+        	//$this->load->library('session','form_validation');
         	$this->load->helper('form');
 		}	
 
 		public function index(){
-			if ($this->session->userdata('login_level') == 1)
+			if ($this->session->userdata('account_type') == 'admin')
             	redirect(base_url() . 'index.php/admin/dashboard', 'refresh');
         	$this->load->view('backend/login');
 		}
@@ -48,8 +48,8 @@
 						$login_level = $this->login_model->get_login_level($user_ID);
 						if($login_level == '1'){
 							$this->session->set_userdata('account_type','admin');
-							$this->session->set_userdata('admin_login','1');
-							$this->session->set_userdata('login_level','1');
+							//$this->session->set_userdata('admin_login','1');
+							//$this->session->set_userdata('login_level','1');
 							redirect(base_url(). 'index.php/admin/dashboard', 'refresh');
 						}
 						
@@ -73,9 +73,10 @@
 
 			// Removing session data
 			$sess_array = array(
-				'user_ID' => ''
+				'user_ID' => '',
+				'account_type'
 			);
-			$this->session->unset_userdata('login_level');
+			$this->session->sess_destroy();
 			$data['message_display'] = 'Successfully Logout';
 			redirect(base_url().'index.php/login');
 			//$this->load->view('backend/login', $data);
