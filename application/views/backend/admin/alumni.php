@@ -63,7 +63,16 @@
                                           <td><?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?></td>
                                           <td><?php echo $row['course_title']." - ".$row['alumni_major'] ?></td>
                                           <td><?php echo $row['alumni_grad_year'] ?></td>
-                                          <td><?php echo 'Working' ?></td>
+                                          <td>
+                                            <?php 
+                                              $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_status','Working')->get()->num_rows();
+                                              if($work_status > 0){
+                                                echo "Working";
+                                              }else{
+                                                echo "Inactive";
+                                              }
+                                            ?>
+                                          </td>
                                           <td>
                                             <div class="btn-group">
                                               <button class="btn btn-danger btn-sm dropdown-toggle" data-toggle='dropdown'>
