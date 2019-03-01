@@ -3,7 +3,11 @@
 						<div class="container-fluid">
 		          			<div class="navbar-wrapper">
 		            			<a class="navbar-brand" href="#pablo">
-		            				<?php echo ucwords(str_replace("_", " ", $page_name)); ?>
+		            				<?php echo ucwords(str_replace("_", " ", $page_name)).$_SESSION['flashdata']; 
+
+		            					print_r($_SESSION);
+		            					//echo phpinfo();
+		            				?>
 		            			</a>
 
 		          			</div>

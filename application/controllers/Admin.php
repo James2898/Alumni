@@ -18,6 +18,8 @@
 		}
 
 		function dashboard(){
+			if ($_SESSION['account_type'] != 'admin')
+            	redirect(base_url(), 'refresh');
 			$page_data['page_name']		=	'dashboard';
 			$this->load->view('backend/index', $page_data);
 		}
@@ -27,7 +29,46 @@
 			$this->load->view('backend/index',$page_data);
 		}
 
-		function alumni(){
+		function alumni($param1 = '', $param2 = ''){
+			if ($_SESSION['account_type'] != 'admin')
+            	redirect(base_url(), 'refresh');
+
+            if($param1 == 'create'){
+
+            }else if($param1 == 'edit'){
+            	$_SESSION['flashdata']	=	'Data Updated';
+            	$data['alumni_degree']	=	$this->input->post('alumni_degree');
+            	$data['alumni_fname']	=	$this->input->post('alumni_fname');
+            	$data['alumni_mname']	=	$this->input->post('alumni_mname');
+            	$data['alumni_lname']	=	$this->input->post('alumni_lname');
+            	$data['alumni_cno']		=	$this->input->post('alumni_cno');
+            	$data['alumni_lno']		=	$this->input->post('alumni_lno');
+            	$data['alumni_address']	=	$this->input->post('alumni_address');
+            	$data['alumni_email']	=	$this->input->post('alumni_email');
+            	$data['alumni_grad_year']	=	$this->input->post('alumni_grad_year');
+            	$data['alumni_facebook']	=	$this->input->post('alumni_facebook');
+            	$data['alumni_linkedin']	=	$this->input->post('alumni_linkedin');
+            	$data['alumni_website']		=	$this->input->post('alumni_website');
+
+            	$this->db->where('alumni_student_ID',$param2);
+            	$this->db->update('alumni',$data);
+            	session_write_close();
+            	redirect(base_url() . 'index.php/admin/alumni', 'refresh');
+            	exit();
+
+            }else if($param1 == 'delete'){
+
+            }
+
+
+
+
+
+
+
+
+
+
 			$page_data['page_name']		=	'alumni';
 			$this->load->view('backend/index',$page_data);
 		}

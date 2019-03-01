@@ -65,9 +65,9 @@
                                           <td><?php echo $row['alumni_grad_year'] ?></td>
                                           <td>
                                             <?php 
-                                              $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_status','Working')->get()->num_rows();
+                                              $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_status','Employed')->get()->num_rows();
                                               if($work_status > 0){
-                                                echo "Working";
+                                                echo "Employed";
                                               }else{
                                                 echo "Inactive";
                                               }
@@ -80,9 +80,18 @@
                                               </button>
                                               <ul class="dropdown-menu drop-down-danger pull-right" role="menu">
                                                   <li>
-                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_alumni/<?php echo $row['alumni_student_ID'] ?>')"><i class="material-icons">remove_red_eye</i> View</a>
-                                                    <a href="#"><i class="material-icons">edit</i> Edit</a>
-                                                    <a href="#"><i class="material-icons">delete</i> Delete</a>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_alumni/<?php echo $row['alumni_student_ID'] ?>')">
+                                                      <i class="material-icons">remove_red_eye</i>
+                                                       View
+                                                    </a>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_alumni/<?php echo $row['alumni_student_ID'] ?>')">
+                                                      <i class="material-icons">edit</i>
+                                                       Edit
+                                                     </a>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_alumni/<?php echo $row['alumni_student_ID'] ?>')">
+                                                      <i class="material-icons">delete</i> 
+                                                       Delete
+                                                     </a>
                                                   </li>
                                                   <li></li>
                                                   <li></li>

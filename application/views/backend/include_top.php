@@ -6,9 +6,12 @@
 	  	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/favicon.png">
 
 
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
 	  	<!-- FUll Calendar -->
 	  	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fullcalendar.css">
 	  	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fullcalendar.print.css" media="print">
+	  	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap-datetimepicker.css">
 
 		<!--     Fonts and icons     -->
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />

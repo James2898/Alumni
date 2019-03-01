@@ -1,3 +1,6 @@
+<?php 
+	//session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,8 +11,8 @@
   		<?php  
   			include 'include_top.php';
   		?>
-	</head>
 
+	</head>
 	<body class="">
 	  	<div class="wrapper">
 	    	<?php  include 'admin/sidebar.php';?>

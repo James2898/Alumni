@@ -12,7 +12,7 @@
   <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
   <script src="<?php echo base_url(); ?>assets/js/plugins/jquery.bootstrap-wizard.js"></script>
   <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-  <script src="<?php echo base_url(); ?>assets/js/plugins/bootstrap-selectpicker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
   <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
   <script src="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
   <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
@@ -42,7 +42,10 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<?php echo base_url(); ?>assets/demo/demo.js"></script>
   <!-- Boostrap 4 -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+  
+  <script src="<?php echo base_url(); ?>assets/js/transition.js"></script>|
+  <script src="<?php echo base_url(); ?>assets/js/collapse.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -266,3 +269,28 @@
   });
 
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+   $('.selectpicker').selectpicker();
+});
+</script>
+<?php 
+    
+        if($_SESSION['flashdata'] == 'Data Updated'){
+          $_SESSION['flashdata'] =  '';
+          echo "
+
+            <script type='text/javascript'>
+              Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'Data Updated',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+
+          ";
+
+        }
+?>

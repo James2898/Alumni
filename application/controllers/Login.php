@@ -29,41 +29,7 @@
           	$this->load->view('backend/login');
         	
 		}
-
-
-		// Check for user login process
-		public function user_login_process() {
-
-			$this->form_validation->set_rules('user_ID', 'user_ID', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('password', 'password', 'trim|required|xss_clean');
-
-			if ($this->form_validation->run() == FALSE) {
-				
-			}else{
-				$data = array(
-					'user_ID' => $this->input->post('user_ID'),
-					'password' => $this->input->post('password')
-				);
-				$result = $this->login_model->login($data);
-				if ($result == TRUE) {
-
-					$user_ID = $this->input->post('user_ID');
-					$result = $this->login_model->read_user_information($user_ID);
-					if ($result != false) {
-						$login_level = $this->login_model->get_login_level($user_ID);
-						if($login_level == '1'){
-							redirect(base_url(). 'index.php/admin/dashboard', 'refresh');
-						}
-					}
-				}else{
-					$data = array(
-						'error_message' => 'Invalid Username or Password'
-					);
-					$this->load->view('backend/login', $data);
-				}
-			}
-		}
-
+		
 		public function login(){
 
 			$data = array(
@@ -78,6 +44,9 @@
 					$login_level = $this->login_model->get_login_level($user_ID);
 					if($login_level == '1'){
 						$_SESSION['account_type']	=	'admin';
+						$_SESSION['user_ID']		=	$user_ID;
+						$_SESSION['flashdata']		=	'1';
+						//$_SESSION['dump']			=	'0';
 						redirect(base_url().'index.php/admin/dashboard','refresh');
 					}
 				}
@@ -93,7 +62,7 @@
 
 		// Logout from admin page
 		public function logout() {
-			session_unset('account_type');
+			session_destroy();
 			redirect(base_url() . 'index.php/login', 'refresh');	
 			//$this->load->view('backend/login', $data);
 		}
