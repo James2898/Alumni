@@ -311,6 +311,24 @@
           ";
 
         }
+
+        if($_SESSION['flashdata'] == 'Data Added'){
+          $_SESSION['flashdata'] =  '';
+          echo "
+
+            <script type='text/javascript'>
+              Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'Data Added',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+
+          ";
+
+        }
 ?>
 
 <script type="text/javascript">
