@@ -293,4 +293,39 @@
           ";
 
         }
+
+        if($_SESSION['flashdata'] == 'ERROR'){
+          $_SESSION['flashdata'] =  '';
+          echo "
+
+            <script type='text/javascript'>
+              Swal.fire({
+                position: 'top-end',
+                type: 'error',
+                title: '".$_SESSION['error_log']."',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+
+          ";
+
+        }
 ?>
+
+<script type="text/javascript">
+  function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width('50%')
+                    .height('50%');
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

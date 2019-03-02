@@ -36,7 +36,6 @@
             if($param1 == 'create'){
 
             }else if($param1 == 'edit'){
-            	$_SESSION['flashdata']	=	'Data Updated';
             	$data['alumni_degree']	=	$this->input->post('alumni_degree');
             	$data['alumni_fname']	=	$this->input->post('alumni_fname');
             	$data['alumni_mname']	=	$this->input->post('alumni_mname');
@@ -52,6 +51,7 @@
 
             	$this->db->where('alumni_student_ID',$param2);
             	$this->db->update('alumni',$data);
+            	$_SESSION['flashdata']	=	'Data Updated';
             	session_write_close();
             	redirect(base_url() . 'index.php/admin/alumni', 'refresh');
             	exit();
@@ -96,23 +96,27 @@
 			$this->load->view('backend/index',$page_data);
 		}
 
-		function upload(){
+		function upload($param1	= ''){
 			$config['upload_path']		=	'assets/img/profile_picture/';
-			$config['file_name']		=	'James';
+			$config['file_name']		=	$param1;
 			$config['allowed_types']	=	'gif|jpg|png';
-			$config['max_size']			=	100;
-			$config['max_width']		=	1024;
-			$config['max_height']		=	720;
+			$config['overwrite']		=	TRUE;
+			//$config['max_size']			=	100;
+			//$config['max_width']		=	1024;
+			//$config['max_height']		=	720;
 
 			$this->upload->initialize($config);
 			if(!$this->upload->do_upload('profile_picture')){
 				$error = array('error' => $this->upload->display_errors());
-				$page_data['page_name']	=	'upload_form';
-				$page_data['error']		=	array('error' => $this->upload->display_errors());
+				$page_data['page_name']	=	'alumni';
+				$_SESSION['flashdata']	=	'ERROR';
+				$_SESSION['error_log']	=	$this->upload->display_errors();
                 $this->load->view('backend/index', $page_data);
 			}else{
 				$data = array('upload_data' => $this->upload->data());
-                $page_data['page_name']	=	'upload_success';
+                $page_data['page_name']	=	'alumni';
+                $_SESSION['flashdata']	=	'Data Updated';
+            	session_write_close();
                 $this->load->view('backend/index', $page_data);
 			}
 		}

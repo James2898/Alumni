@@ -10,10 +10,21 @@
 	          <div class="content bg-light" >
 	            <div class="container-fluid">
 	              <div class="row">
+	            		<?php //print_r($error);?>
+
+					<?php echo form_open_multipart('admin/upload/'.$row['alumni_student_ID'], 'class="col-md-12"');?>
+					
+	              		<div class="col-md-12">
+	                  		<div class="profile-img my-2">
+			                    <img src="<?php echo base_url() ?>/assets/img/profile_picture/<?php echo $row['alumni_profile_picture'] ?>" alt="" id="blah"/>
+	                  		</div>
+	                  		<div class="text-center">
+								<input type='file' class="btn-file btn btn-danger" name="profile_picture" onchange="readURL(this);" />
+			                  	<input type="submit" class="btn btn-danger btn-sm" value="Change">
+			                </div >	
+	              		</div>
+	              	<?php echo form_close(); ?>
 	                <?php echo form_open('admin/alumni/edit/'.$row['alumni_student_ID'], 'class="login100-form validate-form col-md-12"','role="form"','id="form_login"'); ?>
-	                  <div class="profile-img my-2">
-	                    <img src="<?php echo base_url() ?>/assets/img/profile_picture/<?php echo $row['alumni_profile_picture'] ?>" alt=""/>
-	                  </div>
 	                  <div class="card">
 	                      <div class="card-header card-header-danger">
 	                        <h4 class="card-title"><i class="fa fa-info-circle"></i> About</h4>
