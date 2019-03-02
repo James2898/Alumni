@@ -87,6 +87,17 @@
 	                                              <div class="row">
 	                                              	<div class="col-md-12">
 	                                              		<div class="form-group">
+	                                              			<label class="bmd-label-floating">Gender</label>
+	                                              			<select class="form-control" name="alumni_gender">
+	                                              				<option value="Male" <?php if($row['alumni_gender'] == 'Male') echo 'selected' ?>>Male</option>
+	                                              				<option value="Female" <?php if($row['alumni_gender'] == 'Female') echo 'selected' ?>>Female</option>
+	                                              			</select>
+	                                              		</div>
+	                                              	</div>
+	                                              </div>
+	                                              <div class="row">
+	                                              	<div class="col-md-12">
+	                                              		<div class="form-group">
 	                                              			<label class="bmd-label-floating">Mobile No.</label>
 	                                              			<input type="text" name="alumni_cno" class="form-control" value="<?php echo $row['alumni_cno'] ?>">
 	                                              		</div>

@@ -41,6 +41,14 @@
 	                                                  	</div>
 	                                              </div>
 	                                              <div class="row">
+	                                                  	<div class="col-md-4">
+	                                                      <label>Gender</label>
+	                                                  	</div>
+	                                                  	<div class="col-md-8">
+	                                                    	<p><?php echo $row['alumni_gender'] ?></p>
+	                                                  	</div>
+	                                              </div>
+	                                              <div class="row">
 	                                                  <div class="col-md-4">
 	                                                      <label>Mobile No.</label>
 	                                                  </div>

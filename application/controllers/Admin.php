@@ -40,6 +40,7 @@
             	$data['alumni_fname']	=	$this->input->post('alumni_fname');
             	$data['alumni_mname']	=	$this->input->post('alumni_mname');
             	$data['alumni_lname']	=	$this->input->post('alumni_lname');
+            	$data['alumni_gender']	=	$this->input->post('alumni_gender');
             	$data['alumni_cno']		=	$this->input->post('alumni_cno');
             	$data['alumni_lno']		=	$this->input->post('alumni_lno');
             	$data['alumni_address']	=	$this->input->post('alumni_address');
