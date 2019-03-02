@@ -173,7 +173,7 @@
                                         <div class="col-md-6">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Student No.</label>
-                                            <input type="text" class="form-control" name="alumni_student_ID">
+                                            <input type="text" class="form-control" name="alumni_student_ID" required>
                                           </div>
                                         </div>
                                         <div class="col-md-6">

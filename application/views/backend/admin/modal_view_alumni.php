@@ -13,7 +13,14 @@
 	              <div class="row">
 	                <div class="col-md-12">
 	                  <div class="profile-img my-2">
-	                    <img src="<?php echo base_url() ?>/assets/img/profile_picture/<?php echo $row['alumni_profile_picture'] ?>" alt=""/>
+	                  	<?php 
+	                  		if(!empty($row['alumni_profile_picture'])){
+	                  			echo "<img src='".base_url()."/assets/img/profile_picture/".$row['alumni_profile_picture']."' alt=/>";
+	                  		}else{
+	                  			echo "<img src='".base_url()."/assets/img/profile_picture/blank.png' alt=/>";
+	                  		} 
+	                  	?>
+	                    
 	                  </div>
 	                  <div class="text-center">
 	                    <h3>
