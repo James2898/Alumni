@@ -11,12 +11,19 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="profile-img my-2">
-                      <img src="<?php echo base_url() ?>/assets/img/profile_picture/<?php echo $row['admin_profile_picture'] ?>.jpg" alt=""/>
+                    <div class="text-center my-2">
+                      
+                      <?php 
+                        if(!empty($row['admin_profile_picture'])){
+                          echo "<img  height='50%' width='50%' src='".base_url()."/assets/img/profile_picture/".$row['admin_profile_picture']."' alt=''/>";
+                        }else{
+                          echo "<img id='main-profile' height='50%' width='50%' src='".base_url()."/assets/img/profile_picture/blank.png' alt=/>";
+                        } 
+                      ?>
                     </div>
                     <div class="text-center">
                       <h3>
-                        <?php echo $row['admin_fname']." ".$row['admin_mname']." ".$row['admin_lname']?> <a href="#" class="text-danger"><i class="material-icons">edit</i></a>
+                        <?php echo $row['admin_fname']." ".$row['admin_mname']." ".$row['admin_lname']?> 
                       </h3>
                       <h4>Admin</h4>
                     </div>
@@ -62,6 +69,7 @@
                                             </div>
                                       </div>
                                     </div>
+                                    <button class="btn btn-danger" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_admin/')"><i class="fa fa-edit"></i> Edit</button>
                                 </div>
                             </div>
                           </div>

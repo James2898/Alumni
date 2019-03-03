@@ -19,7 +19,7 @@
 		    <div class="main-panel">
 		    	<?php  include 'admin/navbar.php';?>
 			    <div class="content">
-					<?php  include 'admin'.'/'.$page_name.'.php';?>
+					<?php  include $_SESSION['account_type'].'/'.$page_name.'.php';?>
 				</div>
 				<footer class="footer">
 					<div class="container-fluid">

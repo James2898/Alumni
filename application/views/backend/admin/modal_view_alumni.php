@@ -14,10 +14,10 @@
 	                <div class="col-md-12">
 	                  <div class="profile-img my-2">
 	                  	<?php 
-	                  		if(!empty($row['alumni_profile_picture'])){
-	                  			echo "<img src='".base_url()."/assets/img/profile_picture/".$row['alumni_profile_picture']."' alt=/>";
-	                  		}else{
+	                  		if($row['alumni_profile_picture'] == 'empty'){
 	                  			echo "<img src='".base_url()."/assets/img/profile_picture/blank.png' alt=/>";
+	                  		}else{
+	                  			echo "<img src='".base_url()."/assets/img/profile_picture/".$row['alumni_profile_picture']."' alt=/>";
 	                  		} 
 	                  	?>
 	                    
