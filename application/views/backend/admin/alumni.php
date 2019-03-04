@@ -170,16 +170,22 @@
                                       </div>
                                       <!--  -->
                                       <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Student No.</label>
                                             <input type="text" class="form-control" name="alumni_student_ID" required>
                                           </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Password</label>
                                             <input type="text" class="form-control" name="alumni_password">
+                                          </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <div class="form-group">
+                                            <label class="bmd-label-floating text-danger">Email address</label>
+                                            <input type="email" class="form-control" name="alumni_email">
                                           </div>
                                         </div>
                                       </div>
@@ -208,8 +214,8 @@
                                       <div class="row">
                                         <div class="col-md-4">
                                           <div class="form-group">
-                                            <label class="bmd-label-floating text-danger">Email address</label>
-                                            <input type="email" class="form-control" name="alumni_email">
+                                            <label class="bmd-label-floating text-danger">Address</label>
+                                            <input type="text" class="form-control" name="alumni_address">
                                           </div>
                                         </div>
                                         <div class="col-md-4">
@@ -221,7 +227,7 @@
                                         <div class="col-md-4">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Landline No.</label>
-                                            <input type="email" class="form-control" name="alumni_lno">
+                                            <input type="text" class="form-control" name="alumni_lno">
                                           </div>
                                         </div>
                                       </div>
@@ -229,7 +235,7 @@
                                         <div class="col-md-4">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Facebook</label>
-                                            <input type="email" class="form-control" name="alumni_fname">
+                                            <input type="text" class="form-control" name="alumni_facebook">
                                           </div>
                                         </div>
                                         <div class="col-md-4">
@@ -241,7 +247,7 @@
                                         <div class="col-md-4">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Website</label>
-                                            <input type="email" class="form-control" name="alumni_website">
+                                            <input type="text" class="form-control" name="alumni_website">
                                           </div>
                                         </div>
                                       </div>

@@ -34,65 +34,65 @@
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                       	<div class="row">
                                             <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">First Name</label>
-				                                    <input type="text" name="admin_fname" class="form-control" value="<?php echo $row['admin_fname'] ?>">
-				                                </div>
-											</div>
+												                      <div class="form-group">
+				                                        <label class="bmd-label-floating">First Name</label>
+				                                        <input type="text" name="admin_fname" class="form-control" value="<?php echo $row['admin_fname'] ?>">
+				                                      </div>
+											                      </div>
+                                      	</div>
+                                      	<div class="row">
+                                          <div class="col-md-12">
+												                    <div class="form-group">
+				                                      <label class="bmd-label-floating">Middle Name</label>
+				                                      <input type="text" name="admin_mname" class="form-control" value="<?php echo $row['admin_mname'] ?>">
+				                                    </div>
+											                    </div>
                                       	</div>
                                       	<div class="row">
                                             <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">Middle Name</label>
-				                                    <input type="text" name="admin_mname" class="form-control" value="<?php echo $row['admin_mname'] ?>">
-				                                </div>
-											</div>
+												                      <div class="form-group">
+				                                        <label class="bmd-label-floating">Last Name</label>
+				                                        <input type="text" name="admin_lname" class="form-control" value="<?php echo $row['admin_lname'] ?>">
+				                                      </div>
+											                      </div>
                                       	</div>
                                       	<div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">Last Name</label>
-				                                    <input type="text" name="admin_lname" class="form-control" value="<?php echo $row['admin_lname'] ?>">
-				                                </div>
-											</div>
+                                          <div class="col-md-12">
+												                    <div class="form-group">
+				                                      <label class="bmd-label-floating">Email</label>
+				                                      <input type="text" name="admin_email" class="form-control" value="<?php echo $row['admin_email'] ?>">
+				                                    </div>
+											                    </div>
                                       	</div>
                                       	<div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">Email</label>
-				                                    <input type="text" name="admin_email" class="form-control" value="<?php echo $row['admin_email'] ?>">
-				                                </div>
-											</div>
+                                          <div class="col-md-12">
+												                    <div class="form-group">
+				                                      <label class="bmd-label-floating">Facebook</label>
+				                                      <input type="text" name="admin_facebook" class="form-control" value="<?php echo $row['admin_facebook'] ?>">
+				                                    </div>
+											                     </div>
                                       	</div>
                                       	<div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">Facebook</label>
-				                                    <input type="text" name="admin_facebook" class="form-control" value="<?php echo $row['admin_facebook'] ?>">
-				                                </div>
-											</div>
+                                          <div class="col-md-12">
+												                    <div class="form-group">
+				                                      <label class="bmd-label-floating">Mobile No.</label>
+				                                      <input type="text" name="admin_cno" class="form-control" value="<?php echo $row['admin_cno'] ?>">
+				                                    </div>
+											                   </div>
                                       	</div>
                                       	<div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">Mobile No.</label>
-				                                    <input type="text" name="admin_cno" class="form-control" value="<?php echo $row['admin_cno'] ?>">
-				                                </div>
-											</div>
+                                          <div class="col-md-12">
+    												                <div class="form-group">
+    				                                    <label class="bmd-label-floating">Landline No.</label>
+    				                                    <input type="text" name="admin_lno" class="form-control" value="<?php echo $row['admin_lno'] ?>">
+    				                                </div>
+  											                 </div>
                                       	</div>
                                       	<div class="row">
-                                            <div class="col-md-12">
-												<div class="form-group">
-				                                    <label class="bmd-label-floating">Landline No.</label>
-				                                    <input type="text" name="admin_lno" class="form-control" value="<?php echo $row['admin_lno'] ?>">
-				                                </div>
-											</div>
-                                      	</div>
-                                      	<div class="row">
-											<div class="col-md-12">
-												<button type="submit" class="btn btn-danger pull-right">Update</button>
-											</div>
-										</div>
+                    											<div class="col-md-12">
+                    												<button type="submit" class="btn btn-danger pull-right">Update</button>
+                    											</div>
+                    										</div>
                                     </div>
                                 </div>
                             <?php echo form_close(); ?>

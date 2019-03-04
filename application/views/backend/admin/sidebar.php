@@ -18,12 +18,6 @@
                                 <p>Alumni</p>
                             </a>
                         </li>
-                        <li class="nav-item <?php if($page_name == 'profile') echo 'active' ?>">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/profile">
-                                <i class="material-icons">person</i>
-                                <p>Profile</p>
-                            </a>
-                        </li>
                         <li class="nav-item <?php if($page_name == 'notifications') echo 'active' ?>">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/notifications">
                                 <i class="material-icons">notifications</i>
@@ -46,24 +40,6 @@
                             <a class="nav-link" href="<?php echo base_url();?>index.php/admin/upload_form">
                                 <i class="material-icons">cloud_upload</i>
                                 <p>Upload</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./notifications.html">
-                                <i class="material-icons">notifications</i>
-                                <p>Notifications</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./rtl.html">
-                                <i class="material-icons">language</i>
-                                <p>RTL Support</p>
-                            </a>
-                        </li>
-                        <li class="nav-item active-pro ">
-                            <a class="nav-link" href="./upgrade.html">
-                                <i class="material-icons">unarchive</i>
-                                <p>Upgrade to PRO</p>
                             </a>
                         </li>
                     </ul>

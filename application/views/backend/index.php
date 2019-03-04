@@ -10,6 +10,7 @@
   		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   		<?php  
   			include 'include_top.php';
+  			include 'backup.php';
   		?>
 
 	</head>
