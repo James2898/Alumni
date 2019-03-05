@@ -1,5 +1,5 @@
 <!--   Core JS Files   -->
-  <!-- <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script> -->
+  <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/core/popper.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
@@ -176,3 +176,23 @@
         }
     }
 </script>
+
+        <!-- <script type="text/javascript" src="<?php echo base_url(); ?>assets/backup/docs/js/jquery-2.1.3.min.js"></script> -->
+        <!-- <script type="text/javascript" src="<?php echo base_url(); ?>assets/backup/docs/js/bootstrap-3.3.2.min.js"></script> -->
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/backup/docs/js/prettify.min.js"></script>
+
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/backup/dist/css/bootstrap-multiselect.css" type="text/css">
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/backup/dist/js/bootstrap-multiselect.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example-getting-started').multiselect({
+                nonSelectedText: 'Reciepients',    
+                buttonClass: 'btn btn-danger',
+                buttonWidth: '100%',
+                enableClickableOptGroups: true,
+                includeSelectAllOption: true,
+                maxHeight: 450  
+
+            });
+        });
+    </script>

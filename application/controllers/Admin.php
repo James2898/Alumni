@@ -150,6 +150,10 @@
 			//$config['max_width']		=	1024;
 			//$config['max_height']		=	720;
 
+			$filename= $_FILES["profile_picture"]["name"];
+			$file_extension	= pathinfo($filename,PATHINFO_EXTENSION);
+			$_SESSION['error_log']	= $file_extension;
+
 			$this->upload->initialize($config);
 			if(!$this->upload->do_upload('profile_picture')){
 				$error = array('error' => $this->upload->display_errors());
@@ -164,13 +168,11 @@
 				$alumni_student_ID	=	$param1;
             	$is_profile_picture     = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni_student_ID))->row()->alumni_profile_picture;
 
-            	$_SESSION['error_log']	=	$is_profile_picture;
-            	if($is_profile_picture == 'empty'){
-            		$data['alumni_profile_picture']		=	$alumni_student_ID.".jpg?/1234";
-            	}
-
+            	$data['alumni_profile_picture']		=	$alumni_student_ID.".".$file_extension."?1234";
             	$this->db->where('alumni_student_ID',$param1);
             	$this->db->update('alumni',$data);
+
+            	
 
 
 				$data = array('upload_data' => $this->upload->data());
@@ -189,6 +191,7 @@
 			//$config['max_size']			=	100;
 			//$config['max_width']		=	1024;
 			//$config['max_height']		=	720;
+
 
 			$this->upload->initialize($config);
 			if(!$this->upload->do_upload('profile_picture')){

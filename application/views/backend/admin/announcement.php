@@ -164,16 +164,4 @@
             </div>
           </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#example-getting-started').multiselect({
-            nonSelectedText: 'Reciepients',    
-            buttonClass: 'btn btn-danger',
-            buttonWidth: '100%',
-            enableClickableOptGroups: true,
-            includeSelectAllOption: true,
-            maxHeight: 450  
 
-        });
-    });
-</script>
