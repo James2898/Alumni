@@ -59,7 +59,27 @@
             	redirect(base_url().'index.php/admin/alumni','refresh');
             	exit();
 
-            }else if($param1 == 'edit'){
+            }else if($param1 == 'create_work'){
+
+            	$data['work_alumni_student_ID']	=	$param2;
+            	$data['worK_alumni_position']	=	$this->input->post('work_alumni_position');
+            	$data['work_company_name']		=	$this->input->post('work_company_name');
+            	$data['work_company_address']	=	$this->input->post('work_company_address');
+            	$data['work_industry']			=	$this->input->post('work_industry');
+            	$data['work_alumni_salary_range']	=	$this->input->post('work_alumni_salary_range');
+            	$data['work_alumni_start']		=	$this->input->post('work_alumni_start');
+            	$data['work_alumni_end']		=	$this->input->post('work_alumni_end');
+
+
+            	$this->db->insert('work',$data);
+            	$_SESSION['flashdata']	=	'Data Added';
+            	$_SESSION['error_log']	=	$param2;
+            	session_write_close();
+            	redirect(base_url().'index.php/admin/alumni','refresh');
+            	exit();
+
+
+            }else if($param1 == 'edit_about'){
             	$data['alumni_degree']	=	$this->input->post('alumni_degree');
             	$data['alumni_fname']	=	$this->input->post('alumni_fname');
             	$data['alumni_mname']	=	$this->input->post('alumni_mname');
@@ -74,14 +94,6 @@
             	$data['alumni_linkedin']	=	$this->input->post('alumni_linkedin');
             	$data['alumni_website']		=	$this->input->post('alumni_website');
 
-            	/*$alumni_student_ID	=	$this->input->post('alumni_student_ID');
-            	$is_profile_picture     = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni_student_ID))->row()->alumni_profile_picture;
-
-            	$_SESSION['error_log']	=	$is_profile_picture;
-            	if($is_profile_picture == 'empty'){
-            		$data['alumni_profile_picture']		=	$this->input->post('alumni_student_ID')."jpg?/1234";
-            	}*/
-
             	$this->db->where('alumni_student_ID',$param2);
             	$this->db->update('alumni',$data);
             	$_SESSION['flashdata']	=	'Data Updated';
@@ -89,8 +101,21 @@
             	redirect(base_url() . 'index.php/admin/alumni', 'refresh');
             	exit();
 
-            }else if($param1 == 'delete'){
+            }else if($param1 == 'edit_work'){
+            	
+            	$data['worK_alumni_position']	=	$this->input->post('work_alumni_position');
+            	$data['work_company_name']		=	$this->input->post('work_company_name');
+            	$data['work_company_address']	=	$this->input->post('work_company_address');
+            	$data['work_industry']			=	$this->input->post('work_industry');
+            	$data['work_alumni_salary_range']	=	$this->input->post('work_alumni_salary_range');
+            	$data['work_alumni_start']		=	$this->input->post('work_alumni_start');
+            	$data['work_alumni_end']		=	$this->input->post('work_alumni_end');
 
+            	$this->db->where('work_alumni_student_ID',$param2);
+            	$this->db->update('work',$data);
+            	$_SESSION['flashdata']	=	'Data Updated';
+            	session_write_close();
+            	redirect(base_url().'index.php/admin/alumni','refresh');
             }
 
 

@@ -22,7 +22,7 @@
 		}	
 
 		public function index(){
-
+			$_SESSION['flashdata']	=	'';
 			if(!empty($_SESSION['account_type'])){
 				redirect(base_url().'index.php/admin/dashboard', 'refresh');
 			}
@@ -45,8 +45,6 @@
 					if($login_level == '1'){
 						$_SESSION['account_type']	=	'admin';
 						$_SESSION['user_ID']		=	$user_ID;
-						$_SESSION['flashdata']		=	'1';
-						//$_SESSION['dump']			=	'0';
 						redirect(base_url().'index.php/admin/dashboard','refresh');
 					}
 				}

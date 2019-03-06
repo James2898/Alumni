@@ -26,7 +26,7 @@
                           <div class="card-body">
                               <div class="tab-content">
                                 <div class="tab-pane table-responsive active" id="list">
-                                      <table class="table" id="table1">
+                                      <table class="table display nowrap" id="table1" >
                                         <thead class="text-danger">
                                           <th>
                                             USN
@@ -65,11 +65,11 @@
                                             <td><?php echo $row['alumni_grad_year'] ?></td>
                                             <td>
                                               <?php 
-                                                $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_status','Employed')->get()->num_rows();
+                                                $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_end','')->get()->num_rows();
                                                 if($work_status > 0){
                                                   echo "Employed";
                                                 }else{
-                                                  echo "Inactive";
+                                                  echo "Unemployed";
                                                 }
                                               ?>
                                             </td>
@@ -121,12 +121,18 @@
                                                 $this->db->from('courses');
                                                 $this->db->order_by('courses.course_ID', 'ASC');
                                                 $query2 = $this->db->get()->result_array();
+                                                $last_category = '';
                                                 foreach ($query2 as $row2):
+                                                  if($last_category != $row2['course_college'])
+                                                    echo "<optgroup label='".$row['course_college']."'>";
                                               ?>
                                                 <option value="<?php echo $row2['course_ID'] ?>">
                                                   <?php echo $row2['course_description'];?>
                                                 </option> 
                                               <?php  
+                                                  if($last_category != $row2['course_college'])
+                                                    echo "</optgroup>";
+                                                  $last_category = $row2['course_college'];
                                                 endforeach;
                                               ?>
                                             </select>

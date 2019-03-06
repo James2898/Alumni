@@ -5,7 +5,7 @@
 		            			<a class="navbar-brand" href="#pablo">
 		            				<?php echo ucwords(str_replace("_", " ", $page_name));
 
-		            					print_r($_SESSION);
+		            					Print_r($_SESSION);
 		            					//echo phpinfo();
 		            				?>
 		            			</a>

@@ -57,6 +57,8 @@
   <script>
     $(document).ready(function() {
         $('#example').DataTable({
+           "ScrollX": "100%",
+           "ScrollCollapse": true,
         });
     } );
   </script>
@@ -64,6 +66,9 @@
    <script>
     $(document).ready(function() {
         $('#table1').DataTable({
+          "ScrollY": true,
+          "ScrollX": true,
+          "bScrollCollapse": true
         });
     } );
   </script>
@@ -184,15 +189,15 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/backup/dist/css/bootstrap-multiselect.css" type="text/css">
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/backup/dist/js/bootstrap-multiselect.js"></script>
         <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example-getting-started').multiselect({
-                nonSelectedText: 'Reciepients',    
-                buttonClass: 'btn btn-danger',
-                buttonWidth: '100%',
-                enableClickableOptGroups: true,
-                includeSelectAllOption: true,
-                maxHeight: 450  
+            $(document).ready(function() {
+                $('#example-getting-started').multiselect({
+                    nonSelectedText: 'Reciepients',    
+                    buttonClass: 'btn btn-danger',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 450  
 
+                });
             });
-        });
-    </script>
+        </script>

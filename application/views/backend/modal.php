@@ -12,7 +12,7 @@
                 success: function(response){
                     jQuery('#modal_ajax .modal-body').html(response);
                 },
-                error: function (jqXHR, textStatus, errorThrown){ 
+                error: function (){ 
                   jQuery('#modal_ajax .modal-body').html("ERROR"); }
             });
         }

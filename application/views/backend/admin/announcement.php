@@ -19,9 +19,9 @@
                                 <div class="ripple-container"></div>
                               </a>
                             </li>
-                          </ul>
-                      </div>
-                    </div>
+                            </ul>
+                          </div>
+                        </div>
                           </div><!-- End of Card Header -->
                           <div class="card-body">
                               <div class="tab-content">
