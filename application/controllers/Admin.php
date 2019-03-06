@@ -13,8 +13,13 @@
 		}
 
 		function index(){
-			
-
+			if ($_SESSION['account_type'] != 'admin'){
+            	redirect(base_url(), 'refresh');
+            	exit();
+			}else{
+				$page_data['page_name']		=	'dashboard';
+				$this->load->view('backend/index', $page_data);
+			}
 		}
 
 		function dashboard(){
@@ -24,7 +29,26 @@
 			$this->load->view('backend/index', $page_data);
 		}
 
-		function announcement(){
+		function announcement($param1 = '', $param2 = ''){
+			if ($_SESSION['account_type'] != 'admin'){
+            	redirect(base_url(), 'refresh');
+            	exit();
+			}
+
+			if($param1 == 'create'){
+				$data['announcement_title']	=	$this->input->post('announcement_title');
+				$data['announcement_content']	=	$this->input->post('announcement_content');
+				$data['announcement_date']	=	Date('m-d-y');
+				$this->db->insert('announcement',$data);
+
+				$_SESSION['flashdata']	=	'Data Added';
+				session_write_close();
+            	redirect(base_url().'index.php/admin/announcement','refresh');
+            	exit();
+			}
+
+
+
 			$page_data['page_name']		=	'announcement';
 			$this->load->view('backend/index',$page_data);
 		}
