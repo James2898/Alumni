@@ -227,7 +227,7 @@
 														$query2 = $this->db->get()->result_array();
 						   								foreach ($query2 as $row2):
 													?>
-													<?php echo form_open('admin/edit_work/'.$param1, 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
+													<?php echo form_open('admin/alumni/edit_work/'.$param1, 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
 							                      		<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -279,7 +279,7 @@
 															<div class="col-md-12">
 																<div class="form-group">
 																	<label class="bmd-label-floating">Salary</label>
-																	<select class="form-control" name="work_industry">
+																	<select class="form-control" name="work_alumni_salary_range">
 																		<?php  
 												                            $this->db->select("*");
 																			$this->db->from('salary');
@@ -287,7 +287,7 @@
 											   								foreach ($query3 as $row3):
 																		?>
 
-																			<option value="<?php $row3['salary_ID'] ?>" <?php if($row3['salary_ID'] == $row2['work_alumni_salary_range']) echo "selected"; ?>>
+																			<option value="<?php echo $row3['salary_ID'] ?>" <?php if($row3['salary_ID'] == $row2['work_alumni_salary_range']) echo "selected"; ?>>
 																				<?php echo $row3['salary_range'] ?>
 																			</option>
 

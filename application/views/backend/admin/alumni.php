@@ -112,7 +112,7 @@
                                     <form>
                                       <!--  -->
                                       <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-5">
                                           <div class="form-group">
                                             <label class="bmd-label-static text-danger">Degree Program</label>
                                             <select class="form-control text-muted" name="alumni_degree"> 
@@ -139,7 +139,7 @@
 
                                           </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                           <div class="form-group">
                                             <label class="bmd-label-static text-danger">Major</label>
                                             <select class="form-control text-muted" name="alumni_major"> 
@@ -164,34 +164,19 @@
                                             </select>
                                           </div>
                                         </div>
-                                        <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label class="bmd-label-static text-danger">Gender</label>
-                                            <select class="form-control" name="alumni_gender">
-                                              <option value="Male">Male</option>
-                                              <option value="Female">Female</option>
-                                            </select>
-                                          </div>
-                                        </div>
                                       </div>
                                       <!--  -->
                                       <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Student No.</label>
                                             <input type="text" class="form-control" name="alumni_student_ID" required>
                                           </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Password</label>
                                             <input type="text" class="form-control" name="alumni_password">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <div class="form-group">
-                                            <label class="bmd-label-floating text-danger">Email address</label>
-                                            <input type="email" class="form-control" name="alumni_email">
                                           </div>
                                         </div>
                                       </div>
@@ -215,22 +200,39 @@
                                             <input type="text" class="form-control" name="alumni_lname">
                                           </div>
                                         </div>
+                                        <div class="col-md-3">
+                                          <div class="form-group">
+                                            <label class="bmd-label-static text-danger">Gender</label>
+                                            <select class="form-control" name="alumni_gender">
+                                              <option value="Male">Male</option>
+                                              <option value="Female">Female</option>
+                                            </select>
+                                          </div>
+                                        </div>
                                       </div>
                                       <!--  -->
                                       <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Address</label>
                                             <input type="text" class="form-control" name="alumni_address">
                                           </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label class="bmd-label-floating text-danger">Email address</label>
+                                            <input type="email" class="form-control" name="alumni_email">
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-6">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Mobile No.</label>
                                             <input type="text" class="form-control" name="alumni_cno">
                                           </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                           <div class="form-group">
                                             <label class="bmd-label-floating text-danger">Landline No.</label>
                                             <input type="text" class="form-control" name="alumni_lno">
