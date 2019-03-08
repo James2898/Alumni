@@ -43,7 +43,9 @@
   <script src="<?php echo base_url(); ?>assets/demo/demo.js"></script>
   <!-- Boostrap 4 -->
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-  
+
+  <!-- Time Ago -->
+  <script src="<?php echo base_url(); ?>assets/js/jquery-timeago.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/transition.js"></script>|
   <script src="<?php echo base_url(); ?>assets/js/collapse.js"></script>
   <script>
@@ -69,6 +71,13 @@
           "ScrollY": true,
           "ScrollX": true,
           "bScrollCollapse": true
+        });
+    } );
+  </script>
+  <script>
+    $(document).ready(function() {
+        $('#table2').DataTable({
+          order: []
         });
     } );
   </script>

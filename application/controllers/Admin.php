@@ -10,6 +10,7 @@
 	       /*cache control*/
 			$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			$this->output->set_header('Pragma: no-cache');
+			date_default_timezone_set('Asia/Manila');
 		}
 
 		function index(){
@@ -36,13 +37,25 @@
 			}
 
 			if($param1 == 'create'){
-				$data['announcement_title']	=	$this->input->post('announcement_title');
+				$data['announcement_title']		=	$this->input->post('announcement_title');
+				$data['announcement_subject']	=	$this->input->post('announcement_subject');
 				$data['announcement_content']	=	$this->input->post('announcement_content');
-				$data['announcement_date']	=	Date('m-d-y');
+				$data['announcement_date']	=	date('Y-m-d H:m:s');
 				$this->db->insert('announcement',$data);
 
 				$_SESSION['flashdata']	=	'Data Added';
 				session_write_close();
+            	redirect(base_url().'index.php/admin/announcement','refresh');
+            	exit();
+			}else if($param1 == 'edit'){
+				$data['announcement_title']		=	$this->input->post('announcement_title');
+				$data['announcement_subject']	=	$this->input->post('announcement_subject');
+				$data['announcement_content']	=	$this->input->post('announcement_content');
+
+				$this->db->where('announcement_ID',$param2);
+            	$this->db->update('announcement',$data);
+            	$_SESSION['flashdata']	=	'Data Updated';
+            	session_write_close();
             	redirect(base_url().'index.php/admin/announcement','refresh');
             	exit();
 			}

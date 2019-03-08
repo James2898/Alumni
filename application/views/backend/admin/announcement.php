@@ -26,50 +26,61 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="tab-pane active table-responsive" id="list">
-                    <table class="table" id="table1">
+                    <table class="table" id="table2">
                       <thead class="text-danger">
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th></th>
                       </thead>
                       <tbody>
                         <?php  
                           $this->db->select("*");
                           $this->db->from('announcement');
-                          $this->db->order_by('announcement_date','ASC');
-
+                          $this->db->order_by('announcement_ID','DESC');
                           $query = $this->db->get()->result_array();
                           
                           $last_category = '';
                           foreach($query as $row):
                         ?>
                           <tr>
-                            <td><?php echo $row['announcement_date'] ?></td>
-                            <td><?php echo $row['announcement_title'] ?></td>
                             <td>
-                              <div class="btn-group">
-                                <button class="btn btn-danger btn-sm dropdown-toggle" data-toggle='dropdown'>
-                                  Action
-                                </button>
-                                <ul class="dropdown-menu drop-down-danger pull-right" role="menu">
-                                  <li>
-                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_alumni/<?php echo $row['announcement_ID'] ?>')">
-                                      <i class="material-icons">remove_red_eye</i>
-                                       View
-                                    </a>
-                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_alumni/<?php echo $row['announcement_ID'] ?>')">
-                                      <i class="material-icons">edit</i>
-                                       Edit
-                                    </a>
-                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_alumni/<?php echo $row['announcement_ID'] ?>')">
-                                      <i class="material-icons">delete</i> 
-                                       Delete
-                                    </a>
-                                  </li>
-                                </ul>
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="card card-stats">
+                                  <div class="card-header card-header-warning card-header-icon">
+                                    <div class="card-icon">
+                                      <i class="material-icons">announcement</i>
+                                    </div>
+                                    <h4 class="card-title"><?php echo $row['announcement_title'] ?></h4>
+                                    <p class="card-category"><?php echo $row['announcement_subject'] ?></p>
+                                    <div class="btn-group-sm">
+                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_announcement/<?php echo $row['announcement_ID'] ?>')">
+                                             View
+                                          </a>
+                                      <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle='dropdown'>
+                                        Action
+                                      </button>
+                                      <ul class="dropdown-menu drop-down-warning pull-right col-md-6 p-0" role="menu">
+                                        <li>
+                                          <a href="#" class="py-0" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
+                                            <i class="material-icons">edit</i>
+                                             Edit
+                                          </a>
+                                          <a href="#" class="py-0" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_announcement/<?php echo $row['announcement_ID'] ?>')">
+                                            <i class="material-icons">delete</i> 
+                                             Delete
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <div class="card-footer">
+                                    <div class="stats">
+                                      <i class="material-icons">access_time</i>
+                                      <a href="#" class="text-dark"><?php echo time_elapsed_string($row['announcement_date']); ?></a>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </td>
-                          </tr>
+                        </tr>
                         <?php 
                           endforeach;
                         ?>
@@ -84,6 +95,14 @@
                           <div class="form-group">
                             <label class="bmd-label-floating text-danger">Title</label>
                             <input type="text" class="form-control" name="announcement_title" required>
+                          </div>
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label-floating text-danger">Subject</label>
+                            <input type="text" class="form-control" name="announcement_subject" required>
                           </div>
                         </div>
                       </div>
@@ -148,3 +167,37 @@
         });
       });
     </script>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        jQuery("time.timeago").timeago();
+      });
+    </script>
+    <?php  
+      function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+      }
+    ?>

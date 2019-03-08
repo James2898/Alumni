@@ -26,86 +26,83 @@
                           <div class="card-body">
                               <div class="tab-content">
                                 <div class="tab-pane table-responsive active" id="list">
-                                      <table class="table display nowrap" id="table1" >
-                                        <thead class="text-danger">
-                                          <th>
-                                            USN
-                                          </th>
-                                          <th>
-                                            Name
-                                          </th>
-                                          <th>
-                                            Degree Program
-                                          </th>
-                                          <th>
-                                            Year of Graduation
-                                          </th>
-                                          <th>
-                                            Work Status
-                                          </th>
-                                          <th>
-                                            Action 
-                                          </th>                          
-                                        </thead>
-                                        <tbody>
-                                          
-                                          <?php  
+                                    <table class="table display nowrap" id="table1" >
+                                      <thead class="text-danger">
+                                        <th>
+                                          USN
+                                        </th>
+                                        <th>
+                                          Name
+                                        </th>
+                                        <th>
+                                          Degree Program
+                                        </th>
+                                        <th>
+                                          Year of Graduation
+                                        </th>
+                                        <th>
+                                          Work Status
+                                        </th>
+                                        <th>
+                                          Action 
+                                        </th>                          
+                                      </thead>
+                                      <tbody>
+                                        
+                                        <?php  
 
-                                            $this->db->select("*");
-                                            $this->db->from('alumni');
-                                            $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
-                                            $query = $this->db->get()->result_array();
-                                            foreach($query as $row):
+                                          $this->db->select("*");
+                                          $this->db->from('alumni');
+                                          $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
+                                          $query = $this->db->get()->result_array();
+                                          foreach($query as $row):
 
-                                          ?>
-                                          <tr>
-                                            <td><?php echo $row['alumni_student_ID'] ?></td>
-                                            <td><?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?></td>
-                                            <td><?php echo $row['course_title']." - ".$row['alumni_major'] ?></td>
-                                            <td><?php echo $row['alumni_grad_year'] ?></td>
-                                            <td>
-                                              <?php 
-                                                $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_end','')->get()->num_rows();
-                                                if($work_status > 0){
-                                                  echo "Employed";
-                                                }else{
-                                                  echo "Unemployed";
-                                                }
-                                              ?>
-                                            </td>
-                                            <td>
-                                              <div class="btn-group">
-                                                <button class="btn btn-danger btn-sm dropdown-toggle" data-toggle='dropdown'>
-                                                  Action
-                                                </button>
-                                                <ul class="dropdown-menu drop-down-danger pull-right" role="menu">
-                                                    <li>
-                                                      <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_alumni/<?php echo $row['alumni_student_ID'] ?>')">
-                                                        <i class="material-icons">remove_red_eye</i>
-                                                         View
-                                                      </a>
-                                                      <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_alumni/<?php echo $row['alumni_student_ID'] ?>')">
-                                                        <i class="material-icons">edit</i>
-                                                         Edit
-                                                       </a>
-                                                      <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_alumni/<?php echo $row['alumni_student_ID'] ?>')">
-                                                        <i class="material-icons">delete</i> 
-                                                         Delete
-                                                       </a>
-                                                    </li>
-                                                    <li></li>
-                                                    <li></li>
-                                                    <li></li>
-                                                </ul>
-                                              </div>
-                                            </td>
-                                          </tr>
+                                        ?>
+                                        <tr>
+                                          <td><?php echo $row['alumni_student_ID'] ?></td>
+                                          <td><?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?></td>
+                                          <td><?php echo $row['course_title']." - ".$row['alumni_major'] ?></td>
+                                          <td><?php echo $row['alumni_grad_year'] ?></td>
+                                          <td>
+                                            <?php 
+                                              $work_status = $this->db->select('*')->from('work')->where('work_alumni_student_ID',$row['alumni_student_ID'])->where('work_alumni_end','')->get()->num_rows();
+                                              if($work_status > 0){
+                                                echo "Employed";
+                                              }else{
+                                                echo "Unemployed";
+                                              }
+                                            ?>
+                                          </td>
+                                          <td>
+                                            <div class="btn-group">
+                                              <button class="btn btn-danger btn-sm dropdown-toggle" data-toggle='dropdown'>
+                                                Action
+                                              </button>
+                                              <ul class="dropdown-menu drop-down-danger pull-right" role="menu">
+                                                  <li>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_alumni/<?php echo $row['alumni_student_ID'] ?>')">
+                                                      <i class="material-icons">remove_red_eye</i>
+                                                       View
+                                                    </a>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_alumni/<?php echo $row['alumni_student_ID'] ?>')">
+                                                      <i class="material-icons">edit</i>
+                                                       Edit
+                                                     </a>
+                                                    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_alumni/<?php echo $row['alumni_student_ID'] ?>')">
+                                                      <i class="material-icons">delete</i> 
+                                                       Delete
+                                                     </a>
+                                                  </li>
+                                              </ul>
+                                            </div>
+                                          </td>
+                                        </tr>
 
-                                          <?php 
-                                            endforeach;
-                                          ?>
-                                        </tbody>
-                                      </table>
+                                        <?php 
+                                          endforeach;
+                                        ?>
+                                      </tbody>
+                                    </table>
                                 </div>
                                 <div class="tab-pane" id="add">
                                     <?php echo form_open('admin/alumni/create/', 'class="login100-form validate-form col-md-12"','role="form"','id="form_login"'); ?>

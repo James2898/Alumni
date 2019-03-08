@@ -4,7 +4,7 @@
 		          			<div class="navbar-wrapper">
 		            			<a class="navbar-brand" href="#pablo">
 		            				<?php echo ucwords(str_replace("_", " ", $page_name));
-
+		            					echo date('Y-m-d h:m:s')
 		            					//Print_r($_SESSION);
 		            					//echo phpinfo();
 		            				?>
