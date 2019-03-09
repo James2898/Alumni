@@ -181,12 +181,56 @@
 		}
 
 
-		function notifications(){
+		function notifications($param1 = '', $param2 = ''){
 			$page_data['page_name']		=	'notifications';
 			$this->load->view('backend/index',$page_data);
 		}
 
-		function appointment(){
+		function appointment($param1 ='', $param2 = ''){
+
+
+			if($param1 == 'create'){
+
+				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
+				$data['appointment_date_start']	=	$this->input->post('appointment_date_start');
+				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
+				$data['appointment_time_start']	=	$this->input->post('appointment_time_start');
+				$data['appointment_time_end']	=	$this->input->post('appointment_time_end');
+				$data['appointment_details']	=	$this->input->post('appointment_details');
+				$data['appointment_status']		=	"Approved";
+
+				$this->db->insert('appointment',$data);
+            	$_SESSION['flashdata']	=	'Data Added';
+            	$_SESSION['error_log']	=	$param2;
+            	session_write_close();
+            	redirect(base_url().'index.php/admin/appointment','refresh');
+            	exit();
+
+			}else if($param1 == 'edit'){
+
+				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
+				$data['appointment_date_start']	=	$this->input->post('appointment_date_start');
+				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
+				$data['appointment_time_start']	=	$this->input->post('appointment_time_start');
+				$data['appointment_time_end']	=	$this->input->post('appointment_time_end');
+				$data['appointment_details']	=	$this->input->post('appointment_details');
+				$data['appointment_status']		=	$this->input->post('appointment_status');
+
+				$this->db->where('appointment_ID', $param2);
+				$this->db->update('appointment', $data);
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/admin/appointment','refresh');
+				exit();
+			}
+
+
+
+
+
+
+
+
 			$page_data['page_name']		=	'appointment';
 			$this->load->view('backend/index',$page_data);
 		}
