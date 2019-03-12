@@ -17,9 +17,9 @@
 	</head>
 	<body class="">
 	  	<div class="wrapper">
-	    	<?php  include 'admin/sidebar.php';?>
+	    	<?php  include $_SESSION['account_type'].'/sidebar.php';?>
 		    <div class="main-panel">
-		    	<?php  include 'admin/navbar.php';?>
+		    	<?php  include $_SESSION['account_type'].'/navbar.php';?>
 			    <div class="content">
 					<?php  include $_SESSION['account_type'].'/'.$page_name.'.php';?>
 				</div>
@@ -62,7 +62,7 @@
 	 	</div>
 	  	<?php  
 	  		include 'include_bottom.php';
-
+	  		include $_SESSION['account_type'].'/calendar.php';
 	  		include 'modal.php';
 	  	?>
 </body>

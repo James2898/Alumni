@@ -72,6 +72,9 @@
 
             if($param1 == 'create'){
 
+
+            	$alumni_student_ID	=	$this->input->post('alumni_student_ID');
+            	$alumni_password =	$this->input->post('alumni_password');
             	$data['alumni_student_ID']	=	$this->input->post('alumni_student_ID');
             	$data['alumni_profile_picture']	= 'empty';
             	$data['alumni_degree']		=	$this->input->post('alumni_degree');
@@ -89,7 +92,14 @@
             	$data['alumni_linkedin']	=	$this->input->post('alumni_linkedin');
             	$data['alumni_website']		=	$this->input->post('alumni_website');
 
+
             	$this->db->insert('alumni', $data);
+
+            	$ldata['login_user_ID']	=	$this->input->post('alumni_student_ID');
+            	$ldata['login_password']	=	$this->input->post('alumni_password');
+            	$ldata['login_level']	=	"2";
+
+            	$this->db->insert('login',$ldata);
 
             	$_SESSION['flashdata']	=	'Data Added';
             	session_write_close();
@@ -191,6 +201,13 @@
 
 			if($param1 == 'create'){
 
+				$id = $this->db->query("
+                SELECT AUTO_INCREMENT AS ID 
+                FROM  INFORMATION_SCHEMA.TABLES   
+                WHERE TABLE_SCHEMA = 'alumni'
+                AND TABLE_NAME = 'appointment'
+                ")->row()->ID;
+
 				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
 				$data['appointment_date_start']	=	$this->input->post('appointment_date_start');
 				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
@@ -199,7 +216,17 @@
 				$data['appointment_details']	=	$this->input->post('appointment_details');
 				$data['appointment_status']		=	"Approved";
 
+				$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
+				$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+				$ndata['notification_unread']	  =	"TRUE";
+				$ndata['notification_type']		  = "Appointment";
+				$ndata['notification_param']	  = "Created";
+				$ndata['notification_type_ID']	  = $id;
+				$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+
+
 				$this->db->insert('appointment',$data);
+				$this->db->insert('notification',$ndata);
             	$_SESSION['flashdata']	=	'Data Added';
             	$_SESSION['error_log']	=	$param2;
             	session_write_close();
@@ -208,16 +235,69 @@
 
 			}else if($param1 == 'edit'){
 
+
+$prev_appointment_status = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_status;
+$prev_appointment_date = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_date_start;
+$prev_appointment_time_start = $this->db->get_where('appointment' , array('appointment_ID'=>$param2))->row()->appointment_time_start;
+$prev_appointment_time_end = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_time_end;
+
+				$_SESSION['error_log'] = $prev_appointment_time_start."|".$prev_appointment_time_end."|".$prev_appointment_status."|".$prev_appointment_date;
 				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
 				$data['appointment_date_start']	=	$this->input->post('appointment_date_start');
 				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
 				$data['appointment_time_start']	=	$this->input->post('appointment_time_start');
 				$data['appointment_time_end']	=	$this->input->post('appointment_time_end');
 				$data['appointment_details']	=	$this->input->post('appointment_details');
-				$data['appointment_status']		=	$this->input->post('appointment_status');
+				$cur_appointment_status = $data['appointment_status']		=	$this->input->post('appointment_status');
 
 				$this->db->where('appointment_ID', $param2);
 				$this->db->update('appointment', $data);
+
+				if(($prev_appointment_status == 'Approved'|| $prev_appointment_status == 'Waiting') && $cur_appointment_status == 'Cancelled'){
+					$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
+					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$ndata['notification_unread']	  =	"TRUE";
+					$ndata['notification_type']		  = "Appointment";
+					$ndata['notification_type_ID']	  = $param2;
+					$ndata['notification_param']	  = "Cancelled";
+					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+
+					$this->db->insert('notification',$ndata);
+
+				}else if(($prev_appointment_status == 'Waiting' && $cur_appointment_status=="Approved")){
+					$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
+					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$ndata['notification_unread']	  =	"TRUE";
+					$ndata['notification_type']		  = "Appointment";
+					$ndata['notification_type_ID']	  = $param2;
+					$ndata['notification_param']	  = "Approved";
+					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+
+					$this->db->insert('notification',$ndata);					
+
+				}else if($prev_appointment_date != $data['appointment_date_start']) {
+					$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
+					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$ndata['notification_unread']	  =	"TRUE";
+					$ndata['notification_type']		  = "Appointment";
+					$ndata['notification_type_ID']	  = $param2;
+					$ndata['notification_param']	  = "Rescheduled";
+					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+
+					$this->db->insert('notification',$ndata);
+				}else if($prev_appointment_time_start != $data['appointment_time_start'] || $prev_appointment_time_end != $data['appointment_time_end']){
+					$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
+					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$ndata['notification_unread']	  =	"TRUE";
+					$ndata['notification_type']		  = "Appointment";
+					$ndata['notification_type_ID']	  = $param2;
+					$ndata['notification_param']	  = "Rescheduled";
+					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+
+					$this->db->insert('notification',$ndata);
+				}
+
+				
 				$_SESSION['flashdata']	=	'Data Updated';
 				session_write_close();
 				redirect(base_url().'index.php/admin/appointment','refresh');
@@ -321,5 +401,14 @@
                 //$this->load->view('backend/index', $page_data);
 			}
 		}
+
+		function settings($param1 = '', $param2 = ''){
+			if($_SESSION['account_type'] != 'admin')
+				redirect(base_url(),'refresh');
+
+			$page_data['page_name']		=	'settings';
+			$this->load->view('backend/index',$page_data);
+		}
+
 	}
 ?>

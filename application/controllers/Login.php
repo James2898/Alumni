@@ -24,7 +24,10 @@
 		public function index(){
 			$_SESSION['flashdata']	=	'';
 			if(!empty($_SESSION['account_type'])){
-				redirect(base_url().'index.php/admin/dashboard', 'refresh');
+				if($_SESSION['account'] == 'admin')
+					redirect(base_url().'index.php/admin/dashboard', 'refresh');
+				if($_SESSION['account_type'] == 'alumni')
+					redirect(base_url().'index.php/alumni/dashboard','refresh');
 			}
           	$this->load->view('backend/login');
         	
@@ -46,6 +49,10 @@
 						$_SESSION['account_type']	=	'admin';
 						$_SESSION['user_ID']		=	$user_ID;
 						redirect(base_url().'index.php/admin/dashboard','refresh');
+					}else if($login_level == '2'){
+						$_SESSION['account_type']	=	'alumni';
+						$_SESSION['user_ID']		=	$user_ID;
+						redirect(base_url().'index.php/alumni/dashboard','refresh');
 					}
 				}
 			}else{

@@ -36,12 +36,12 @@
                         </p>
                         <div class="validate-input login100 form-input bg-white" data-validate = "Valid email is required">
                            <label class="bmd-label-floating text-center">User ID</label>
-                            <input type="text" class="form-control text-center" value="1" name="user_ID">
+                            <input type="text" id="form_user" class="form-control text-center" value="1" name="user_ID">
                         </div>
                         
                        <div class="validate-input form-input bg-white" data-validate = "Valid email is required">
                             <label class="bmd-label-floating text-center">Password</label>
-                            <input type="Password" class="form-control text-center" value="admin" name ="password">
+                            <input type="Password" id="form_password" class="form-control text-center" value="admin" name ="password">
                         </div>
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn btn btn-danger">

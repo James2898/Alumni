@@ -4,14 +4,13 @@
 		          			<div class="navbar-wrapper">
 		            			<h4>
 		            				<?php 
-		            					echo "Welcome, Admin ".ucwords($this->db->get_where('admin' , array('admin_ID' =>$_SESSION['user_ID']) )->row()->admin_fname)." | ".ucwords(str_replace("_", " ", $page_name));
+		            					echo "Welcome, ".ucwords($this->db->get_where('alumni' , array('alumni_student_ID' =>$_SESSION['user_ID']) )->row()->alumni_fname)." | ".ucwords(str_replace("_", " ", $page_name));
 
 		            					//echo date('Y-m-d h:m:s');
 		            					Print_r($_SESSION);
 		            					//echo phpinfo();
 		            				?>
 		            			</h4>
-
 		          			</div>
 		          			<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 		            			<span class="sr-only">Toggle navigation</span>
@@ -55,8 +54,8 @@
 			                  				</p>
 			                			</a>
 			                			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/admin/profile">Profile</a>
-			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/admin/settings">Settings</a>
+			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/alumni/profile">Profile</a>
+			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/alumni/settings">Settings</a>
 			                  				<div class="dropdown-divider"></div>
 			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/login/logout">Log out</a>
 			                			</div>
