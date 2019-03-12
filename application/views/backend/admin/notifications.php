@@ -26,8 +26,157 @@
                   <div class="card-body">
                       <div class="tab-content">
                         <div class="tab-pane table-responsive active" id="list">
+                          <table class="table" id="table2">
+                            <thead>
+                              <th></th>
+                            </thead>
+                            <tbody>
+                              <?php  
+                                $this->db->select("*");
+                                $this->db->from('notification');
+                                $this->db->join('alumni','alumni.alumni_student_ID = notification.notification_sender_ID','left');
+                                $this->db->join('appointment','appointment.appointment_ID = notification.notification_type_ID', 'left');
+                                $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
+                                $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
+                                $this->db->where('notification_unread','TRUE'); 
+                                $this->db->order_by('notification_datetime', 'DESC');
+
+                                $query = $this->db->get()->result_array();
+                                foreach ($query as $row):
+
+                              ?>
+                              <?php 
+                                if($row['notification_type'] == 'Appointment'){
+                                  $icon = 'date_range';
+                                  
+
+                                  if($row['notification_param'] == 'Waiting'){
+                                    $title = $row['alumni_fname'].' requests for an appointment';
+                                    $color = 'info';
+                                  }else if($row['notification_param'] == 'Approved'){
+                                    $title = 'APL approved your appointment request';                                                   
+                                    $color = 'success';
+                                  }else if($row['notification_param'] == 'Cancelled'){
+                                    $title = $row['alumni_fname'].' cancelled an appointment';
+                                    $color = 'danger';
+                                  }else if($row['notification_param'] == 'Rescheduled'){
+                                    $title = 'APL rescheduled your appointment';
+                                    $color = 'warning';
+                                  }
+
+                                  $subject = $row['appointment_details'];
+                                  $datetime = $row['notification_datetime'];
+                                  $link = "alumni/appointment";                                  
+                                }else if($row['notification_type'] == 'Announcement'){
+                                  $icon = 'announcement';
+                                  $color = 'primary';
+
+                                  $title = $row['announcement_title'];
+                                  $subject = $row['announcement_subject'];
+                                  $datetime = $row['notification_datetime'];
+                                  $link = "alumni/announcement";
+                                }
+                              ?>
+                              <tr>
+                                <td>
+                                  <div class="row">
+                                      <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="card card-stats">
+                                          <div class="card-header card-header-<?php echo $color ?> card-header-icon">
+                                            <div class="card-icon">
+                                              <i class="material-icons"><?php echo $icon ?></i>
+                                            </div>
+                                            <h4 class="card-title"><?php echo $title?></h4>
+                                            <p class="card-category"><?php echo $subject ?></p>
+                                            <a class="btn btn-<?php echo $color ?> btn-sm card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
+                                          </div>
+                                          <div class="card-footer">
+                                            <div class="stats">
+                                              <i class="material-icons">access_time</i>
+                                              <a href="#" class="text-dark"><?php echo time_elapsed_string($datetime) ?></a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <?php  
+                                endforeach;
+                              ?>
+                            </tbody>
+                          </table>
                         </div>
                         <div class="tab-pane" id="add">
+                          <div class="row">
+                            <?php  
+                              $this->db->select("*");
+                              $this->db->from('notification');
+                              $this->db->join('alumni','alumni.alumni_student_ID = notification.notification_sender_ID','left');
+                              $this->db->join('appointment','appointment.appointment_ID = notification.notification_type_ID', 'left');
+                              $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
+                              $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
+                              $this->db->where('notification_unread','FALSE'); 
+                              $this->db->order_by('notification_datetime', 'DESC');
+
+                              $query = $this->db->get()->result_array();
+                              foreach ($query as $row):
+                            ?>
+                              <?php 
+                                if($row['notification_type'] == 'Appointment'){
+                                  $icon = 'date_range';
+                                  
+
+                                  if($row['notification_param'] == 'Waiting'){
+                                    $title = $row['alumni_fname'].' requests for an appointment';
+                                    $color = 'info';
+                                  }else if($row['notification_param'] == 'Approved'){
+                                    $title = 'APL approved your appointment request';                                                   
+                                    $color = 'success';
+                                  }else if($row['notification_param'] == 'Cancelled'){
+                                    $title = $row['alumni_fname'].' cancelled an appointment';
+                                    $color = 'danger';
+                                  }else if($row['notification_param'] == 'Rescheduled'){
+                                    $title = 'APL rescheduled your appointment';
+                                    $color = 'warning';
+                                  }
+
+                                  $subject = $row['appointment_details'];
+                                  $datetime = $row['notification_datetime'];
+                                  $link = "alumni/appointment";
+                                  
+                                }else if($row['notification_type'] == 'Announcement'){
+                                  $icon = 'announcement';
+                                  $color = 'primary';
+
+                                  $title = $row['announcement_title'];
+                                  $subject = $row['announcement_subject'];
+                                  $datetime = $row['notification_datetime'];
+                                  $link = "alumni/announcement";
+                                }
+                              ?>
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="card card-stats">
+                                  <div class="card-header card-header-<?php echo $color ?> card-header-icon">
+                                    <div class="card-icon">
+                                      <i class="material-icons"><?php echo $icon ?></i>
+                                    </div>
+                                    <h4 class="card-title"><?php echo $title?></h4>
+                                    <p class="card-category"><?php echo $subject ?></p>
+                                    <a class="btn btn-<?php echo $color ?> btn-sm card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
+                                  </div>
+                                  <div class="card-footer">
+                                    <div class="stats">
+                                      <i class="material-icons">access_time</i>
+                                      <a href="#" class="text-dark"><?php echo time_elapsed_string($datetime) ?></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            <?php  
+                              endforeach;
+                            ?>
+                          </div>
                         </div>
                       </div><!-- End of Tab Content -->
                   </div><!-- End of Card Body -->
@@ -36,80 +185,6 @@
               </div>
             </div>
           </div>
-
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <?php  
-              $this->db->select("*");
-              $this->db->from('notification');
-              $this->db->join('alumni','alumni.alumni_student_ID = notification.notification_sender_ID','left');
-              $this->db->join('appointment','appointment.appointment_ID = notification.notification_type_ID', 'left');
-              $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
-              $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
-              $this->db->where('notification_unread','TRUE'); 
-              $this->db->order_by('notification_datetime', 'DESC');
-
-              $query = $this->db->get()->result_array();
-              foreach ($query as $row):
-            ?>
-              <?php 
-                if($row['notification_type'] == 'Appointment'){
-                  $icon = 'date_range';
-                  
-
-                  if($row['notification_param'] == 'Waiting'){
-                    $title = $row['alumni_fname'].' requests for an appointment';
-                    $color = 'info';
-                  }else if($row['notification_param'] == 'Approved'){
-                    $title = 'APL approved your appointment request';                                                   
-                    $color = 'success';
-                  }else if($row['notification_param'] == 'Cancelled'){
-                    $title = $row['alumni_fname'].' cancelled an appointment';
-                    $color = 'danger';
-                  }else if($row['notification_param'] == 'Rescheduled'){
-                    $title = 'APL rescheduled your appointment';
-                    $color = 'warning';
-                  }
-
-                  $subject = $row['appointment_details'];
-                  $datetime = $row['notification_datetime'];
-                  $link = "alumni/appointment";
-                  
-                }else if($row['notification_type'] == 'Announcement'){
-                  $icon = 'announcement';
-                  $color = 'primary';
-
-                  $title = $row['announcement_title'];
-                  $subject = $row['announcement_subject'];
-                  $datetime = $row['notification_datetime'];
-                  $link = "alumni/announcement";
-                }
-              ?>
-              <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="card card-stats">
-                  <div class="card-header card-header-<?php echo $color ?> card-header-icon">
-                    <div class="card-icon">
-                      <i class="material-icons"><?php echo $icon ?></i>
-                    </div>
-                    <h4 class="card-title"><?php echo $title?></h4>
-                    <p class="card-category"><?php echo $subject ?></p>
-                    <a class="btn btn-<?php echo $color ?> btn-sm card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
-                  </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">access_time</i>
-                      <a href="#" class="text-dark"><?php echo time_elapsed_string($datetime) ?></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <?php  
-              endforeach;
-            ?>
-          </div>
-        </div>
-      </div>
       <?php  
         function time_elapsed_string($datetime, $full = false) {
           $now = new DateTime;

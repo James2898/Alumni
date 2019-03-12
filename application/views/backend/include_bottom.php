@@ -71,16 +71,31 @@
    <script>
     $(document).ready(function() {
         $('#table1').DataTable({
-          "ScrollY": true,
-          "ScrollX": true,
-          "bScrollCollapse": true
+          order: []
         });
     } );
   </script>
   <script>
     $(document).ready(function() {
         $('#table2').DataTable({
-          order: []
+          order: [],
+        });
+    } );
+  </script>
+  <script>
+    $(document).ready(function() {
+        $('#notification_read').DataTable({
+          dom: 'Bfrtip',
+          order: [],
+          buttons: [
+            {
+                text: 'Mark All as Read',
+                action: function ( e, dt, node, config ) {
+                  window.location.href= '<?php echo base_url().'index.php/alumni/notifications/read_all' ?>'
+                },
+                className: 'btn btn-danger'
+            }
+          ]
         });
     } );
   </script>

@@ -7,7 +7,7 @@
 		            					echo "Welcome, ".ucwords($this->db->get_where('alumni' , array('alumni_student_ID' =>$_SESSION['user_ID']) )->row()->alumni_fname)." | ".ucwords(str_replace("_", " ", $page_name));
 
 		            					//echo date('Y-m-d h:m:s');
-		            					Print_r($_SESSION);
+		            					//Print_r($_SESSION);
 		            					//echo phpinfo();
 		            				?>
 		            			</h4>
@@ -33,17 +33,59 @@
 			              			<li class="nav-item dropdown">
 			                			<a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			                  				<i class="material-icons">notifications</i>
-			                  				<span class="notification">5</span>
+			                  				<span class="notification">
+			                  					<?php  
+			                  						echo $this->db->get_where('notification' , array('notification_recieve_ID' =>$_SESSION['user_ID'],'notification_unread'=>'TRUE'))->num_rows();
+			                  					?>
+			                  				</span>
 			                  				<p class="d-lg-none d-md-block">
-			                    				Some Actions
+			                    				Notifications
 			                  				</p>
 			                			</a>
 			                			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-			                  				<a class="dropdown-item" href="#">Mike John responded to your email</a>
-			                  				<a class="dropdown-item" href="#">You have 5 new tasks</a>
-			                  				<a class="dropdown-item" href="#">You're now friend with Andrew</a>
-			                  				<a class="dropdown-item" href="#">Another Notification</a>
-			                  				<a class="dropdown-item" href="#">Another One</a>
+			                  				<?php  
+				                                $this->db->select("*");
+				                                $this->db->from('notification');
+				                                $this->db->join('alumni','alumni.alumni_student_ID = notification.notification_sender_ID','left');
+				                                $this->db->join('appointment','appointment.appointment_ID = notification.notification_type_ID', 'left');
+				                                $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
+				                                $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
+				                                $this->db->where('notification_unread','TRUE'); 
+				                                $this->db->order_by('notification_datetime', 'DESC');
+				                                $this->db->limit('5');
+
+				                                $query = $this->db->get()->result_array();
+				                               	foreach ($query as $row):
+
+				                            ?>
+				                            <?php 
+			                                  if($row['notification_type'] == 'Appointment'){
+			                                    $icon = 'date_range';
+			                                    
+
+			                                    if($row['notification_param'] == 'Created'){
+			                                      $title = 'Appointment with APL';
+			                                    }else if($row['notification_param'] == 'Approved'){
+			                                      $title = 'APL approved your appointment request';
+			                                    }else if($row['notification_param'] == 'Cancelled'){
+			                                      $title = 'APL cancelled your scheduled appointment';
+
+			                                    }else if($row['notification_param'] == 'Rescheduled'){
+			                                      $title = 'APL rescheduled your appointment';
+			                                    }
+			                                    
+			                                  }else if($row['notification_type'] == 'Announcement'){
+			                                    $title = $row['announcement_title'];
+			                                    $icon = 'announcement';
+			                                  }
+			                                ?>
+			                  					<a class="dropdown-item" href="#"><i class="material-icons"><?php echo $icon; ?></i><?php echo $title ?></a>
+				                  			<?php  
+				                  				endforeach;
+				                  			?>
+				                  			<div class="text-center">
+				                  				<a class="dropdown-item pull-center" href="<?php echo base_url()."index.php/alumni/notifications" ?>">View all ...</a>
+				                  			</div>
 			                			</div>
 			              			</li>
 			              			<li class="nav-item dropdown">

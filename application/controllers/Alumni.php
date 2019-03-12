@@ -68,7 +68,7 @@
 
 		//ADMIN FUNCTIONS
 		function alumni_config($param1 = '', $param2){
-			if($param1 = 'edit'){
+			if($param1 == 'edit'){
 				$data['alumni_fname']	=	$this->input->post('alumni_fname');
 				$data['alumni_mname']	=	$this->input->post('alumni_mname');
 				$data['alumni_lname']	=	$this->input->post('alumni_lname');
@@ -89,6 +89,35 @@
 
 
 		function notifications($param1 = '', $param2 = ''){
+
+
+			if($param1 == 'read'){
+				$data['notification_unread'] 	=	'FALSE';
+
+				$this->db->where('notification_ID',$param2);
+				$this->db->update('notification',$data);
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/notifications','refresh');
+			}else if($param1 == 'unread'){
+				$data['notification_unread']	=	'TRUE';
+				
+				$this->db->where('notification_ID',$param2);
+				$this->db->update('notification',$data);
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/notifications','refresh');
+			}else if($param1 == 'read_all'){
+				$data['notification_unread']	=	'FALSE';
+
+				$this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
+				$this->db->update('notification',$data);
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/notifications','refresh');
+			}
+
+
 			$page_data['page_name']		=	'notifications';
 			$this->load->view('backend/index',$page_data);
 		}

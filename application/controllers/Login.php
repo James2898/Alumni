@@ -24,7 +24,7 @@
 		public function index(){
 			$_SESSION['flashdata']	=	'';
 			if(!empty($_SESSION['account_type'])){
-				if($_SESSION['account'] == 'admin')
+				if($_SESSION['account_type'] == 'admin')
 					redirect(base_url().'index.php/admin/dashboard', 'refresh');
 				if($_SESSION['account_type'] == 'alumni')
 					redirect(base_url().'index.php/alumni/dashboard','refresh');
