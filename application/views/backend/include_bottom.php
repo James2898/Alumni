@@ -186,13 +186,15 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/backup/dist/js/bootstrap-multiselect.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#example-getting-started').multiselect({
+                $('#announcement_alumni').multiselect({
                     nonSelectedText: 'Reciepients',    
                     buttonClass: 'btn btn-danger',
                     buttonWidth: '100%',
                     enableClickableOptGroups: true,
                     includeSelectAllOption: true,
-                    maxHeight: 450  
+                    maxHeight: 450,
+                    enableFiltering: true,
+                    filterPlaceholder: 'Search for alumni...'
 
                 });
             });

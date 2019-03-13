@@ -51,7 +51,7 @@
 				                                $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
 				                                $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
 				                                $this->db->where('notification_unread','TRUE'); 
-				                                $this->db->order_by('notification_datetime', 'DESC');
+				                                $this->db->order_by('notification_ID', 'DESC');
 				                                $this->db->limit('5');
 
 				                                $query = $this->db->get()->result_array();

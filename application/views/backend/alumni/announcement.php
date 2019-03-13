@@ -44,25 +44,10 @@
                                     </div>
                                     <h4 class="card-title"><?php echo $row['announcement_title'] ?></h4>
                                     <p class="card-category"><?php echo $row['announcement_subject'] ?></p>
-                                    <div class="btn-group-sm">
-                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_announcement/<?php echo $row['announcement_ID'] ?>')">
+                                    <div class="btn-group">
+                                      <a href="#" class="btn btn-warning card-link" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_announcement/<?php echo $row['announcement_ID'] ?>')">
                                              View
-                                          </a>
-                                      <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle='dropdown'>
-                                        Action
-                                      </button>
-                                      <ul class="dropdown-menu drop-down-warning pull-right col-md-6 p-0" role="menu">
-                                        <li>
-                                          <a href="#" class="py-0" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
-                                            <i class="material-icons">edit</i>
-                                             Edit
-                                          </a>
-                                          <a href="#" class="py-0" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_announcement/<?php echo $row['announcement_ID'] ?>')">
-                                            <i class="material-icons">delete</i> 
-                                             Delete
-                                          </a>
-                                        </li>
-                                      </ul>
+                                      </a>
                                     </div>
                                   </div>
                                   <div class="card-footer">

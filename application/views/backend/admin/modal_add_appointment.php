@@ -26,28 +26,25 @@
 					                <div class="col-md-12">
 					                    <div class="form-group">
 					                    	<label class="bmd-label-floating">Alumni</label>
-					                        <select id="" class="add_appointment" name="appointment_alumni_ID[]" searchable="Search here.">
-					                        	<option value="">Select Alumni</option>
-					                            <?php  
-					                              $this->db->select("*");
-					                                $this->db->from('alumni');
-					                                $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
-					                                $query2 = $this->db->get()->result_array();
-					                                $last_category = '';
-					                                foreach($query2 as $row2):
-					                                if($last_category != $row['alumni_degree'])
-					                                  echo "<optgroup label='".$row2['course_description']."'>";
-					                            ?>
-					                             	<option value="<?php echo $row2['alumni_student_ID'] ?>">
-					                             		<?php echo $row2['alumni_student_ID']." - ".$row2['alumni_fname']." ".$row2['alumni_lname'] ?>
-					                         		</option>
-					                            <?php 
-					                                if($last_category != $row2['alumni_degree'])
-					                                    echo "</optgroup>";
-					                                $last_category = $row2['alumni_degree'];
-					                                endforeach;
-					                            ?>
-					                        </select>
+					                        <select id="appointment_alumni" name="appointment_alumni_ID[]" searchable="Search here." >
+				                              <?php  
+				                              $this->db->select("*");
+				                                $this->db->from('alumni');
+				                                $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
+				                                $query = $this->db->get()->result_array();
+				                                $last_category = '';
+				                                foreach($query as $row):
+				                                  if($last_category != $row['alumni_degree'])
+				                                    echo "<optgroup label='".$row['course_description']."'>";
+				                              ?>
+				                              <option value="<?php echo $row['alumni_student_ID'] ?>"><?php echo $row['alumni_student_ID']." - ".$row['alumni_fname']." ".$row['alumni_lname'] ?></option>
+				                              <?php 
+				                                  if($last_category != $row['alumni_degree'])
+				                                    echo "</optgroup>";
+				                                  $last_category = $row['alumni_degree'];
+				                                endforeach;
+				                              ?>
+				                            </select>
 					                    </div>
 					                </div>
 					            	<div class="clearfix"></div>
@@ -96,27 +93,18 @@
     </div>
 </div>
       <script type="text/javascript">
-      	$(document).ready(function() {
-	        $('#example-getting-started').multiselect({
-	          nonSelectedText: 'Scheduled',    
-	          buttonClass: 'btn btn-danger',
-	          buttonWidth: '100%',
-	          maxHeight: 450 ,
-	          enableFiltering: true,
-	          filterPlaceholder: 'Search for alumni...'
-	        });
-	     });
-      	$(document).ready(function() {
-	        $('.add_appointment').multiselect({
-	          nonSelectedText: 'Scheduled',    
-	          buttonClass: 'btn btn-danger',
-	          buttonWidth: '100%',
-	          maxHeight: 450 ,
-	          enableFiltering: true,
-	          filterPlaceholder: 'Search for alumni...'
-	        });
-	     });
-	  	</script>
+            $(document).ready(function() {
+                $('#appointment_alumni').multiselect({
+                    nonSelectedText: 'Alumni',    
+                    buttonClass: 'btn btn-danger',
+                    buttonWidth: '100%',
+                    maxHeight: 450,
+                    enableFiltering: true,
+                    filterPlaceholder: 'Search for alumni...'
+
+                });
+            });
+        </script>
 	  	<script type="text/javascript">
 	  		document.getElementById("time_startID").onchange = function (){
 			  var input = document.getElementById("time_endID");

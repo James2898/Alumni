@@ -8,13 +8,13 @@
                   <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
-                          <a href="#list" class="nav-link active" data-toggle="tab">
+                          <a href="#list" class="nav-link " data-toggle="tab">
                             <i class="material-icons">announcement</i> Announcement List
                             <div class="ripple-container"></div>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a href="#add" class="nav-link" data-toggle="tab">
+                          <a href="#add" class="nav-link active" data-toggle="tab">
                             <i class="material-icons">add_comment</i> Add New
                             <div class="ripple-container"></div>
                           </a>
@@ -25,7 +25,7 @@
               </div>
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="tab-pane active table-responsive" id="list">
+                  <div class="tab-pane  table-responsive" id="list">
                     <table class="table" id="table2">
                       <thead class="text-danger">
                         <th></th>
@@ -51,24 +51,12 @@
                                     <h4 class="card-title"><?php echo $row['announcement_title'] ?></h4>
                                     <p class="card-category"><?php echo $row['announcement_subject'] ?></p>
                                     <div class="btn-group-sm">
-                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_view_announcement/<?php echo $row['announcement_ID'] ?>')">
+                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
                                              View
-                                          </a>
-                                      <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle='dropdown'>
-                                        Action
-                                      </button>
-                                      <ul class="dropdown-menu drop-down-warning pull-right col-md-6 p-0" role="menu">
-                                        <li>
-                                          <a href="#" class="py-0" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
-                                            <i class="material-icons">edit</i>
-                                             Edit
-                                          </a>
-                                          <a href="#" class="py-0" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_delete_announcement/<?php echo $row['announcement_ID'] ?>')">
-                                            <i class="material-icons">delete</i> 
+                                      </a>
+                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
                                              Delete
-                                          </a>
-                                        </li>
-                                      </ul>
+                                      </a>
                                     </div>
                                   </div>
                                   <div class="card-footer">
@@ -87,7 +75,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="tab-pane" id="add">
+                  <div class="tab-pane active" id="add">
                     <?php echo form_open('admin/announcement/create/', 'class="login100-form validate-form col-md-12"','role="form"','id="form_login"'); ?>
                       <!--  -->
                       <div class="row">
@@ -117,13 +105,15 @@
                       </div>
                       <!--  -->
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                           <div class="form-group">
-                            <select id="example-getting-started" multiple="multiple" >
+                            <select id="announcement_alumni" name="announcement_reciepients[]" multiple="multiple" >
                               <?php  
-                              $this->db->select("*");
+                                $this->db->select("*");
                                 $this->db->from('alumni');
                                 $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
+                                $this->db->order_by('course_ID','ASC');
+
                                 $query = $this->db->get()->result_array();
                                 $last_category = '';
                                 foreach($query as $row):
@@ -155,18 +145,6 @@
           </div>
         </div>
       </div>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#example-getting-started').multiselect({
-          nonSelectedText: 'Reciepients',    
-          buttonClass: 'btn btn-danger',
-          buttonWidth: '100%',
-          enableClickableOptGroups: true,
-          includeSelectAllOption: true,
-          maxHeight: 450  
-        });
-      });
-    </script>
     <script type="text/javascript">
       jQuery(document).ready(function() {
         jQuery("time.timeago").timeago();

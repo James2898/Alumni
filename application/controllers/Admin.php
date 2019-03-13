@@ -37,10 +37,34 @@
 			}
 
 			if($param1 == 'create'){
+
+				$id = $this->db->query("
+                SELECT AUTO_INCREMENT AS ID 
+                FROM  INFORMATION_SCHEMA.TABLES   
+                WHERE TABLE_SCHEMA = 'alumni'
+                AND TABLE_NAME = 'announcement'
+                ")->row()->ID;
+
 				$data['announcement_title']		=	$this->input->post('announcement_title');
 				$data['announcement_subject']	=	$this->input->post('announcement_subject');
 				$data['announcement_content']	=	$this->input->post('announcement_content');
 				$data['announcement_date']	=	date('Y-m-d H:m:s');
+
+				foreach ($this->input->post('announcement_reciepients') as $alumni) {
+					$ndata['notification_recieve_ID'] = $alumni;
+					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$ndata['notification_unread']	  =	"TRUE";
+					$ndata['notification_type']		  = "Announcement";
+					$ndata['notification_type_ID']	  = $id;
+					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+					$this->db->insert('notification',$ndata);
+				}
+
+
+				
+
+
+				
 				$this->db->insert('announcement',$data);
 
 				$_SESSION['flashdata']	=	'Data Added';

@@ -26,7 +26,7 @@
                   <div class="card-body">
                       <div class="tab-content">
                         <div class="tab-pane table-responsive active" id="list">
-                          <table class="table" id="table2">
+                          <table class="table" id="notification_read">
                             <thead>
                               <th></th>
                             </thead>
@@ -88,7 +88,8 @@
                                             </div>
                                             <h4 class="card-title"><?php echo $title?></h4>
                                             <p class="card-category"><?php echo $subject ?></p>
-                                            <a class="btn btn-<?php echo $color ?> btn-sm card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
+                                            <a class="btn btn-<?php echo $color ?> card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
+                                            <a class="btn btn-<?php echo $color ?> card-link"href="<?php echo base_url(); ?>index.php/alumni/notifications/read/<?php echo $row['notification_ID'] ?>">Mark as Read</a>
                                           </div>
                                           <div class="card-footer">
                                             <div class="stats">
@@ -108,20 +109,25 @@
                           </table>
                         </div>
                         <div class="tab-pane" id="add">
-                          <div class="row">
-                            <?php  
-                              $this->db->select("*");
-                              $this->db->from('notification');
-                              $this->db->join('alumni','alumni.alumni_student_ID = notification.notification_sender_ID','left');
-                              $this->db->join('appointment','appointment.appointment_ID = notification.notification_type_ID', 'left');
-                              $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
-                              $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
-                              $this->db->where('notification_unread','FALSE'); 
-                              $this->db->order_by('notification_datetime', 'DESC');
+                          <table class="table" id="table2">
+                            <thead>
+                              <th></th>
+                            </thead>
+                            <tbody>
+                              <?php  
+                                $this->db->select("*");
+                                $this->db->from('notification');
+                                $this->db->join('alumni','alumni.alumni_student_ID = notification.notification_sender_ID','left');
+                                $this->db->join('appointment','appointment.appointment_ID = notification.notification_type_ID', 'left');
+                                $this->db->join('announcement','announcement.announcement_ID = notification.notification_type_ID', 'left');
+                                $this->db->where('notification_recieve_ID',$_SESSION['user_ID']);
+                                $this->db->where('notification_unread','FALSE'); 
+                                $this->db->order_by('notification_datetime', 'DESC');
 
-                              $query = $this->db->get()->result_array();
-                              foreach ($query as $row):
-                            ?>
+                                $query = $this->db->get()->result_array();
+                                foreach ($query as $row):
+
+                              ?>
                               <?php 
                                 if($row['notification_type'] == 'Appointment'){
                                   $icon = 'date_range';
@@ -143,8 +149,7 @@
 
                                   $subject = $row['appointment_details'];
                                   $datetime = $row['notification_datetime'];
-                                  $link = "alumni/appointment";
-                                  
+                                  $link = "alumni/appointment";                                  
                                 }else if($row['notification_type'] == 'Announcement'){
                                   $icon = 'announcement';
                                   $color = 'primary';
@@ -155,28 +160,36 @@
                                   $link = "alumni/announcement";
                                 }
                               ?>
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="card card-stats">
-                                  <div class="card-header card-header-<?php echo $color ?> card-header-icon">
-                                    <div class="card-icon">
-                                      <i class="material-icons"><?php echo $icon ?></i>
-                                    </div>
-                                    <h4 class="card-title"><?php echo $title?></h4>
-                                    <p class="card-category"><?php echo $subject ?></p>
-                                    <a class="btn btn-<?php echo $color ?> btn-sm card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
+                              <tr>
+                                <td>
+                                  <div class="row">
+                                      <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="card card-stats">
+                                          <div class="card-header card-header-<?php echo $color ?> card-header-icon">
+                                            <div class="card-icon">
+                                              <i class="material-icons"><?php echo $icon ?></i>
+                                            </div>
+                                            <h4 class="card-title"><?php echo $title?></h4>
+                                            <p class="card-category"><?php echo $subject ?></p>
+                                            <a class="btn btn-<?php echo $color ?> card-link" href="<?php echo base_url(); ?>index.php/<?php echo $link; ?>">Go to <?php echo $row['notification_type'] ?></a>
+                                            <a class="btn btn-<?php echo $color ?> card-link"href="<?php echo base_url(); ?>index.php/alumni/notifications/unread/<?php echo $row['notification_ID'] ?>">Mark as Unread</a>
+                                          </div>
+                                          <div class="card-footer">
+                                            <div class="stats">
+                                              <i class="material-icons">access_time</i>
+                                              <a href="#" class="text-dark"><?php echo time_elapsed_string($datetime) ?></a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                   </div>
-                                  <div class="card-footer">
-                                    <div class="stats">
-                                      <i class="material-icons">access_time</i>
-                                      <a href="#" class="text-dark"><?php echo time_elapsed_string($datetime) ?></a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            <?php  
-                              endforeach;
-                            ?>
-                          </div>
+                                </td>
+                              </tr>
+                              <?php  
+                                endforeach;
+                              ?>
+                            </tbody>
+                          </table>
                         </div>
                       </div><!-- End of Tab Content -->
                   </div><!-- End of Card Body -->

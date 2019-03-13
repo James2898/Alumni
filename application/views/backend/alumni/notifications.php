@@ -60,7 +60,7 @@
                                       $color = 'danger';
                                     }else if($row['notification_param'] == 'Rescheduled'){
                                       $title = 'APL rescheduled your appointment';
-                                      $color = 'warning';
+                                      $color = 'primary';
                                     }
 
                                     $subject = $row['appointment_details'];
@@ -69,11 +69,11 @@
                                     
                                   }else if($row['notification_type'] == 'Announcement'){
                                     $icon = 'announcement';
-                                    $color = 'primary';
+                                    $color = 'warning';
 
                                     $title = $row['announcement_title'];
                                     $subject = $row['announcement_subject'];
-                                    $datetime = $row['announcement_date'];
+                                    $datetime = $row['notification_datetime'];
                                     $link = "alumni/announcement";
                                   }
                                 ?>
