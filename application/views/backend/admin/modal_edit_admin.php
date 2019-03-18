@@ -18,13 +18,13 @@
 			                    <img width="50%" height="50%" src="<?php echo base_url() ?>/assets/img/profile_picture/<?php echo $row['admin_profile_picture'] ?>" alt="" id="blah"/>
 	                  		</div>
 	                  		<div class="text-center">
-								<input type='file' class="btn-file btn btn-danger" name="profile_picture" onchange="readURL(this);" />
-			                  	<input type="submit" class="btn btn-danger btn-sm" value="Change">
+								<input type='file' class="btn-file btn btn-<?php echo $_SESSION['theme_color'] ?>" name="profile_picture" onchange="readURL(this);" />
+			                  	<input type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm" value="Change">
 			                </div >	
 	              		</div>
 	              	<?php echo form_close(); ?>
                     <div class="card">
-                        <div class="card-header card-header-danger">
+                        <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                           <h4 class="card-title"><i class="fa fa-info-circle"></i> About</h4>
                         </div>
                         <div class="card-body">
@@ -90,7 +90,7 @@
                                       	</div>
                                       	<div class="row">
                     											<div class="col-md-12">
-                    												<button type="submit" class="btn btn-danger pull-right">Update</button>
+                    												<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Update</button>
                     											</div>
                     										</div>
                                     </div>

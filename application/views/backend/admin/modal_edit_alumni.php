@@ -22,13 +22,13 @@
                   	?>
               		</div>
               		<div class="text-center">
-    								<input type='file' class="btn-file btn btn-danger" name='profile_picture' onchange="readURL(this);" />
-                  	<input type="submit" class="btn btn-danger btn-sm" value="Change">
+    								<input type='file' class="btn-file btn btn-<?php echo $_SESSION['theme_color'] ?>" name='profile_picture' onchange="readURL(this);" />
+                  	<input type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm" value="Change">
 	                </div >	
             		</div>
             	<?php echo form_close(); ?>
             	<div class="card">
-              	<div class="card-header card-header-danger">
+              	<div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                 	<div class="nav-tabs-navigation">
                 		<div class="nav-tabs-wrapper">
                 			<ul class="nav nav-tabs" data-tabs="tabs">
@@ -53,41 +53,68 @@
                 			<div class="tab-pane active" id="about">
                       	<?php echo form_open('admin/alumni/edit_about/'.$row['alumni_student_ID'], 'class="login100-form validate-form col-md-12"','role="form"','id="form_login"'); ?>
                           <div class="row">
-                          	<div class="col-md-12">
+                          	<div class="col-md-8">
                           		<div class="form-group">
-                          			<label class="bmd-label-floating">Course</label>
-                          			<select class="form-control" name="alumni_degree">
-                          				<?php  
-		                              	$this->db->select("*");
-    														    $this->db->from('courses');
-    														    $this->db->order_by('courses.course_ID', 'ASC');
-    														    $query2 = $this->db->get()->result_array();
-    						   									foreach ($query2 as $row2):
-			                            ?>
-		                            		<option value="<?php echo $row2['course_ID'] ?>"<?php if($row2['course_ID'] == $row['alumni_degree']){echo 'selected';}?>>
-				                            	<?php echo $row2['course_description'];?>
-			                            	</option>	
-			                            <?php  
-			                            	endforeach;
-			                            ?>
-                          			</select>
+                          			<label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Course</label>
+                                <select id="alumni_edit_degree" name="alumni_degree[]" searchable="Search here." >
+                                  <?php  
+                                    $this->db->select("*");
+                                    $this->db->from('courses');
+                                    $this->db->order_by('courses.course_ID', 'ASC');
+                                    $query2 = $this->db->get()->result_array();
+                                    $last_category = '';
+                                    foreach ($query2 as $row2):
+                                      if($last_category != $row2['course_college'])
+                                        echo "<optgroup label='".$row2['course_college']."'>";
+                                  ?>
+                                   <option value="<?php echo $row2['course_ID'] ?>"<?php if($row2['course_ID'] == $row['alumni_degree']){echo 'selected';}?>>
+                                      <?php echo $row2['course_description'];?>
+                                    </option> 
+                                  <?php  
+                                      if($last_category != $row2['course_college'])
+                                        echo "</optgroup>";
+                                      $last_category = $row2['course_college'];
+                                    endforeach;
+                                  ?>
+                                </select>
                           		</div>
                           	</div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label class="bmd-label-static text-<?php echo $_SESSION['theme_color'] ?>">Major</label>
+                                <select id="alumni_edit_major" name="alumni_major[]" searchable="Search here." >
+                                  <?php  
+                                    $this->db->select("*");
+                                    $this->db->from('major');
+                                    $this->db->order_by('major_ID', 'ASC');
+                                    $query2 = $this->db->get()->result_array();
+                                    $last_category = '';
+                                    foreach ($query2 as $row2):
+                                  ?>
+                                    <option value="<?php echo $row2['major_ID'] ?>"<?php if($row2['major_ID'] == $row['alumni_major']){echo 'selected';}?>>
+                                      <?php echo $row2['major_name'];?>
+                                    </option> 
+                                  <?php 
+                                    endforeach;
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
                           </div>
                           <div class="row">
-                          	<div class="col-md-4">
+                          	<div class="col-md-4 col-sm-12">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">First Name</label>
                           			<input type="text" name="alumni_fname" class="form-control" value="<?php echo $row['alumni_fname'] ?>">
                           		</div>
                           	</div>
-                          	<div class="col-md-4">
+                          	<div class="col-md-4 col-sm-12">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Middle Name</label>
                           			<input type="text" name="alumni_mname" class="form-control" value="<?php echo $row['alumni_mname'] ?>">
                           		</div>
                           	</div>
-                          	<div class="col-md-4">
+                          	<div class="col-md-4 col-sm-12">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Last Name</label>
                           			<input type="text" name="alumni_lname" class="form-control" value="<?php echo $row['alumni_lname'] ?>">
@@ -95,15 +122,34 @@
                           	</div>
                           </div>
                           <div class="row">
-                          	<div class="col-md-12">
+                          	<div class="col-md-5">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Gender</label>
-                          			<select class="form-control" name="alumni_gender">
+                          			<select id="alumni_edit_gender" name="alumni_gender[]">
                           				<option value="Male" <?php if($row['alumni_gender'] == 'Male') echo 'selected' ?>>Male</option>
                           				<option value="Female" <?php if($row['alumni_gender'] == 'Female') echo 'selected' ?>>Female</option>
                           			</select>
                           		</div>
                           	</div>
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Year Graduated</label>
+                                <select id="alumni_edit_grad_year" name="alumni_grad_year[]">
+                                  <?php 
+                                    $grad_year = $row['alumni_grad_year'];
+                                    for ($date = 2000; $date <= date('Y'); $date++) {   
+                                      $selected = '';
+                                      if($grad_year == $date){
+                                        $selected = 'selected';
+                                      }
+                                      echo "<option ".$selected." >";
+                                      echo $date;
+                                      echo "</option>";
+                                    } 
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
                           </div>
                           <div class="row">
                           	<div class="col-md-6">
@@ -136,27 +182,6 @@
                           	</div>
                           </div>
                           <div class="row">
-                          	<div class="col-md-12">
-                          		<div class="form-group">
-                          			<label class="bmd-label-floating">Year Graduated</label>
-                          			<select class="form-control" name="alumni_grad_year">
-                          				<?php 
-                          					$grad_year = $row['alumni_grad_year'];
-                          					for ($date = 2000; $date <= date('Y'); $date++) { 	
-                          						$selected = '';
-                          						if($grad_year == $date){
-                          							$selected = 'selected';
-                          						}
-                          						echo "<option ".$selected." >";
-                          						echo $date;
-                          						echo "</option>";
-                          					}	
-                          				?>
-                          			</select>
-                          		</div>
-                          	</div>
-                          </div>
-                          <div class="row">
                           	<div class="col-md-4">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Facebook</label>
@@ -177,13 +202,13 @@
                           	</div>
                           </div>
                           <div class="text-center">
-	                        	<button type="submit" class="btn btn-danger">Update</button>
+	                        	<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?>">Update</button>
 	                        </div>
                        	<?php echo form_close(); ?>
                     	</div>
                     	<div class="tab-pane" id="work_experience">
                     		<div class="card"><!-- CURRENTLY WORKS AT -->
-			                    <div class="card-header card-header-danger">
+			                    <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
 	                        	<div class="nav-tabs-navigation">
 		                        	<div class="nav-tabs-wrapper">
 	                          		<ul class="nav nav-tabs" data-tabs="tabs">
@@ -247,24 +272,20 @@
         															<div class="col-md-12">
         																<div class="form-group">
         																	<label class="bmd-label-floating">Industry</label>
-        																	<select class="form-control" name="work_industry">
-        																		<?php  
-        												                            $this->db->select("*");
-        																			$this->db->from('industry');
-        																			$query3 = $this->db->get()->result_array();
-        											   								foreach ($query3 as $row3):
-        																		?>
-
-        																			<option value="<?php echo $row3['industry_ID'] ?>" <?php if($row2['work_industry'] == $row3['industry_ID']) echo "selected" ?>>
-        																				<?php echo $row3['industry_title'] ?>
-        																			</option>
-
-        																		<?php  
-
-        																			endforeach;
-
-        																		?>
-        																	</select>
+                                          <select id="work_edit_industry" name="work_industry[]" searchable="Search here." >
+                                            <?php  
+                                              $this->db->select("*");
+                                              $this->db->from('industry');
+                                              $query3 = $this->db->get()->result_array();
+                                              foreach ($query3 as $row3):
+                                            ?>
+                                                <option value="<?php echo $row3['industry_ID'] ?>" <?php if($row2['work_industry'] == $row3['industry_ID']) echo "selected" ?>>
+                                                  <?php echo $row3['industry_title'] ?>
+                                                </option>
+                                            <?php  
+                                              endforeach;
+                                            ?>
+                                          </select>
         																</div>
         															</div>
         														</div>
@@ -272,24 +293,20 @@
         															<div class="col-md-12">
         																<div class="form-group">
         																	<label class="bmd-label-floating">Salary</label>
-        																	<select class="form-control" name="work_alumni_salary_range">
-        																		<?php  
-        												                            $this->db->select("*");
-        																			$this->db->from('salary');
-        																			$query3 = $this->db->get()->result_array();
-        											   								foreach ($query3 as $row3):
-        																		?>
-
-        																			<option value="<?php echo $row3['salary_ID'] ?>" <?php if($row3['salary_ID'] == $row2['work_alumni_salary_range']) echo "selected"; ?>>
-        																				<?php echo $row3['salary_range'] ?>
-        																			</option>
-
-        																		<?php  
-
-        																			endforeach;
-
-        																		?>
-        																	</select>
+                                          <select id="work_edit_alumni_salary_range" name="work_alumni_salary_range[]">
+                                            <?php  
+                                              $this->db->select("*");
+                                              $this->db->from('salary');
+                                              $query3 = $this->db->get()->result_array();
+                                                foreach ($query3 as $row3):
+                                            ?>
+                                              <option value="<?php echo $row3['salary_ID'] ?>" <?php if($row3['salary_ID'] == $row2['work_alumni_salary_range']) echo "selected"; ?>>
+                                                <?php echo $row3['salary_range'] ?>
+                                              </option>
+                                            <?php  
+                                              endforeach;
+                                            ?>
+                                          </select>
         																</div>
         															</div>
         														</div>
@@ -309,8 +326,8 @@
         														</div>
         														<div class="row">
         															<div class="col-md-12">
-        																<button class="btn btn-danger pull-right">Delete</button>
-        																<button type="submit" class="btn btn-danger pull-right">Update</button>
+        																<button class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Delete</button>
+        																<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Update</button>
         															</div>
         														</div>
       													  <?php echo form_close(); ?>
@@ -347,7 +364,7 @@
 				                      				<div class="col-md-12">
         																<div class="form-group">
         																	<label class="bmd-label-floating">Industry</label>
-        																	<select class="form-control" name="work_industry">
+        																	<select id="work_industry" name="work_industry[]" searchable="Search here." >
         																		<?php  
         												              $this->db->select("*");
         																			$this->db->from('industry');
@@ -366,7 +383,7 @@
         															<div class="col-md-12">
         																<div class="form-group">
         																	<label class="bmd-label-floating">Salary</label>
-        																	<select class="form-control" name="work_alumni_salary_range">
+                                          <select id="work_alumni_salary_range" name="work_alumni_salary_range[]">
         																		<?php  
 									                            $this->db->select("*");
         																			$this->db->from('salary');
@@ -395,7 +412,7 @@
 				                                </div>
         															</div>
   															      <div class="col-md-12">
-  						                        	<button type="submit" class="btn btn-danger pull-right">Add</button>
+  						                        	<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Add</button>
   						                        </div>
 				                      			</div>
 				                      		<?php echo form_close(); ?>
@@ -422,4 +439,96 @@
                 format: 'MM/YYYY'
             });
         });
+        $(document).ready(function() {
+            $('#alumni_edit_degree').multiselect({
+                nonSelectedText: 'Alumni Degree',    
+                buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                buttonWidth: '100%',
+                enableClickableOptGroups: true,
+                includeSelectAllOption: true,
+                maxHeight: 200,
+                enableFiltering: true,
+                filterPlaceholder: 'Search Degree ...'
+
+            });
+        });
+        $(document).ready(function() {
+            $('#alumni_edit_major').multiselect({
+                nonSelectedText: 'Alumni Major',    
+                buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                buttonWidth: '100%',
+                enableClickableOptGroups: true,
+                includeSelectAllOption: true,
+                maxHeight: 200,
+                enableFiltering: true,
+                filterPlaceholder: 'Search Degree ...'
+
+            });
+        });
+        $(document).ready(function() {
+                $('#alumni_edit_grad_year').multiselect({
+                    nonSelectedText: 'Grad Year',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                });
+            });
+            $(document).ready(function() {
+                $('#alumni_edit_gender').multiselect({
+                    nonSelectedText: 'Alumni Gender',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                });
+            });
+            $(document).ready(function() {
+              $('#work_industry').multiselect({
+                  nonSelectedText: 'Industry',    
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonWidth: '100%',
+                  enableClickableOptGroups: true,
+                  includeSelectAllOption: true,
+                  maxHeight: 200,
+                  enableFiltering: true,
+                  filterPlaceholder: 'Search Degree ...'
+
+              });
+              $('#work_alumni_salary_range').multiselect({
+                  nonSelectedText: 'Industry',    
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonWidth: '100%',
+                  enableClickableOptGroups: true,
+                  includeSelectAllOption: true,
+                  maxHeight: 200,
+                  enableFiltering: true,
+                  filterPlaceholder: 'Search Degree ...'
+
+              });
+              $('#work_edit_industry').multiselect({
+                  nonSelectedText: 'Industry',    
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonWidth: '100%',
+                  enableClickableOptGroups: true,
+                  includeSelectAllOption: true,
+                  maxHeight: 200,
+                  enableFiltering: true,
+                  filterPlaceholder: 'Search Degree ...'
+
+              });
+              $('#work_edit_alumni_salary_range').multiselect({
+                  nonSelectedText: 'Industry',    
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonWidth: '100%',
+                  enableClickableOptGroups: true,
+                  includeSelectAllOption: true,
+                  maxHeight: 200,
+                  enableFiltering: true,
+                  filterPlaceholder: 'Search Degree ...'
+
+              });
+          });
     </script>

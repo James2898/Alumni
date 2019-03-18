@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
-            <h4 class="card-title">Settings | Admin Settings</h4>
+            <h4 class="card-title">Settings | Alumni Settings</h4>
           </div>
           <div class="card-body">
             <?php echo form_open('admin/settings/edit/', 'class="validate-form col-md-12"','role="form"'); ?>

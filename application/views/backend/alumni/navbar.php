@@ -4,7 +4,7 @@
 		          			<div class="navbar-wrapper">
 		            			<h4>
 		            				<?php 
-		            					echo "Welcome, ".ucwords($this->db->get_where('alumni' , array('alumni_student_ID' =>$_SESSION['user_ID']) )->row()->alumni_fname)." | ".ucwords(str_replace("_", " ", $page_name));
+		            					echo "Welcome, Alumni ".ucwords($this->db->get_where('alumni' , array('alumni_student_ID' =>$_SESSION['user_ID']) )->row()->alumni_fname)." | ".ucwords(str_replace("_", " ", $page_name));
 
 		            					//echo date('Y-m-d h:m:s');
 		            					//Print_r($_SESSION);

@@ -15,7 +15,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Title</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Title</label>
                             <input type="text" class="form-control" name="announcement_title" value="<?php echo $row['announcement_title'] ?>" readonly>
                           </div>
                         </div>
@@ -23,7 +23,7 @@
                        <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Subject</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Subject</label>
                             <input type="text" class="form-control" name="announcement_subject" value="<?php echo $row['announcement_subject'] ?>" readonly>
                           </div>
                         </div>
@@ -32,7 +32,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Content</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Content</label>
                             <textarea class="form-control" rows="5" name="announcement_content" readonly><?php echo $row['announcement_content'] ?></textarea>
                           </div>
                         </div>

@@ -3,7 +3,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-tabs card-header-danger">
+              <div class="card-header card-header-tabs card-header-<?php echo $_SESSION['theme_color'] ?>">
                 <div class="nav-tabs-navigation">
                   <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" data-tabs="tabs">
@@ -21,7 +21,7 @@
                 <div class="tab-content">
                   <div class="tab-pane active table-responsive" id="list">
                     <table class="table" id="table2">
-                      <thead class="text-danger">
+                      <thead class="text-<?php echo $_SESSION['theme_color'] ?>">
                         <th></th>
                       </thead>
                       <tbody>
@@ -76,7 +76,7 @@
       $(document).ready(function() {
         $('#example-getting-started').multiselect({
           nonSelectedText: 'Reciepients',    
-          buttonClass: 'btn btn-danger',
+          buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
           buttonWidth: '100%',
           enableClickableOptGroups: true,
           includeSelectAllOption: true,

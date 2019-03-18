@@ -7,6 +7,8 @@
 			session_start();
 			$this->load->helper(array('form','url'));
 			$this->load->database();
+			$this->load->library("sendemail");
+			$this->load->library("sendsms");
 	       /*cache control*/
 			$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			$this->output->set_header('Pragma: no-cache');
@@ -45,12 +47,14 @@
                 AND TABLE_NAME = 'announcement'
                 ")->row()->ID;
 
-				$data['announcement_title']		=	$this->input->post('announcement_title');
-				$data['announcement_subject']	=	$this->input->post('announcement_subject');
-				$data['announcement_content']	=	$this->input->post('announcement_content');
+
+				$subject = $data['announcement_title']		=	$this->input->post('announcement_title');
+				$subject .= " | ".$data['announcement_subject']	=	$this->input->post('announcement_subject');
+				$body = $data['announcement_content']	=	$this->input->post('announcement_content');
 				$data['announcement_date']	=	date('Y-m-d H:m:s');
 
 				foreach ($this->input->post('announcement_reciepients') as $alumni) {
+					
 					$ndata['notification_recieve_ID'] = $alumni;
 					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
 					$ndata['notification_unread']	  =	"TRUE";
@@ -58,13 +62,30 @@
 					$ndata['notification_type_ID']	  = $id;
 					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
 					$this->db->insert('notification',$ndata);
+
+					//SMS NOTIFICATION FOR ANNOUCEMENT
+
+					$number = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_cno;
+					$SMS_APICODE = "TR-FARAH257028_62V1F";
+					$result = $this->sendsms->itexmo($number,$subject."|".$body,$SMS_APICODE);
+					if ($result == ""){
+						$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
+						Please CONTACT US for help. ";	
+					}else if ($result == 0){
+						$_SESSION['error_log'] =  "Message Sent!";
+					}
+					else{	
+						$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
+					}
+
+
+					//EMAIL NOTIFICATION FOR ANNOUNCEMENT
+					/*$address = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+					$receive_email = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+					$this->sendemail->do_send($subject,$body,$address);*/
 				}
 
 
-				
-
-
-				
 				$this->db->insert('announcement',$data);
 
 				$_SESSION['flashdata']	=	'Data Added';
@@ -82,7 +103,14 @@
             	session_write_close();
             	redirect(base_url().'index.php/admin/announcement','refresh');
             	exit();
-			}
+			}else if($param1 == 'delete'){
+            	$this->db->where('announcement_ID', $param2);
+	            $this->db->delete('announcement');
+	            
+	            $_SESSION['flashdata']	=	'Data Deleted';
+            	session_write_close();
+            	redirect(base_url().'index.php/admin/announcement','refresh');
+            }	
 
 
 
@@ -101,29 +129,49 @@
             	$alumni_password =	$this->input->post('alumni_password');
             	$data['alumni_student_ID']	=	$this->input->post('alumni_student_ID');
             	$data['alumni_profile_picture']	= 'empty';
-            	$data['alumni_degree']		=	$this->input->post('alumni_degree');
-            	$data['alumni_degree']	=	$this->input->post('alumni_degree');
-            	$data['alumni_fname']	=	$this->input->post('alumni_fname');
-            	$data['alumni_mname']	=	$this->input->post('alumni_mname');
-            	$data['alumni_lname']	=	$this->input->post('alumni_lname');
-            	$data['alumni_gender']	=	$this->input->post('alumni_gender');
-            	$data['alumni_cno']		=	$this->input->post('alumni_cno');
-            	$data['alumni_lno']		=	$this->input->post('alumni_lno');
-            	$data['alumni_address']	=	$this->input->post('alumni_address');
-            	$data['alumni_email']	=	$this->input->post('alumni_email');
-            	$data['alumni_grad_year']	=	$this->input->post('alumni_grad_year');
+            	$data['alumni_degree']		=	$this->input->post('alumni_degree[0]');
+            	$data['alumni_major']		=	$this->input->post('alumni_major[0]');
+            	$data['alumni_fname']		=	$this->input->post('alumni_fname');
+            	$data['alumni_mname']		=	$this->input->post('alumni_mname');
+            	$data['alumni_lname']		=	$this->input->post('alumni_lname');
+            	$data['alumni_gender']		=	$this->input->post('alumni_gender[0]');
+            	$data['alumni_cno']			=	$this->input->post('alumni_cno');
+            	$data['alumni_lno']			=	$this->input->post('alumni_lno');
+            	$data['alumni_address']		=	$this->input->post('alumni_address');
+            	$data['alumni_email']		=	$this->input->post('alumni_email');
+            	$data['alumni_grad_year']	=	$this->input->post('alumni_grad_year[0]');
             	$data['alumni_facebook']	=	$this->input->post('alumni_facebook');
             	$data['alumni_linkedin']	=	$this->input->post('alumni_linkedin');
             	$data['alumni_website']		=	$this->input->post('alumni_website');
-
+            	$data['alumni_register_date']	=	date('Y-m-d');
 
             	$this->db->insert('alumni', $data);
 
-            	$ldata['login_user_ID']	=	$this->input->post('alumni_student_ID');
+            	$ldata['login_user_ID']		=	$this->input->post('alumni_student_ID');
             	$ldata['login_password']	=	$this->input->post('alumni_password');
-            	$ldata['login_level']	=	"2";
+            	$ldata['login_level']		=	"2";
 
             	$this->db->insert('login',$ldata);
+
+
+            	$sdata1['settings_user_ID']	=	$alumni_student_ID;
+            	$sdata1['settings_type']	=	"theme";
+            	$sdata1['settings_description'] = "1";
+
+            	$this->db->insert('settings',$sdata1);
+
+            	$sdata2['settings_user_ID']	=	$alumni_student_ID;
+            	$sdata2['settings_type']	=	"sms";
+            	$sdata2['settings_description'] = "on";
+
+            	$this->db->insert('settings',$sdata2);
+
+            	$sdata3['settings_user_ID']	=	$alumni_student_ID;
+            	$sdata3['settings_type']	=	"email";
+            	$sdata3['settings_description'] = "off";
+
+            	$this->db->insert('settings',$sdata3);
+
 
             	$_SESSION['flashdata']	=	'Data Added';
             	session_write_close();
@@ -136,8 +184,8 @@
             	$data['worK_alumni_position']	=	$this->input->post('work_alumni_position');
             	$data['work_company_name']		=	$this->input->post('work_company_name');
             	$data['work_company_address']	=	$this->input->post('work_company_address');
-            	$data['work_industry']			=	$this->input->post('work_industry');
-            	$data['work_alumni_salary_range']	=	$this->input->post('work_alumni_salary_range');
+            	$data['work_industry']			=	$this->input->post('work_industry[0]');
+            	$data['work_alumni_salary_range']	=	$this->input->post('work_alumni_salary_range[0]');
             	$data['work_alumni_start']		=	$this->input->post('work_alumni_start');
             	$data['work_alumni_end']		=	$this->input->post('work_alumni_end');
 
@@ -151,16 +199,17 @@
 
 
             }else if($param1 == 'edit_about'){
-            	$data['alumni_degree']	=	$this->input->post('alumni_degree');
-            	$data['alumni_fname']	=	$this->input->post('alumni_fname');
-            	$data['alumni_mname']	=	$this->input->post('alumni_mname');
-            	$data['alumni_lname']	=	$this->input->post('alumni_lname');
-            	$data['alumni_gender']	=	$this->input->post('alumni_gender');
-            	$data['alumni_cno']		=	$this->input->post('alumni_cno');
-            	$data['alumni_lno']		=	$this->input->post('alumni_lno');
-            	$data['alumni_address']	=	$this->input->post('alumni_address');
-            	$data['alumni_email']	=	$this->input->post('alumni_email');
-            	$data['alumni_grad_year']	=	$this->input->post('alumni_grad_year');
+            	$data['alumni_degree']		=	$this->input->post('alumni_degree[0]');
+            	$data['alumni_major']		=	$this->input->post('alumni_major[0]');
+            	$data['alumni_fname']		=	$this->input->post('alumni_fname');
+            	$data['alumni_mname']		=	$this->input->post('alumni_mname');
+            	$data['alumni_lname']		=	$this->input->post('alumni_lname');
+            	$data['alumni_gender']		=	$this->input->post('alumni_gender[0]');
+            	$data['alumni_cno']			=	$this->input->post('alumni_cno');
+            	$data['alumni_lno']			=	$this->input->post('alumni_lno');
+            	$data['alumni_address']		=	$this->input->post('alumni_address');
+            	$data['alumni_email']		=	$this->input->post('alumni_email');
+            	$data['alumni_grad_year']	=	$this->input->post('alumni_grad_year[0]');
             	$data['alumni_facebook']	=	$this->input->post('alumni_facebook');
             	$data['alumni_linkedin']	=	$this->input->post('alumni_linkedin');
             	$data['alumni_website']		=	$this->input->post('alumni_website');
@@ -177,8 +226,8 @@
             	$data['worK_alumni_position']	=	$this->input->post('work_alumni_position');
             	$data['work_company_name']		=	$this->input->post('work_company_name');
             	$data['work_company_address']	=	$this->input->post('work_company_address');
-            	$data['work_industry']			=	$this->input->post('work_industry');
-            	$data['work_alumni_salary_range']	=	$this->input->post('work_alumni_salary_range');
+            	$data['work_industry']			=	$this->input->post('work_industry[0]');
+            	$data['work_alumni_salary_range']	=	$this->input->post('work_alumni_salary_range[0]');
             	$data['work_alumni_start']		=	$this->input->post('work_alumni_start');
             	$data['work_alumni_end']		=	$this->input->post('work_alumni_end');
 
@@ -187,7 +236,20 @@
             	$_SESSION['flashdata']	=	'Data Updated';
             	session_write_close();
             	redirect(base_url().'index.php/admin/alumni','refresh');
-            }
+            }else if($param1 == 'delete'){
+            	$this->db->where('alumni_student_ID', $param2);
+	            $this->db->delete('alumni');
+
+	            $this->db->where('work_alumni_student_ID',$param2);
+	            $this->db->delete('work');
+
+	            $this->db->where('login_user_ID',$param2);
+	            $this->db->delete('login');
+	            
+	            $_SESSION['flashdata']	=	'Data Deleted';
+            	session_write_close();
+            	redirect(base_url().'index.php/admin/alumni','refresh');
+            }	
 
 
 			$page_data['page_name']		=	'alumni';
@@ -221,7 +283,8 @@
 		}
 
 		function appointment($param1 ='', $param2 = ''){
-
+			if ($_SESSION['account_type'] != 'admin')
+            	redirect(base_url(), 'refresh');
 
 			if($param1 == 'create'){
 
@@ -260,10 +323,10 @@
 			}else if($param1 == 'edit'){
 
 
-$prev_appointment_status = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_status;
-$prev_appointment_date = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_date_start;
-$prev_appointment_time_start = $this->db->get_where('appointment' , array('appointment_ID'=>$param2))->row()->appointment_time_start;
-$prev_appointment_time_end = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_time_end;
+				$prev_appointment_status = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_status;
+				$prev_appointment_date = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_date_start;
+				$prev_appointment_time_start = $this->db->get_where('appointment' , array('appointment_ID'=>$param2))->row()->appointment_time_start;
+				$prev_appointment_time_end = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_time_end;
 
 				$_SESSION['error_log'] = $prev_appointment_time_start."|".$prev_appointment_time_end."|".$prev_appointment_status."|".$prev_appointment_date;
 				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
@@ -328,13 +391,6 @@ $prev_appointment_time_end = $this->db->get_where('appointment' , array('appoint
 				exit();
 			}
 
-
-
-
-
-
-
-
 			$page_data['page_name']		=	'appointment';
 			$this->load->view('backend/index',$page_data);
 		}
@@ -342,13 +398,6 @@ $prev_appointment_time_end = $this->db->get_where('appointment' , array('appoint
 		function profile(){
 			$page_data['page_name']		= 	'profile';
 			$this->load->view('backend/index', $page_data);
-		}
-
-
-		function upload_form(){
-			$page_data['page_name']		=	'upload_form';
-			$page_data['error']		=	'';
-			$this->load->view('backend/index',$page_data);
 		}
 
 		function upload($param1	= ''){
@@ -430,9 +479,88 @@ $prev_appointment_time_end = $this->db->get_where('appointment' , array('appoint
 			if($_SESSION['account_type'] != 'admin')
 				redirect(base_url(),'refresh');
 
+			if($param1 == 'edit'){
+				$data['settings_description'] = $param2;
+
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'theme'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/admin/settings','refresh');
+				exit();
+			}elseif ($param1 == 'email_off') {
+				
+				$data['settings_description'] = "off";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'email'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/admin/settings','refresh');
+				exit();
+			}elseif ($param1 == 'email_on') {
+				
+				$data['settings_description'] = "on";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'email'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/admin/settings','refresh');
+				exit();
+			}elseif ($param1 == 'sms_off') {
+				
+				$data['settings_description'] = "off";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'sms'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/admin/settings','refresh');
+				exit();
+			}elseif ($param1 == 'sms_on') {
+				
+				$data['settings_description'] = "on";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'sms'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/admin/settings','refresh');
+				exit();
+			}elseif($param1 == 'change_password'){
+
+				$old_password = $this->input->post('admin_old_password');
+				$new_password = $this->input->post('admin_new_password');
+
+				$admin_password = $this->db->get_where('login' , array('login_user_ID' =>$_SESSION['user_ID']))->row()->login_password;
+
+				$_SESSION['error_log'] = $admin_password." ".$old_password;
+				if($old_password == $admin_password){
+
+					$data['login_password']		=	$new_password;
+					$this->db->where('login_user_ID', $_SESSION['user_ID']);
+					$this->db->update('login',$data);
+
+					$_SESSION['flashdata']  =   'Data Updated';
+					session_write_close();
+					redirect(base_url().'index.php/admin/settings','refresh');
+					exit();
+				}else{
+					$_SESSION['flashdata']  =   'ERROR';
+				}
+
+
+			}
+
+
 			$page_data['page_name']		=	'settings';
 			$this->load->view('backend/index',$page_data);
 		}
+
+		
+
 
 	}
 ?>

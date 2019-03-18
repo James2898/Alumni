@@ -3,18 +3,18 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-tabs card-header-danger">
+              <div class="card-header card-header-tabs card-header-<?php echo $_SESSION['theme_color'] ?>">
                 <div class="nav-tabs-navigation">
                   <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
-                          <a href="#list" class="nav-link " data-toggle="tab">
+                          <a href="#list" class="nav-link active" data-toggle="tab">
                             <i class="material-icons">announcement</i> Announcement List
                             <div class="ripple-container"></div>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a href="#add" class="nav-link active" data-toggle="tab">
+                          <a href="#add" class="nav-link" data-toggle="tab">
                             <i class="material-icons">add_comment</i> Add New
                             <div class="ripple-container"></div>
                           </a>
@@ -25,9 +25,9 @@
               </div>
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="tab-pane  table-responsive" id="list">
+                  <div class="tab-pane  table-responsive active" id="list">
                     <table class="table" id="table2">
-                      <thead class="text-danger">
+                      <thead class="text-<?php echo $_SESSION['theme_color'] ?>">
                         <th></th>
                       </thead>
                       <tbody>
@@ -54,7 +54,7 @@
                                       <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
                                              View
                                       </a>
-                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
+                                      <a href="#" class="btn btn-warning" onclick="confirmModal('<?php echo base_url();?>index.php/admin/announcement/delete/<?php echo $row['announcement_ID'] ?>')">
                                              Delete
                                       </a>
                                     </div>
@@ -75,13 +75,13 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="tab-pane active" id="add">
+                  <div class="tab-pane" id="add">
                     <?php echo form_open('admin/announcement/create/', 'class="login100-form validate-form col-md-12"','role="form"','id="form_login"'); ?>
                       <!--  -->
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Title</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Title</label>
                             <input type="text" class="form-control" name="announcement_title" required>
                           </div>
                         </div>
@@ -89,7 +89,7 @@
                        <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Subject</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Subject</label>
                             <input type="text" class="form-control" name="announcement_subject" required>
                           </div>
                         </div>
@@ -98,7 +98,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Content</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Content</label>
                             <textarea class="form-control" rows="5" name="announcement_content"></textarea>
                           </div>
                         </div>
@@ -134,7 +134,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <input type="submit" class="btn btn-danger pull-right" value="Add">
+                          <input type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right" value="Add">
                         </div>
                       </div>
                     <?php echo form_close(); ?>

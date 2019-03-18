@@ -18,6 +18,26 @@
         }
     </script>
 
+
+    <script type="text/javascript">
+        function confirmModal(delete_url){
+            Swal.fire({
+              title: 'Are you sure to delete this information?',
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes'
+            }).then((result) => {
+              if (result.value) {
+                window.location = delete_url;
+              }
+            })
+        }
+    </script>
+
+
+
     <!-- (Ajax Modal)-->
     <div class="modal fade" id="modal_ajax">
         <div class="modal-dialog modal-lg">
@@ -33,7 +53,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-<?php echo $_SESSION['theme_color'] ?>" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

@@ -22,13 +22,13 @@
                     ?>
                   </div>
                   <div class="text-center">
-                    <input type='file' class="btn-file btn btn-danger" name='profile_picture' onchange="readURL(this);" />
-                    <input type="submit" class="btn btn-danger btn-sm" value="Change">
+                    <input type='file' class="btn-file btn btn-<?php echo $_SESSION['theme_color'] ?>" name='profile_picture' onchange="readURL(this);" />
+                    <input type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm" value="Change">
                   </div > 
                 </div>
               <?php echo form_close(); ?>
               <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                   <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
                       <ul class="nav nav-tabs" data-tabs="tabs">
@@ -177,13 +177,13 @@
                             </div>
                           </div>
                           <div class="text-center">
-                            <button type="submit" class="btn btn-danger">Update</button>
+                            <button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?>">Update</button>
                           </div>
                         <?php echo form_close(); ?>
                       </div>
                       <div class="tab-pane" id="work_experience">
                         <div class="card"><!-- CURRENTLY WORKS AT -->
-                          <div class="card-header card-header-danger">
+                          <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                             <div class="nav-tabs-navigation">
                               <div class="nav-tabs-wrapper">
                                 <ul class="nav nav-tabs" data-tabs="tabs">
@@ -307,8 +307,8 @@
                                     </div>
                                     <div class="row">
                                       <div class="col-md-12">
-                                        <button class="btn btn-danger pull-right">Delete</button>
-                                        <button type="submit" class="btn btn-danger pull-right">Update</button>
+                                        <button class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Delete</button>
+                                        <button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Update</button>
                                       </div>
                                     </div>
                                   <?php echo form_close(); ?>
@@ -393,7 +393,7 @@
                                         </div>
                                       </div>
                                       <div class="col-md-12">
-                                        <button type="submit" class="btn btn-danger pull-right">Add</button>
+                                        <button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Add</button>
                                       </div>
                                     </div>
                                   <?php echo form_close(); ?>

@@ -30,7 +30,7 @@
 	                    </h4>
 	                </div>
 	                <div class="card">
-                    	<div class="card-header card-header-danger">
+                    	<div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                         	<div class="nav-tabs-navigation">
 	                    		<div class="nav-tabs-wrapper">
 	                      			<ul class="nav nav-tabs" data-tabs="tabs">
@@ -117,7 +117,7 @@
 		                                                <label>Facebook</label>
 													</div>
 		                                            <div class="col-md-8">
-		                                                <a href="#" class="text-danger">www.facebook.com/<?php echo $row['alumni_facebook'] ?></a>
+		                                                <a href="#" class="text-<?php echo $_SESSION['theme_color'] ?>">www.facebook.com/<?php echo $row['alumni_facebook'] ?></a>
 		                                             </div>
 		                                        </div>
 		                                        <div class="row">
@@ -125,7 +125,7 @@
 		                                                <label>LinkedIn</label>
 		                                            </div>
 		                                            <div class="col-md-8">
-		                                                <a href="#" class="text-danger">www.linkedin.com/<?php echo $row['alumni_linkedin'] ?></a>
+		                                                <a href="#" class="text-<?php echo $_SESSION['theme_color'] ?>">www.linkedin.com/<?php echo $row['alumni_linkedin'] ?></a>
 		                                            </div>
 		                                        </div>
 		                                        <div class="row">
@@ -133,7 +133,7 @@
 		                                                <label>Website</label>
 		                                            </div>
 		                                            <div class="col-md-8">
-		                                                <a href="#" class="text-danger">www.<?php echo $row['alumni_website']?>.com</a>
+		                                                <a href="#" class="text-<?php echo $_SESSION['theme_color'] ?>">www.<?php echo $row['alumni_website']?>.com</a>
 		                                            </div>
 		                                        </div>
 		                                  	</div>
@@ -143,7 +143,8 @@
 	                    		<div class="tab-pane" id="work_experience">
 	                    			<div class="table-responsive">
 			                          	<table class="table text-center">
-			                            	<thead class="text-danger">
+			                            	<thead class="text-<?php echo $_SESSION['theme_color'] ?>">
+			                            		<th>Industry</th>
 				                              	<th>Position</th>
 				                              	<th>Company</th>
 				                              	<th>Company Address</th>
@@ -156,12 +157,14 @@
 										    $this->db->from('work');
 										    $this->db->join('alumni','alumni.alumni_student_ID = work.work_alumni_student_ID');
 										    $this->db->join('salary','work.work_alumni_salary_range = salary.salary_ID');
+										    $this->db->join('industry','industry.industry_ID = work.work_industry');
 										    $this->db->where('alumni_student_ID',$param1);
 
 										    $query2 = $this->db->get()->result_array();
 		   									foreach ($query2 as $row2):
 			                              ?>
 			                            	<tr>
+			                            		<td><?php echo $row2['industry_title'] ?></td>
 				                              	<td><?php echo $row2['work_alumni_position'] ?></td>
 				                                <td><?php echo $row2['work_company_name'] ?></td>
 				                                <td><?php echo $row2['work_company_address'] ?></td>

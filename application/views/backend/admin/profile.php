@@ -28,7 +28,7 @@
                       <h4>Admin</h4>
                     </div>
                     <div class="card">
-                        <div class="card-header card-header-danger">
+                        <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                           <h4 class="card-title"><i class="fa fa-info-circle"></i> About</h4>
                         </div>
                         <div class="card-body">
@@ -69,7 +69,7 @@
                                             </div>
                                       </div>
                                     </div>
-                                    <button class="btn btn-danger" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_admin/')"><i class="fa fa-edit"></i> Edit</button>
+                                    <button class="btn btn-<?php echo $_SESSION['theme_color'] ?>" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_admin/')"><i class="fa fa-edit"></i> Edit</button>
                                 </div>
                             </div>
                           </div>

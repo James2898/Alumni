@@ -365,6 +365,82 @@
 			if($_SESSION['account_type'] != 'alumni')
 				redirect(base_url(),'refresh');
 
+			if($param1 == 'edit'){
+				$data['settings_description'] = $param2;
+
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'theme'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/settings','refresh');
+				exit();
+			}elseif ($param1 == 'email_off') {
+				
+				$data['settings_description'] = "off";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'email'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/settings','refresh');
+				exit();
+			}elseif ($param1 == 'email_on') {
+				
+				$data['settings_description'] = "on";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'email'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/settings','refresh');
+				exit();
+			}elseif ($param1 == 'sms_off') {
+				
+				$data['settings_description'] = "off";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'sms'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/settings','refresh');
+				exit();
+			}elseif ($param1 == 'sms_on') {
+				
+				$data['settings_description'] = "on";
+				$this->db->where(array('settings_user_ID' => $_SESSION['user_ID'],'settings_type' => 'sms'));
+				$this->db->update('settings', $data);
+
+				$_SESSION['flashdata']	=	'Data Updated';
+				session_write_close();
+				redirect(base_url().'index.php/alumni/settings','refresh');
+				exit();
+			}elseif($param1 == 'change_password'){
+
+				$old_password = $this->input->post('admin_old_password');
+				$new_password = $this->input->post('admin_new_password');
+
+				$admin_password = $this->db->get_where('login' , array('login_user_ID' =>$_SESSION['user_ID']))->row()->login_password;
+
+				$_SESSION['error_log'] = $admin_password." ".$old_password;
+				if($old_password == $admin_password){
+
+					$data['login_password']		=	$new_password;
+					$this->db->where('login_user_ID', $_SESSION['user_ID']);
+					$this->db->update('login',$data);
+
+					$_SESSION['flashdata']  =   'Data Updated';
+					session_write_close();
+					redirect(base_url().'index.php/alumni/settings','refresh');
+					exit();
+				}else{
+					$_SESSION['flashdata']  =   'ERROR';
+				}
+
+
+			}
+
+
 			$page_data['page_name']		=	'settings';
 			$this->load->view('backend/index',$page_data);
 		}

@@ -4,10 +4,10 @@
 		          			<div class="navbar-wrapper">
 		            			<h4>
 		            				<?php 
-		            					echo "Welcome, ".ucwords($this->db->get_where('admin' , array('admin_ID' =>$_SESSION['user_ID']) )->row()->admin_fname)." | ".ucwords(str_replace("_", " ", $page_name));
+		            					echo "Welcome, Admin ".ucwords($this->db->get_where('admin' , array('admin_ID' =>$_SESSION['user_ID']) )->row()->admin_fname)." | ".ucwords(str_replace("_", " ", $page_name));
 
 		            					//echo date('Y-m-d h:m:s');
-		            					//Print_r($_SESSION);
+		            					Print_r($_SESSION);
 		            					//echo phpinfo();
 		            				?>
 		            			</h4>
@@ -32,7 +32,7 @@
 			              			
 			              			<li class="nav-item dropdown">
 			                			<a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			                  				<i class="material-icons">notifications</i>
+			                  				<i class="material-icons text-<?php echo $_SESSION['theme_color'] ?>">notifications</i>
 			                  				<span class="notification">
 			                  					<?php  
 			                  						echo $this->db->get_where('notification' , array('notification_recieve_ID' =>$_SESSION['user_ID'],'notification_unread'=>'TRUE'))->num_rows();
@@ -83,20 +83,20 @@
 				                  				endforeach;
 				                  			?>
 				                  			<div class="text-center">
-				                  				<a class="dropdown-item pull-center" href="<?php echo base_url()."index.php/alumni/notifications" ?>">View all ...</a>
+				                  				<a class="dropdown-item pull-center" href="<?php echo base_url()."index.php/admin/notifications" ?>">View all ...</a>
 				                  			</div>
 			                			</div>
 			              			</li>
 			              			<li class="nav-item dropdown">
 			                			<a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			                  				<i class="material-icons">person</i>
+			                  				<i class="material-icons text-<?php echo $_SESSION['theme_color'] ?>">person</i>
 			                  				<p class="d-lg-none d-md-block">
 			                    				Account
 			                  				</p>
 			                			</a>
 			                			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/alumni/profile">Profile</a>
-			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/alumni/settings">Settings</a>
+			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/admin/profile">Profile</a>
+			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/admin/settings">Settings</a>
 			                  				<div class="dropdown-divider"></div>
 			                  				<a class="dropdown-item" href="<?php echo base_url(); ?>index.php/login/logout">Log out</a>
 			                			</div>

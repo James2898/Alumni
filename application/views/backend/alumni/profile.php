@@ -31,7 +31,7 @@
                 </h4>
               </div>
               <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-<?php echo $_SESSION['theme_color'] ?>">
                     <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
                         <ul class="nav nav-tabs" data-tabs="tabs">
@@ -118,7 +118,7 @@
                                               <label>Facebook</label>
                                           </div>
                                           <div class="col-md-8">
-                                              <a href="#" class="text-danger">www.facebook.com/<?php echo $row['alumni_facebook'] ?></a>
+                                              <a href="#" class="text-<?php echo $_SESSION['theme_color'] ?>">www.facebook.com/<?php echo $row['alumni_facebook'] ?></a>
                                            </div>
                                       </div>
                                       <div class="row">
@@ -126,7 +126,7 @@
                                               <label>LinkedIn</label>
                                           </div>
                                           <div class="col-md-8">
-                                              <a href="#" class="text-danger">www.linkedin.com/<?php echo $row['alumni_linkedin'] ?></a>
+                                              <a href="#" class="text-<?php echo $_SESSION['theme_color'] ?>">www.linkedin.com/<?php echo $row['alumni_linkedin'] ?></a>
                                           </div>
                                       </div>
                                       <div class="row">
@@ -134,7 +134,7 @@
                                               <label>Website</label>
                                           </div>
                                           <div class="col-md-8">
-                                              <a href="#" class="text-danger">www.<?php echo $row['alumni_website']?>.com</a>
+                                              <a href="#" class="text-<?php echo $_SESSION['theme_color'] ?>">www.<?php echo $row['alumni_website']?>.com</a>
                                           </div>
                                       </div>
                                   </div>
@@ -144,7 +144,7 @@
                     <div class="tab-pane" id="pwork_experience">
                       <div class="table-responsive">
                             <table class="table text-center">
-                              <thead class="text-danger">
+                              <thead class="text-<?php echo $_SESSION['theme_color'] ?>">
                                   <th>Position</th>
                                   <th>Company</th>
                                   <th>Company Address</th>
@@ -185,7 +185,7 @@
                     </div>
                   </div>
                 </div>
-                <button class="btn btn-danger" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_alumni/<?php echo $_SESSION['user_ID'] ?>')">Edit</button>
+                <button class="btn btn-<?php echo $_SESSION['theme_color'] ?>" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_alumni/<?php echo $_SESSION['user_ID'] ?>')">Edit</button>
               </div>
             </div>
 

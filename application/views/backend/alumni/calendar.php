@@ -47,7 +47,7 @@ $(document).ready(function() {
           $this->db->select("*");
           $this->db->from('appointment');
           $this->db->join('alumni','alumni.alumni_student_ID = appointment.appointment_alumni_ID');
-          //$this->db->where('appointment_status','Approved');
+          $this->db->where('appointment_date_end >=', date('Y-m-d'));
 
           $query = $this->db->get()->result_array();
           foreach ($query as $row):
@@ -56,7 +56,7 @@ $(document).ready(function() {
             }else if($row['appointment_status'] == 'Waiting'){
               $color = '#1e88e5';
             }else if($row['appointment_status'] == 'Cancelled'){
-              $color = '#e53935';
+              continue;
             }
       ?>
             {

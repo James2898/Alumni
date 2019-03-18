@@ -93,7 +93,7 @@
                 action: function ( e, dt, node, config ) {
                   window.location.href= '<?php echo base_url().'index.php/alumni/notifications/read_all' ?>'
                 },
-                className: 'btn btn-danger'
+                className: 'btn btn-<?php echo $_SESSION['theme_color'] ?>'
             }
           ]
         });
@@ -159,6 +159,24 @@
           ";
 
         }
+
+        if($_SESSION['flashdata'] == 'Data Deleted'){
+          $_SESSION['flashdata'] =  '';
+          echo "
+
+            <script type='text/javascript'>
+              Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'Data Deleted',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+
+          ";
+
+        }
 ?>
 
 <script type="text/javascript">
@@ -188,7 +206,7 @@
             $(document).ready(function() {
                 $('#announcement_alumni').multiselect({
                     nonSelectedText: 'Reciepients',    
-                    buttonClass: 'btn btn-danger',
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                     buttonWidth: '100%',
                     enableClickableOptGroups: true,
                     includeSelectAllOption: true,
@@ -198,4 +216,80 @@
 
                 });
             });
+            $(document).ready(function() {
+                $('#alumni_degree').multiselect({
+                    nonSelectedText: 'Alumni Degree',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                    enableFiltering: true,
+                    filterPlaceholder: 'Search Degree ...'
+
+                });
+            });
+            $(document).ready(function() {
+                $('#alumni_major').multiselect({
+                    nonSelectedText: 'Alumni Major',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                    enableFiltering: true,
+                    filterPlaceholder: 'Search Degree ...'
+
+                });
+            });
+            $(document).ready(function() {
+                $('#alumni_grad_year').multiselect({
+                    nonSelectedText: 'Grad Year',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                });
+            });
+            $(document).ready(function() {
+                $('#alumni_gender').multiselect({
+                    nonSelectedText: 'Alumni Gender',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
+                    buttonWidth: '100%',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                });
+            });
+            $(document).ready(function() {
+                $('#settings_theme').multiselect({
+                    nonSelectedText: 'Theme Color',    
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
+                    enableClickableOptGroups: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                    onChange: function(options, checked, select) {
+                        var value = $(options).val();
+                        window.location = "<?php echo base_url()?>index.php/<?php echo $_SESSION['account_type'] ?>/settings/edit/"+value
+                    }
+                });
+            });
+        </script>
+        
+        <script type="text/javascript">
+          $("#recieve_email").change(function(event) {
+            if(this.checked){
+              window.location = "<?php echo base_url();?>index.php/<?php echo $_SESSION['account_type'] ?>/settings/email_on";
+            }else{
+              window.location = "<?php echo base_url();?>index.php/<?php echo $_SESSION['account_type'] ?>/settings/email_off";
+            }
+          });
+          $("#recieve_sms").change(function(event) {
+            if(this.checked){
+              window.location = "<?php echo base_url();?>index.php/<?php echo $_SESSION['account_type'] ?>/settings/sms_on";
+            }else{
+              window.location = "<?php echo base_url();?>index.php/<?php echo $_SESSION['account_type'] ?>/settings/sms_off";
+            }
+          });
         </script>

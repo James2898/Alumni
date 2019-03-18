@@ -3,7 +3,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-tabs card-header-danger">
+              <div class="card-header card-header-tabs card-header-<?php echo $_SESSION['theme_color'] ?>">
                 <div class="nav-tabs-navigation">
                   <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" data-tabs="tabs">
@@ -70,11 +70,11 @@
 								<div class="row">
 									<div class="col-md-12">
 										
-										<button type="submit" class="btn btn-danger pull-right">Update</button>
+										<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Update</button>
 									
 						  	<?php echo form_close(); ?>
 						  	<?php echo form_open('alumni/appointment/cancel/'.$param1, 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
-										<button type="submit" class="btn btn-danger pull-right">Cancel Appointment</button>
+										<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Cancel Appointment</button>
 							<?php echo form_close(); ?>
 									</div>
 								</div>
@@ -92,7 +92,7 @@
       	$(document).ready(function() {
 	        $('#example-getting-started').multiselect({
 	          nonSelectedText: 'Scheduled',    
-	          buttonClass: 'btn btn-danger',
+	          buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
 	          buttonWidth: '100%',
 	          maxHeight: 450 ,
 	          enableFiltering: true,
@@ -102,7 +102,7 @@
       	$(document).ready(function() {
 	        $('.add_appointment').multiselect({
 	          nonSelectedText: 'Scheduled',    
-	          buttonClass: 'btn btn-danger',
+	          buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
 	          buttonWidth: '100%',
 	          maxHeight: 450 ,
 	          enableFiltering: true,

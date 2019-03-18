@@ -1,6 +1,9 @@
 <?php 
 	//session_start();
 	date_default_timezone_set('Asia/Manila');
+	$theme_ID = $this->db->get_where('settings' , array('settings_user_ID' =>$_SESSION['user_ID'],'settings_type' => 'theme'))->row()->settings_description;
+	$theme_color = $this->db->get_where('theme' , array('theme_ID' => $theme_ID))->row()->theme_description;
+	$_SESSION['theme_color'] = $theme_color;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,35 +28,12 @@
 				</div>
 				<footer class="footer">
 					<div class="container-fluid">
-				        <nav class="float-left">
-							<ul>
-				              	<li>
-					                <a href="https://www.creative-tim.com">
-				                  		Creative Timxxxx
-				                	</a>
-				              	</li>
-				              	<li>
-					                <a href="https://creative-tim.com/presentation">
-				                  		About Us
-				                	</a>
-				              	</li>
-				              	<li>
-					                <a href="http://blog.creative-tim.com">
-				                  		Blog
-				                	</a>
-				              	</li>
-				              	<li>
-					                <a href="https://www.creative-tim.com/license">
-				                  		Licenses
-				                	</a>
-				              	</li>
-				            </ul>
-				        </nav>
 				        <div class="copyright float-right">
 							&copy;
 				            <script>
 				            	document.write(new Date().getFullYear())
-				            </script>, made with <i class="material-icons">favorite</i> by
+				            </script>
+				            , made with <i class="material-icons">favorite</i> by
 				            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
 				        </div>
 				    </div>

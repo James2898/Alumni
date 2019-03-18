@@ -16,7 +16,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Title</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Title</label>
                             <input type="text" class="form-control" name="announcement_title" value="<?php echo $row['announcement_title'] ?>" required>
                           </div>
                         </div>
@@ -24,7 +24,7 @@
                        <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Subject</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Subject</label>
                             <input type="text" class="form-control" name="announcement_subject" value="<?php echo $row['announcement_subject'] ?>" required>
                           </div>
                         </div>
@@ -33,7 +33,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label-floating text-danger">Content</label>
+                            <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Content</label>
                             <textarea class="form-control" rows="5" name="announcement_content"><?php echo $row['announcement_content'] ?></textarea>
                           </div>
                         </div>
@@ -44,7 +44,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <input type="submit" class="btn btn-danger pull-right" value="Update">
+                          <input type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right" value="Update">
                         </div>
                       </div>
                     <?php echo form_close(); ?>
