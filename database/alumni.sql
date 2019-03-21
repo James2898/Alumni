@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2019 at 06:18 AM
+-- Generation Time: Mar 21, 2019 at 08:56 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `alumni`
@@ -28,21 +22,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `admin_ID` int(11) NOT NULL,
-  `admin_profile_picture` blob NOT NULL,
+  `admin_profile_picture` text COLLATE utf8mb4_bin NOT NULL,
   `admin_fname` text COLLATE utf8mb4_bin NOT NULL,
   `admin_mname` text COLLATE utf8mb4_bin NOT NULL,
   `admin_lname` text COLLATE utf8mb4_bin NOT NULL,
+  `admin_address` text COLLATE utf8mb4_bin,
   `admin_email` text COLLATE utf8mb4_bin NOT NULL,
-  `admin_cno` text COLLATE utf8mb4_bin NOT NULL,
-  `admin_lno` text COLLATE utf8mb4_bin NOT NULL
+  `admin_facebook` text COLLATE utf8mb4_bin,
+  `admin_lno` text COLLATE utf8mb4_bin NOT NULL,
+  `admin_cno` text COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_ID`, `admin_profile_picture`, `admin_fname`, `admin_mname`, `admin_lname`, `admin_email`, `admin_cno`, `admin_lno`) VALUES
-(1, '', 'James Emmanuel', 'Montealegre', 'Martinez', 'amajamesmartinez@gmail.com', '12345678910', '12345678910');
+INSERT INTO `admin` (`admin_ID`, `admin_profile_picture`, `admin_fname`, `admin_mname`, `admin_lname`, `admin_address`, `admin_email`, `admin_facebook`, `admin_lno`, `admin_cno`) VALUES
+(1, '1.jpg?12341', 'James Emmanuel', 'Montealegre', 'Martinez', 'Philippines', 'amajamesmartinez@gmail.com', 'James2898', '123', '09381257028');
 
 -- --------------------------------------------------------
 
@@ -52,29 +48,33 @@ INSERT INTO `admin` (`admin_ID`, `admin_profile_picture`, `admin_fname`, `admin_
 
 CREATE TABLE `alumni` (
   `alumni_ID` int(11) NOT NULL,
-  `alumni_student_ID` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_profile_picture` blob NOT NULL,
-  `alumni_fname` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_mname` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_lname` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_cno` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_lno` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_email` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_facebook` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_linkedin` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_website` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_degree` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_major` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_grad_year` text COLLATE utf8mb4_bin NOT NULL,
-  `alumni_register_date` text COLLATE utf8mb4_bin NOT NULL
+  `alumni_student_ID` text COLLATE utf8mb4_bin,
+  `alumni_profile_picture` text COLLATE utf8mb4_bin,
+  `alumni_fname` text COLLATE utf8mb4_bin,
+  `alumni_mname` text COLLATE utf8mb4_bin,
+  `alumni_lname` text COLLATE utf8mb4_bin,
+  `alumni_gender` text COLLATE utf8mb4_bin,
+  `alumni_address` text COLLATE utf8mb4_bin,
+  `alumni_cno` text COLLATE utf8mb4_bin,
+  `alumni_lno` text COLLATE utf8mb4_bin,
+  `alumni_email` text COLLATE utf8mb4_bin,
+  `alumni_facebook` text COLLATE utf8mb4_bin,
+  `alumni_linkedin` text COLLATE utf8mb4_bin,
+  `alumni_website` text COLLATE utf8mb4_bin,
+  `alumni_degree` text COLLATE utf8mb4_bin,
+  `alumni_major` text COLLATE utf8mb4_bin,
+  `alumni_grad_year` int(11) DEFAULT NULL,
+  `alumni_register_date` text COLLATE utf8mb4_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `alumni`
 --
 
-INSERT INTO `alumni` (`alumni_ID`, `alumni_student_ID`, `alumni_profile_picture`, `alumni_fname`, `alumni_mname`, `alumni_lname`, `alumni_cno`, `alumni_lno`, `alumni_email`, `alumni_facebook`, `alumni_linkedin`, `alumni_website`, `alumni_degree`, `alumni_major`, `alumni_grad_year`, `alumni_register_date`) VALUES
-(1, '16004187600', '', 'James Emmanuel', 'Montealegre', 'Martinez', '124567890', '1234567890', 'amajamesmartinez@gmail.com', 'www.facebook.com/James2898', 'www.linkedin.com/James2898', 'www.James2898.com', '1', '1', '2019', '2019-02-27');
+INSERT INTO `alumni` (`alumni_ID`, `alumni_student_ID`, `alumni_profile_picture`, `alumni_fname`, `alumni_mname`, `alumni_lname`, `alumni_gender`, `alumni_address`, `alumni_cno`, `alumni_lno`, `alumni_email`, `alumni_facebook`, `alumni_linkedin`, `alumni_website`, `alumni_degree`, `alumni_major`, `alumni_grad_year`, `alumni_register_date`) VALUES
+(16, '123', '123.jpg?1234', 'Jiro', 'Cruz', 'Martinez', 'Male', '', '09774720937', '', 'zion.martin0888@gmail.com', '', '', '', '2', '6', 2000, '2019-03-15'),
+(17, '1234', '1234.png?1234', 'Farah', 'Llesis', 'Eludo', 'Female', 'Philippines', '', '', 'farah.eludo2398@gmail.com', '', '', '', '1', '14', 2010, '2019-03-20'),
+(18, '12345', '12345.jpg?1234', 'Jolan', 'Castillio', 'Clemente', 'Male', 'Philippines', '123', '123', 'amajamesmartinez@gmail.com', '123', '123', '123', '7', '2', 2000, '2019-03-20');
 
 -- --------------------------------------------------------
 
@@ -84,10 +84,10 @@ INSERT INTO `alumni` (`alumni_ID`, `alumni_student_ID`, `alumni_profile_picture`
 
 CREATE TABLE `announcement` (
   `announcement_ID` int(11) NOT NULL,
-  `announcement_title` text COLLATE utf8mb4_bin NOT NULL,
-  `announcement_content` text COLLATE utf8mb4_bin NOT NULL,
-  `announcement_date` text COLLATE utf8mb4_bin NOT NULL,
-  `announcement_statust` text COLLATE utf8mb4_bin NOT NULL
+  `announcement_title` text COLLATE utf8mb4_bin,
+  `announcement_subject` text COLLATE utf8mb4_bin,
+  `announcement_content` text COLLATE utf8mb4_bin,
+  `announcement_date` text COLLATE utf8mb4_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -98,10 +98,13 @@ CREATE TABLE `announcement` (
 
 CREATE TABLE `appointment` (
   `appointment_ID` int(11) NOT NULL,
-  `appointment_alumni_ID` int(11) NOT NULL,
-  `appointment_details` text COLLATE utf8mb4_bin NOT NULL,
-  `appointment_datetime` text COLLATE utf8mb4_bin NOT NULL,
-  `appointment_status` text COLLATE utf8mb4_bin NOT NULL
+  `appointment_alumni_ID` text COLLATE utf8mb4_bin,
+  `appointment_details` text COLLATE utf8mb4_bin,
+  `appointment_date_start` text COLLATE utf8mb4_bin,
+  `appointment_date_end` text COLLATE utf8mb4_bin,
+  `appointment_time_start` text COLLATE utf8mb4_bin,
+  `appointment_time_end` text COLLATE utf8mb4_bin,
+  `appointment_status` text COLLATE utf8mb4_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -111,48 +114,10 @@ CREATE TABLE `appointment` (
 --
 
 CREATE TABLE `ci_sessions` (
-  `id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `id` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `ip_address` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `ci_sessions`
---
-
-INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('1kguihu0o8fvu1ii37mqv7ssb1tkd8cc', '::1', 1551322111, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332323131313b),
-('65gmnt9g8pgh2bmi4vn7necaffl51qos', '::1', 1551322176, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332323037353b6163636f756e745f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b6c6f67696e5f6c6576656c7c733a313a2231223b),
-('m29g5oglitieb1rmeaje88vtm3cba4sk', '::1', 1551322475, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332323437353b),
-('0955ds60pqa45i91r8s7f51op8mhsl6f', '::1', 1551322475, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332323437353b),
-('aieamgbohu2nabjnbt3q0p85m4', '::1', 1551322657, ''),
-('ja9g0gnsv1u4mf2hdeuf18ur86', '::1', 1551322667, ''),
-('eg13j1gkqpg7b1eht0kop0b8d0', '::1', 1551322683, ''),
-('37i6hs8o8vtssltbena2eb56di5rd2q0', '::1', 1551322969, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332323936393b),
-('r4tv5tesb88umoeiu2akdm5b8htl6mit', '::1', 1551323751, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332333735313b6163636f756e745f747970657c733a353a2261646d696e223b),
-('qblgcstirreqckfm6dicei0qj9q3nfnr', '::1', 1551324173, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332343137333b6163636f756e745f747970657c733a353a2261646d696e223b),
-('qus025lg2eapd8s4dlf8q6ukbleg8h33', '::1', 1551324566, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332343536363b6163636f756e745f747970657c733a353a2261646d696e223b),
-('nihg5m9nhshul0ih562hgd7lsaa135p7', '::1', 1551325076, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332353037363b6163636f756e745f747970657c733a353a2261646d696e223b),
-('74t29tb01n7vsmrdr3r7inmv6e2l9mj3', '::1', 1551325925, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332353932353b6163636f756e745f747970657c733a353a2261646d696e223b),
-('fovn8ctlikcbgk6sh85qoln7j4pnjj9d', '::1', 1551326299, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332363239393b6163636f756e745f747970657c733a353a2261646d696e223b),
-('0jk7nse12eae5h15r8jhb5tvn27usppu', '::1', 1551326612, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332363631323b6163636f756e745f747970657c733a353a2261646d696e223b),
-('k0lrviftoocgdg23phc8ms181c3k22pq', '::1', 1551327046, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332373034363b6163636f756e745f747970657c733a353a2261646d696e223b),
-('0nqi8ivtehtruep6t1ogfskjvgt4c6u1', '::1', 1551327567, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332373536373b6163636f756e745f747970657c733a353a2261646d696e223b),
-('crhgmaovv48uq089eqeu2j253mqvsm3a', '::1', 1551329754, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313332393735343b6163636f756e745f747970657c733a353a2261646d696e223b),
-('ru9rkovkjmkc5plsuek4egnnfdvcq7r5', '::1', 1551330604, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313333303630343b6163636f756e745f747970657c733a353a2261646d696e223b),
-('3aa3okiucnlh2rakfq0eiadjf0lk1vbj', '::1', 1551330605, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535313333303630343b6163636f756e745f747970657c733a353a2261646d696e223b);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `company`
---
-
-CREATE TABLE `company` (
-  `company_ID` int(11) NOT NULL,
-  `company_name` int(11) NOT NULL,
-  `company_address` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -168,6 +133,188 @@ CREATE TABLE `courses` (
   `course_description` text COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_ID`, `course_college`, `course_title`, `course_description`) VALUES
+(1, 'College of Computer Studies', 'BSCS', 'Bachelor of Science in Computer Science '),
+(2, 'College of Computer Studies', 'BSIT', 'Bachelor of Science in Information Technology'),
+(3, 'College of Computer Studies', 'BSIS', 'Bachelor of Science in Information Systems'),
+(4, 'College of Engineering', 'BSCpE', 'Bachelor of Science in Computer Engineering'),
+(5, 'College of Engineering', 'BSEE', 'Bachelor of Science in  Electronics Engineering'),
+(6, 'College of Engineering', 'BSIE', 'Bachelor of Science in Industrial Engineering'),
+(7, 'College of Business Administration', 'BSBA', 'Bachelor of Science in Business Administration'),
+(8, 'College of Business Administration', 'BSA', 'Bachelor of Science in Accountancy'),
+(9, 'College of Arts and Sciences', 'BAENGL', 'Bachelor of Arts in English'),
+(10, 'College of Arts and Sciences', 'BAECON', 'Bachelor of Arts in Economics'),
+(11, 'College of Arts and Sciences', 'BAP', 'Bachelor of Arts in Psychology'),
+(12, 'College of Arts and Sciences', 'BAMC', 'Bachelor of Arts in Mass Communication '),
+(13, 'College of Arts and Sciences', 'BAPS', 'Bachelor of Arts in Political Science');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industry`
+--
+
+CREATE TABLE `industry` (
+  `industry_ID` int(11) NOT NULL,
+  `industry_title` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `industry`
+--
+
+INSERT INTO `industry` (`industry_ID`, `industry_title`) VALUES
+(1, 'Accounting'),
+(2, 'Airlines/Aviation'),
+(3, 'Alternative Dispute Resolution'),
+(4, 'Alternative Medicine'),
+(5, 'Animation'),
+(6, 'Apparel & Fashion'),
+(7, 'Architecture & Planning'),
+(8, 'Arts & Crafts'),
+(9, 'Automotive'),
+(10, 'Aviation & Aerospace'),
+(11, 'Banking'),
+(12, 'Biotechnology'),
+(13, 'Broadcast Media'),
+(14, 'Building Materials'),
+(15, 'Business Supplies & Equipment'),
+(16, 'Capital Markets'),
+(17, 'Chemicals'),
+(18, 'Civic & Social Organization'),
+(19, 'Civil Engineering'),
+(20, 'Commercial Real Estate'),
+(21, 'Computer & Network Security'),
+(22, 'Computer Games'),
+(23, 'Computer Hardware'),
+(24, 'Computer Networking'),
+(25, 'Computer Software'),
+(26, 'Construction'),
+(27, 'Consumer Electronics'),
+(28, 'Consumer Goods'),
+(29, 'Consumer Services'),
+(30, 'Cosmetics'),
+(31, 'Dairy'),
+(32, 'Defense & Space'),
+(33, 'Design'),
+(34, 'E-learning'),
+(35, 'Education Management'),
+(36, 'Electrical & Electronic Manufacturing'),
+(37, 'Entertainment'),
+(38, 'Environmental Services'),
+(39, 'Events Services'),
+(40, 'Executive Office'),
+(41, 'Facilities Services'),
+(42, 'Farming'),
+(43, 'Financial Services'),
+(44, 'Fine Art'),
+(45, 'Fishery'),
+(46, 'Food & Beverages'),
+(47, 'Food Production'),
+(48, 'Fundraising'),
+(49, 'Furniture'),
+(50, 'Glass, Ceramics & Concrete'),
+(51, 'Government Administration'),
+(52, 'Government Relations'),
+(53, 'Graphic Design'),
+(54, 'Health, Wellness & Fitness'),
+(55, 'Higher Education'),
+(56, 'Hospital & Health Care'),
+(57, 'Hospitality'),
+(58, 'Human Resources'),
+(59, 'Import & Export'),
+(60, 'Individual & Family Services'),
+(61, 'Industrial Automation'),
+(62, 'Information Services'),
+(63, 'Information Technology & Services'),
+(64, 'Insurance'),
+(65, 'International Affairs'),
+(66, 'International Trade & Development'),
+(67, 'Internet'),
+(68, 'Investment Banking'),
+(69, 'Investment Management'),
+(70, 'Judiciary'),
+(71, 'Law Enforcement'),
+(72, 'Law Practice'),
+(73, 'Legal Services'),
+(74, 'Legislative Office'),
+(75, 'Leisure, Travel & Tourism'),
+(76, 'Libraries'),
+(77, 'Logistics & Supply Chain'),
+(78, 'Luxury Goods & Jewelry'),
+(79, 'Machinery'),
+(80, 'Management Consulting'),
+(81, 'Maritime'),
+(82, 'Market Research'),
+(83, 'Marketing & Advertising'),
+(84, 'Mechanical Or Industrial Engineering'),
+(85, 'Media Production'),
+(86, 'Medical Device'),
+(87, 'Medical Practice'),
+(88, 'Mental Health Care'),
+(89, 'Military'),
+(90, 'Mining & Metals'),
+(91, 'Motion Pictures & Film'),
+(92, 'Museums & Institutions'),
+(93, 'Music'),
+(94, 'Nanotechnology'),
+(95, 'Newspapers'),
+(96, 'Non-profit Organization Management'),
+(97, 'Oil & Energy'),
+(98, 'Online Media'),
+(99, 'Outsourcing/Offshoring'),
+(100, 'Package/Freight Delivery'),
+(101, 'Packaging & Containers'),
+(102, 'Paper & Forest Products'),
+(103, 'Performing Arts'),
+(104, 'Pharmaceuticals'),
+(105, 'Philanthropy'),
+(106, 'Photography'),
+(107, 'Plastics'),
+(108, 'Political Organization'),
+(109, 'Primary/Secondary Education'),
+(110, 'Printing'),
+(111, 'Professional Training & Coaching'),
+(112, 'Program Development'),
+(113, 'Public Policy'),
+(114, 'Public Relations & Communications'),
+(115, 'Public Safety'),
+(116, 'Publishing'),
+(117, 'Railroad Manufacture'),
+(118, 'Ranching'),
+(119, 'Real Estate'),
+(120, 'Recreational Facilities & Services'),
+(121, 'Religious Institutions'),
+(122, 'Renewables & Environment'),
+(123, 'Research'),
+(124, 'Restaurants'),
+(125, 'Retail'),
+(126, 'Security & Investigations'),
+(127, 'Semiconductors'),
+(128, 'Shipbuilding'),
+(129, 'Sporting Goods'),
+(130, 'Sports'),
+(131, 'Staffing & Recruiting'),
+(132, 'Supermarkets'),
+(133, 'Telecommunications'),
+(134, 'Textiles'),
+(135, 'Think Tanks'),
+(136, 'Tobacco'),
+(137, 'Translation & Localization'),
+(138, 'Transportation/Trucking/Railroad'),
+(139, 'Utilities'),
+(140, 'Venture Capital & Private Equity'),
+(141, 'Veterinary'),
+(142, 'Warehousing'),
+(143, 'Wholesale'),
+(144, 'Wine & Spirits'),
+(145, 'Wireless'),
+(146, 'Writing & Editing');
+
 -- --------------------------------------------------------
 
 --
@@ -176,7 +323,7 @@ CREATE TABLE `courses` (
 
 CREATE TABLE `login` (
   `login_ID` int(11) NOT NULL,
-  `login_user_ID` int(11) NOT NULL,
+  `login_user_ID` text COLLATE utf8mb4_bin NOT NULL,
   `login_password` text COLLATE utf8mb4_bin NOT NULL,
   `login_level` text COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -186,7 +333,96 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`login_ID`, `login_user_ID`, `login_password`, `login_level`) VALUES
-(1, 1, 'admin', '1');
+(1, '1', 'admin', '1'),
+(10, '123', '123', '2'),
+(11, '1234', '1234', '2'),
+(12, '12345', '12345', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `major`
+--
+
+CREATE TABLE `major` (
+  `major_ID` int(11) NOT NULL,
+  `major_course_ID` text COLLATE utf8mb4_bin NOT NULL,
+  `major_name` text COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `major`
+--
+
+INSERT INTO `major` (`major_ID`, `major_course_ID`, `major_name`) VALUES
+(1, '7', 'Financial Management'),
+(2, '7', 'Human Resource Development Management'),
+(3, '7', 'Marketing'),
+(4, '2', 'Computer Animation'),
+(5, '2', 'Multimedia Arts'),
+(6, '2', 'Digital Arts'),
+(7, '2', 'Service Management'),
+(8, '2', 'Business Analytics'),
+(9, '2', 'Network Administration Plan'),
+(10, '2', 'Web Application Development'),
+(11, '2', 'Game Development'),
+(12, '2', 'Mobile Applications'),
+(13, '2', 'Robotics'),
+(14, '1', 'Systems and Software Egineering'),
+(15, '1', 'Software Development Plan'),
+(16, '1', 'Game Development'),
+(17, '1', 'Mobile Applications Development'),
+(18, '1', 'Service Management'),
+(19, '1', 'Business Analytics'),
+(20, '1', 'Digital Arts'),
+(21, '1', 'Computer Animation'),
+(22, '1', 'Multimedia Arts'),
+(23, '1', 'Network Administration'),
+(24, '1', 'Robotics'),
+(25, '1', 'Artificial Intelligence'),
+(26, '1', 'Web Application'),
+(27, '1', 'Human Computer Interaction'),
+(28, '1', 'Data Science');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `notification_ID` int(11) NOT NULL,
+  `notification_recieve_ID` text COLLATE utf8mb4_bin,
+  `notification_sender_ID` text COLLATE utf8mb4_bin,
+  `notification_unread` text COLLATE utf8mb4_bin,
+  `notification_type` text COLLATE utf8mb4_bin,
+  `notification_param` text COLLATE utf8mb4_bin,
+  `notification_type_ID` text COLLATE utf8mb4_bin,
+  `notification_datetime` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salary`
+--
+
+CREATE TABLE `salary` (
+  `salary_ID` int(11) NOT NULL,
+  `salary_range` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `salary`
+--
+
+INSERT INTO `salary` (`salary_ID`, `salary_range`) VALUES
+(1, '< 10,000'),
+(2, '10,001 - 20,000'),
+(3, '20,001 - 30,000'),
+(4, '30,001 - 40,000'),
+(5, '40,001 - 50,000'),
+(6, '> 50,000');
 
 -- --------------------------------------------------------
 
@@ -196,21 +432,31 @@ INSERT INTO `login` (`login_ID`, `login_user_ID`, `login_password`, `login_level
 
 CREATE TABLE `settings` (
   `settings_id` int(11) NOT NULL,
-  `type` longtext COLLATE utf8mb4_bin NOT NULL,
-  `description` longtext COLLATE utf8mb4_bin NOT NULL
+  `settings_user_ID` text COLLATE utf8mb4_bin,
+  `settings_type` text COLLATE utf8mb4_bin NOT NULL,
+  `settings_description` text COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `specialization`
+-- Dumping data for table `settings`
 --
 
-CREATE TABLE `specialization` (
-  `specialization_ID` int(11) NOT NULL,
-  `specialization_course_ID` text COLLATE utf8mb4_bin NOT NULL,
-  `specialization_name` text COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+INSERT INTO `settings` (`settings_id`, `settings_user_ID`, `settings_type`, `settings_description`) VALUES
+(1, '1', 'theme', '3'),
+(2, '1', 'sms', 'off'),
+(3, '1', 'email', 'off'),
+(4, '123', 'theme', '2'),
+(5, '123', 'sms', 'off'),
+(6, '123', 'email', 'off'),
+(13, '1234', 'theme', '1'),
+(14, '1234', 'sms', 'on'),
+(15, '1234', 'email', 'off'),
+(16, '1234', 'theme', '1'),
+(17, '1234', 'sms', 'on'),
+(18, '1234', 'email', 'off'),
+(19, '12345', 'theme', '1'),
+(20, '12345', 'sms', 'on'),
+(21, '12345', 'email', 'off');
 
 -- --------------------------------------------------------
 
@@ -220,9 +466,46 @@ CREATE TABLE `specialization` (
 
 CREATE TABLE `theme` (
   `theme_ID` int(11) NOT NULL,
-  `theme_color` int(11) NOT NULL,
-  `theme_description` int(11) NOT NULL
+  `theme_color` text COLLATE utf8mb4_bin NOT NULL,
+  `theme_description` text COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `theme`
+--
+
+INSERT INTO `theme` (`theme_ID`, `theme_color`, `theme_description`) VALUES
+(1, 'Red', 'danger'),
+(2, 'Blue', 'info'),
+(3, 'Orange', 'warning'),
+(4, 'Violet', 'primary'),
+(5, 'Green', 'success');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `time`
+--
+
+CREATE TABLE `time` (
+  `time_ID` int(11) NOT NULL,
+  `time_hour` text COLLATE utf8mb4_bin,
+  `time_description` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `time`
+--
+
+INSERT INTO `time` (`time_ID`, `time_hour`, `time_description`) VALUES
+(8, '8:00:00', '8 AM'),
+(9, '9:00:00', '9 AM'),
+(10, '10:00:00', '10 AM'),
+(11, '11:00:00', '11 AM'),
+(13, '13:00:00', '1 PM'),
+(14, '14:00:00', '2 PM'),
+(15, '15:00:00', '3 PM'),
+(16, '16:00:00', '4 PM');
 
 -- --------------------------------------------------------
 
@@ -232,14 +515,24 @@ CREATE TABLE `theme` (
 
 CREATE TABLE `work` (
   `work_ID` int(11) NOT NULL,
-  `work_company_ID` int(11) NOT NULL,
-  `work_alumni_ID` int(11) NOT NULL,
-  `work_alumni_position` text COLLATE utf8mb4_bin NOT NULL,
-  `work_alumni_salary_range` text COLLATE utf8mb4_bin NOT NULL,
-  `work_alumni_status` text COLLATE utf8mb4_bin NOT NULL,
-  `work_alumni_start` text COLLATE utf8mb4_bin NOT NULL,
-  `work_alumni_end` text COLLATE utf8mb4_bin NOT NULL
+  `work_company_name` text COLLATE utf8mb4_bin,
+  `work_company_address` text COLLATE utf8mb4_bin,
+  `work_industry` text COLLATE utf8mb4_bin,
+  `work_alumni_student_ID` text COLLATE utf8mb4_bin,
+  `work_alumni_position` text COLLATE utf8mb4_bin,
+  `work_alumni_salary_range` text COLLATE utf8mb4_bin,
+  `work_alumni_start` text COLLATE utf8mb4_bin,
+  `work_alumni_end` text COLLATE utf8mb4_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `work`
+--
+
+INSERT INTO `work` (`work_ID`, `work_company_name`, `work_company_address`, `work_industry`, `work_alumni_student_ID`, `work_alumni_position`, `work_alumni_salary_range`, `work_alumni_start`, `work_alumni_end`) VALUES
+(1, 'Sample Company', 'Sample Address', '5', '123', 'Sample Position', '5', '2019-01', ''),
+(2, 'Sample Company', 'Sample Address', '28', '123', 'Sample Position', '5', '2019-01', ''),
+(3, 'Sample Company', 'Sample Address', '4', '1234', 'Sample Position', '5', '2018-11', '2019-02');
 
 --
 -- Indexes for dumped tables
@@ -273,13 +566,8 @@ ALTER TABLE `appointment`
 -- Indexes for table `ci_sessions`
 --
 ALTER TABLE `ci_sessions`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
-
---
--- Indexes for table `company`
---
-ALTER TABLE `company`
-  ADD PRIMARY KEY (`company_ID`);
 
 --
 -- Indexes for table `courses`
@@ -288,10 +576,34 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_ID`);
 
 --
+-- Indexes for table `industry`
+--
+ALTER TABLE `industry`
+  ADD PRIMARY KEY (`industry_ID`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`login_ID`);
+
+--
+-- Indexes for table `major`
+--
+ALTER TABLE `major`
+  ADD PRIMARY KEY (`major_ID`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`notification_ID`);
+
+--
+-- Indexes for table `salary`
+--
+ALTER TABLE `salary`
+  ADD PRIMARY KEY (`salary_ID`);
 
 --
 -- Indexes for table `settings`
@@ -300,16 +612,16 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`settings_id`);
 
 --
--- Indexes for table `specialization`
---
-ALTER TABLE `specialization`
-  ADD PRIMARY KEY (`specialization_ID`);
-
---
 -- Indexes for table `theme`
 --
 ALTER TABLE `theme`
   ADD PRIMARY KEY (`theme_ID`);
+
+--
+-- Indexes for table `time`
+--
+ALTER TABLE `time`
+  ADD PRIMARY KEY (`time_ID`);
 
 --
 -- Indexes for table `work`
@@ -330,7 +642,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `alumni`
 --
 ALTER TABLE `alumni`
-  MODIFY `alumni_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `alumni_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `announcement`
 --
@@ -342,40 +654,52 @@ ALTER TABLE `announcement`
 ALTER TABLE `appointment`
   MODIFY `appointment_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `company`
---
-ALTER TABLE `company`
-  MODIFY `company_ID` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `course_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `industry`
+--
+ALTER TABLE `industry`
+  MODIFY `industry_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `major`
+--
+ALTER TABLE `major`
+  MODIFY `major_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `notification_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `salary`
+--
+ALTER TABLE `salary`
+  MODIFY `salary_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `specialization`
---
-ALTER TABLE `specialization`
-  MODIFY `specialization_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `theme`
 --
 ALTER TABLE `theme`
-  MODIFY `theme_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `theme_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `time`
+--
+ALTER TABLE `time`
+  MODIFY `time_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `work`
 --
 ALTER TABLE `work`
-  MODIFY `work_ID` int(11) NOT NULL AUTO_INCREMENT;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `work_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
