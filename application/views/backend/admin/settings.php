@@ -37,7 +37,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <?php  
+                    <?php
                        $sms = $this->db->get_where('settings' , array('settings_user_ID' =>$_SESSION['user_ID'],'settings_type' => 'sms'))->row()->settings_description;
                        $email = $this->db->get_where('settings' , array('settings_user_ID' =>$_SESSION['user_ID'],'settings_type' => 'email'))->row()->settings_description;
                     ?>

@@ -32,9 +32,9 @@
 								<table class="table display nowrap" id="table1">
 									<thead class="text-<?php echo $_SESSION['theme_color']?>">
 										<th>Date</th>
+										<th>Time</th>
 										<th>Alumni</th>
 										<th>Details</th>
-										<th>Time</th>
 										<th></th>
 									</thead>
 									<tbody>
@@ -52,16 +52,13 @@
 												<?php echo $row['appointment_date_start'] ?>
 											</td>
 											<td>
+												<?php echo $row['appointment_time_start']." - ".$row['appointment_time_end'] ?>
+											</td>
+											<td>
 												<?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname'] ?>
 											</td>
 											<td>
 												<?php echo $row['appointment_details'] ?>
-											</td>
-											<td>
-												<?php echo $row['appointment_time_start']." - ".$row['appointment_time_end'] ?>
-											</td>
-											<td>
-												
 											</td>
 										</tr>
 										<?php  

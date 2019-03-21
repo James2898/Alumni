@@ -24,7 +24,7 @@
                                             <div class="col-md-12">
 												                      <div class="form-group">
 				                                        <label class="bmd-label-floating">Old Password</label>
-				                                        <input type="password" name="admin_old_password" class="form-control" required="">
+				                                        <input type="password" minlength="5" maxlength="15" name="admin_old_password" class="form-control" required="">
 				                                      </div>
 											                      </div>
                                       	</div>
@@ -32,7 +32,7 @@
                                           <div class="col-md-12">
 												                    <div class="form-group">
 				                                      <label class="bmd-label-floating">New Password</label>
-				                                      <input type="password" name="admin_new_password" class="form-control" required="">
+				                                      <input type="password" minlength="5" maxlength="15" name="admin_new_password" class="form-control" required="">
 				                                    </div>
 											                    </div>
                                       	</div>
@@ -40,7 +40,7 @@
                                             <div class="col-md-12">
 												                      <div class="form-group">
 				                                        <label class="bmd-label-floating">Repeat New Password</label>
-				                                        <input type="password" name="admin_repeat_password" class="form-control" required="">
+				                                        <input type="password" minlength="5" maxlength="15" name="admin_repeat_password" class="form-control" required="">
 				                                      </div>
 											                      </div>
                                       	</div>

@@ -32,9 +32,9 @@
   <!-- Library for adding dinamically elements -->
   <script src="assets/js/plugins/arrive.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chartist JS -->
-  <script src="<?php echo base_url(); ?>assets/js/plugins/chartist.min.js"></script>
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="<?php echo base_url(); ?>assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
@@ -46,6 +46,8 @@
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
+  <!-- Charts -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/js/charts.js">
 
   <!-- Time Ago -->
   <script src="<?php echo base_url(); ?>assets/js/jquery-timeago.js"></script>
@@ -55,6 +57,8 @@
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
+
+      //md.initAdminCharts();
 
     });
   </script>
@@ -225,7 +229,45 @@
                     includeSelectAllOption: true,
                     maxHeight: 200,
                     enableFiltering: true,
-                    filterPlaceholder: 'Search Degree ...'
+                    filterPlaceholder: 'Search Degree ...',
+                    onChange: function(options) {
+                        var value = $(options).val();
+                        //alert(value);
+                        //$('#shit').html('<?php echo base_url()?>index.php/admin/get_major/'+value);
+                        $.ajax({
+                            url: '<?php echo base_url()?>index.php/admin/get_major/'+value,
+                            success: function(response){
+                                $('#alumni_major').multiselect('dataprovider', []);
+                                //$('#shit').append(response);
+                                
+                                var result = $.parseJSON(response);
+                                var alumni_major_options = [];
+                                
+                                /*jQuery.each(result, function(i, item) {
+                                  alumni_major_options.push({
+                                    'label' : item['label'],
+                                    'value' : item['value']
+                                  });
+                                });*/
+                                $.each(result, function(i, item) {
+                                   alumni_major_options.push({
+                                      'label': item['label'],
+                                      'value': item['value']
+                                   });
+                                });
+                                /*alert(response);
+                                console.log(result);
+                                console.log(alumni_major_options);*/
+
+                                $("#alumni_major").multiselect('dataprovider',alumni_major_options);
+                                $("#alumni_major").multiselect('refresh');
+
+                            },
+                            error: function (){ 
+                              //jQuery('#shit').html("ERROR"); 
+                            }
+                        });
+                    }
 
                 });
             });
@@ -235,10 +277,8 @@
                     buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                     buttonWidth: '100%',
                     enableClickableOptGroups: true,
-                    includeSelectAllOption: true,
                     maxHeight: 200,
-                    enableFiltering: true,
-                    filterPlaceholder: 'Search Degree ...'
+                    enableFiltering: true
 
                 });
             });
@@ -275,6 +315,34 @@
                     }
                 });
             });
+            var FillDropdown2 = function(selectedVal){
+                if(jQuery.isEmptyObject(selectedVal)){
+                    return;
+                }
+
+                //To clear existing items
+                jQuery('#dropdown2').multiselect('dataprovider', []);
+
+                jQuery.post(
+                        url,
+                        {options: selectedVal},
+                function(data){
+                    var result = jQuery.parseJSON(data);
+
+                    var dropdown2OptionList = [];
+                    jQuery.each(result, function(i, item){
+                        dropdown2OptionList.push({
+                                'label': item['name'],
+                                'value': item['id']
+                            })
+                    });
+
+                    jQuery('#dropdown2').multiselect('dataprovider', dropdown2OptionList);
+                    jQuery('#dropdown2').multiselect({
+                        includeSelectAllOption: true
+                    });
+                });
+            }
         </script>
         
         <script type="text/javascript">
@@ -292,4 +360,19 @@
               window.location = "<?php echo base_url();?>index.php/<?php echo $_SESSION['account_type'] ?>/settings/sms_off";
             }
           });
+        </script>
+
+        <script type="text/javascript">
+
+          function get_major(course_id) {
+
+              $.ajax({
+                    url: '<?php echo base_url();?>index.php/admin/get_major/' + course_ID,
+                    success: function(response){
+                        jQuery('#alumni_major').html(response);
+                    }
+                });
+
+            }
+
         </script>

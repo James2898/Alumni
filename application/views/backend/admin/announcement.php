@@ -82,7 +82,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Title</label>
-                            <input type="text" class="form-control" name="announcement_title" required>
+                            <input type="text" maxlength="15"  class="form-control" name="announcement_title" required>
                           </div>
                         </div>
                       </div>
@@ -90,7 +90,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Subject</label>
-                            <input type="text" class="form-control" name="announcement_subject" required>
+                            <input type="text" maxlength="15" class="form-control" name="announcement_subject" required>
                           </div>
                         </div>
                       </div>
@@ -99,7 +99,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Content</label>
-                            <textarea class="form-control" rows="5" name="announcement_content"></textarea>
+                            <textarea class="form-control" maxlength="250"  rows="5" name="announcement_content" required></textarea>
                           </div>
                         </div>
                       </div>

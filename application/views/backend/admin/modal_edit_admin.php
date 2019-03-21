@@ -36,7 +36,7 @@
                                             <div class="col-md-12">
 												                      <div class="form-group">
 				                                        <label class="bmd-label-floating">First Name</label>
-				                                        <input type="text" name="admin_fname" class="form-control" value="<?php echo $row['admin_fname'] ?>">
+				                                        <input type="text" maxlength="15" name="admin_fname" class="form-control" value="<?php echo $row['admin_fname'] ?>" required>
 				                                      </div>
 											                      </div>
                                       	</div>
@@ -44,7 +44,7 @@
                                           <div class="col-md-12">
 												                    <div class="form-group">
 				                                      <label class="bmd-label-floating">Middle Name</label>
-				                                      <input type="text" name="admin_mname" class="form-control" value="<?php echo $row['admin_mname'] ?>">
+				                                      <input type="text" maxlength="15" name="admin_mname" class="form-control" value="<?php echo $row['admin_mname'] ?>" required>
 				                                    </div>
 											                    </div>
                                       	</div>
@@ -52,15 +52,15 @@
                                             <div class="col-md-12">
 												                      <div class="form-group">
 				                                        <label class="bmd-label-floating">Last Name</label>
-				                                        <input type="text" name="admin_lname" class="form-control" value="<?php echo $row['admin_lname'] ?>">
+				                                        <input type="text" maxlength="15" name="admin_lname" class="form-control" value="<?php echo $row['admin_lname'] ?>"required>
 				                                      </div>
 											                      </div>
                                       	</div>
                                       	<div class="row">
                                           <div class="col-md-12">
 												                    <div class="form-group">
-				                                      <label class="bmd-label-floating">Email</label>
-				                                      <input type="text" name="admin_email" class="form-control" value="<?php echo $row['admin_email'] ?>">
+				                                      <label class="bmd-label-floating">Email Address</label>
+				                                      <input type="text" name="admin_email" class="form-control" value="<?php echo $row['admin_email'] ?>" required>
 				                                    </div>
 											                    </div>
                                       	</div>
@@ -68,7 +68,7 @@
                                           <div class="col-md-12">
 												                    <div class="form-group">
 				                                      <label class="bmd-label-floating">Facebook</label>
-				                                      <input type="text" name="admin_facebook" class="form-control" value="<?php echo $row['admin_facebook'] ?>">
+				                                      <input type="text" name="admin_facebook" class="form-control" value="<?php echo $row['admin_facebook'] ?>" required>
 				                                    </div>
 											                     </div>
                                       	</div>
@@ -76,14 +76,14 @@
                                           <div class="col-md-12">
 												                    <div class="form-group">
 				                                      <label class="bmd-label-floating">Mobile No.</label>
-				                                      <input type="text" name="admin_cno" class="form-control" value="<?php echo $row['admin_cno'] ?>">
+				                                      <input type="text" maxlength="11" name="admin_cno" class="form-control" value="<?php echo $row['admin_cno'] ?>" required>
 				                                    </div>
 											                   </div>
                                       	</div>
                                       	<div class="row">
                                           <div class="col-md-12">
     												                <div class="form-group">
-    				                                    <label class="bmd-label-floating">Landline No.</label>
+    				                                    <label class="bmd-label-floating">Landline No. (optional)</label>
     				                                    <input type="text" name="admin_lno" class="form-control" value="<?php echo $row['admin_lno'] ?>">
     				                                </div>
   											                 </div>

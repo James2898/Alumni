@@ -1,4 +1,4 @@
-          <div class="content">
+          <div class="container">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-12">
@@ -7,8 +7,8 @@
                       <div class="nav-tabs-navigation">
                         <div class="nav-tabs-wrapper">
                           <ul class="nav nav-tabs" data-tabs="tabs">
-                            <li class="nav-item">
-                              <a class="nav-link active" href="#list" data-toggle="tab">
+                              <li class="nav-item">
+                                <a href="#list" class="nav-link active" data-toggle="tab">
                                 <i class="material-icons">notifications_active</i> Unread notifications
                                 <div class="ripple-container"></div>
                               </a>

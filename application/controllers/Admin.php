@@ -63,26 +63,37 @@
 					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
 					$this->db->insert('notification',$ndata);
 
-					//SMS NOTIFICATION FOR ANNOUCEMENT
+					$is_sms = $this->db->get_where('settings' , array('settings_user_ID' => $alumni,'settings_type' => 'sms'))->row()->settings_description;
+					$is_email = $this->db->get_where('settings' , array('settings_user_ID' => $alumni,'settings_type' => 'email'))->row()->settings_description;
 
-					$number = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_cno;
-					$SMS_APICODE = "TR-FARAH257028_62V1F";
-					$result = $this->sendsms->itexmo($number,$subject."|".$body,$SMS_APICODE);
-					if ($result == ""){
-						$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
-						Please CONTACT US for help. ";	
-					}else if ($result == 0){
-						$_SESSION['error_log'] =  "Message Sent!";
-					}
-					else{	
-						$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
+					if($is_email == 'on'){
+						//EMAIL NOTIFICATION FOR ANNOUNCEMENT
+						$address = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+						$receive_email = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+						$this->sendemail->do_send($subject,$body,$address);
 					}
 
+					if($is_sms == 'on'){
+						//SMS NOTIFICATION FOR ANNOUCEMENT
+						$number = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_cno;
+						$SMS_APICODE = "TR-FARAH257028_62V1F";
+						$result = $this->sendsms->itexmo($number,$subject." | ".$body,$SMS_APICODE);
+						
+						if ($result == ""){
+							$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
+							Please CONTACT US for help. ";	
+						}else if ($result == 0){
+							$_SESSION['error_log'] =  "Message Sent!";
+						}
+						else{	
+							$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
+						}
+					}
 
-					//EMAIL NOTIFICATION FOR ANNOUNCEMENT
-					/*$address = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
-					$receive_email = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
-					$this->sendemail->do_send($subject,$body,$address);*/
+					
+
+
+					
 				}
 
 
@@ -117,6 +128,18 @@
 			$page_data['page_name']		=	'announcement';
 			$this->load->view('backend/index',$page_data);
 		}
+
+		function get_major($course_ID){
+	        $major = $this->db->get_where('major' , array('major_course_ID' => $course_ID))->result_array();
+	        $return_major = array();
+	        foreach ($major as $row) {
+	            /*echo '<option value="' . $row['major_ID']7 . '">' . $row['major_name'] . '</option>';*/
+	            $major_array['label'] = $row['major_name'];
+	            $major_array['value'] = $row['major_ID'];
+	            array_push($return_major, $major_array);
+	        }
+	        echo json_encode($return_major);
+	    }
 
 		function alumni($param1 = '', $param2 = ''){
 			if ($_SESSION['account_type'] != 'admin')
@@ -231,7 +254,7 @@
             	$data['work_alumni_start']		=	$this->input->post('work_alumni_start');
             	$data['work_alumni_end']		=	$this->input->post('work_alumni_end');
 
-            	$this->db->where('work_alumni_student_ID',$param2);
+            	$this->db->where('work_ID',$param2);
             	$this->db->update('work',$data);
             	$_SESSION['flashdata']	=	'Data Updated';
             	session_write_close();
@@ -295,10 +318,10 @@
                 AND TABLE_NAME = 'appointment'
                 ")->row()->ID;
 
-				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
-				$data['appointment_date_start']	=	$this->input->post('appointment_date_start');
+				$alumni = $data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
+				$date_start = $data['appointment_date_start']	=	$this->input->post('appointment_date_start');
 				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
-				$data['appointment_time_start']	=	$this->input->post('appointment_time_start');
+				$time_start = $data['appointment_time_start']	=	$this->input->post('appointment_time_start');
 				$data['appointment_time_end']	=	$this->input->post('appointment_time_end');
 				$data['appointment_details']	=	$this->input->post('appointment_details');
 				$data['appointment_status']		=	"Approved";
@@ -316,6 +339,41 @@
 				$this->db->insert('notification',$ndata);
             	$_SESSION['flashdata']	=	'Data Added';
             	$_SESSION['error_log']	=	$param2;
+            	
+
+            	$subject = 'Appointment Created';
+            	$body = 'APL scheduled an Appointment on '.$date_start.' at '.$time_start;
+
+            	$is_sms = $this->db->get_where('settings' , array('settings_user_ID' => $alumni,'settings_type' => 'sms'))->row()->settings_description;
+				$is_email = $this->db->get_where('settings' , array('settings_user_ID' => $alumni,'settings_type' => 'email'))->row()->settings_description;
+
+				if($is_email == 'on'){
+					//EMAIL NOTIFICATION FOR ANNOUNCEMENT
+					$address = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+					$receive_email = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+					$this->sendemail->do_send($subject,$body,$address);
+				}
+
+				if($is_sms == 'on'){
+					//SMS NOTIFICATION FOR ANNOUCEMENT
+					$number = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_cno;
+					$SMS_APICODE = "TR-FARAH257028_62V1F";
+					$result = $this->sendsms->itexmo($number,$subject." | ".$body,$SMS_APICODE);
+					
+					if ($result == ""){
+						$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
+						Please CONTACT US for help. ";	
+					}else if ($result == 0){
+						$_SESSION['error_log'] =  "Message Sent!";
+					}
+					else{	
+						$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
+					}
+				}
+
+
+
+
             	session_write_close();
             	redirect(base_url().'index.php/admin/appointment','refresh');
             	exit();
@@ -329,10 +387,10 @@
 				$prev_appointment_time_end = $this->db->get_where('appointment' , array('appointment_ID' =>$param2))->row()->appointment_time_end;
 
 				$_SESSION['error_log'] = $prev_appointment_time_start."|".$prev_appointment_time_end."|".$prev_appointment_status."|".$prev_appointment_date;
-				$data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
-				$data['appointment_date_start']	=	$this->input->post('appointment_date_start');
+				$alumni = $data['appointment_alumni_ID']	=	$this->input->post('appointment_alumni_ID[0]');
+				$date_start = $data['appointment_date_start']	=	$this->input->post('appointment_date_start');
 				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
-				$data['appointment_time_start']	=	$this->input->post('appointment_time_start');
+				$time_start = $data['appointment_time_start']	=	$this->input->post('appointment_time_start');
 				$data['appointment_time_end']	=	$this->input->post('appointment_time_end');
 				$data['appointment_details']	=	$this->input->post('appointment_details');
 				$cur_appointment_status = $data['appointment_status']		=	$this->input->post('appointment_status');
@@ -351,6 +409,10 @@
 
 					$this->db->insert('notification',$ndata);
 
+					$subject = 'Appointment Update';
+					$body = 'APL Cancelled your appointment';
+
+
 				}else if(($prev_appointment_status == 'Waiting' && $cur_appointment_status=="Approved")){
 					$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
 					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
@@ -360,7 +422,10 @@
 					$ndata['notification_param']	  = "Approved";
 					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
 
-					$this->db->insert('notification',$ndata);					
+					$this->db->insert('notification',$ndata);
+
+					$subject = 'Appointment Update';
+					$body = 'APL Approved your appointment on '.$date_start.' at '.$time_start;					
 
 				}else if($prev_appointment_date != $data['appointment_date_start']) {
 					$ndata['notification_recieve_ID'] = $this->input->post('appointment_alumni_ID[0]');
@@ -370,6 +435,9 @@
 					$ndata['notification_type_ID']	  = $param2;
 					$ndata['notification_param']	  = "Rescheduled";
 					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+
+					$subject = 'Appointment Update';
+					$body = 'APL Rescheduled the date of your appointment '.$date_start.' at '.$time_start;;
 
 					$this->db->insert('notification',$ndata);
 				}else if($prev_appointment_time_start != $data['appointment_time_start'] || $prev_appointment_time_end != $data['appointment_time_end']){
@@ -381,9 +449,39 @@
 					$ndata['notification_param']	  = "Rescheduled";
 					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
 
+					$subject = 'Appointment Update';
+					$body = 'APL Rescheduled the time of your appointment '.$date_start.' at '.$time_start;;
+
 					$this->db->insert('notification',$ndata);
 				}
 
+
+				$is_sms = $this->db->get_where('settings' , array('settings_user_ID' => $alumni,'settings_type' => 'sms'))->row()->settings_description;
+				$is_email = $this->db->get_where('settings' , array('settings_user_ID' => $alumni,'settings_type' => 'email'))->row()->settings_description;
+
+				if($is_email == 'on'){
+					//EMAIL NOTIFICATION FOR ANNOUNCEMENT
+					$address = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+					$receive_email = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_email;
+					$this->sendemail->do_send($subject,$body,$address);
+				}
+
+				if($is_sms == 'on'){
+					//SMS NOTIFICATION FOR ANNOUCEMENT
+					$number = $this->db->get_where('alumni' , array('alumni_student_ID' => $alumni))->row()->alumni_cno;
+					$SMS_APICODE = "TR-FARAH257028_62V1F";
+					$result = $this->sendsms->itexmo($number,$subject." | ".$body,$SMS_APICODE);
+					
+					if ($result == ""){
+						$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
+						Please CONTACT US for help. ";	
+					}else if ($result == 0){
+						$_SESSION['error_log'] =  "Message Sent!";
+					}
+					else{	
+						$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
+					}
+				}
 				
 				$_SESSION['flashdata']	=	'Data Updated';
 				session_write_close();

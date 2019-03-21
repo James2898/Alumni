@@ -53,13 +53,19 @@
                                         $this->db->select("*");
                                         $this->db->from('alumni');
                                         $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
+                                        $this->db->join('major', 'alumni.alumni_major = major.major_ID','left');
                                         $query = $this->db->get()->result_array();
                                         foreach($query as $row):
+                                          if(!empty($row['alumni_major'])){
+                                            $major = " - ".$row['major_name'];
+                                          }else{
+                                            $major = "";
+                                          }
                                       ?>
                                       <tr>
                                         <td><?php echo $row['alumni_student_ID'] ?></td>
                                         <td><?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?></td>
-                                        <td><?php echo $row['course_title']." - ".$row['alumni_major'] ?></td>
+                                        <td><?php echo $row['course_title'].$major?></td>
                                         <td><?php echo $row['alumni_grad_year'] ?></td>
                                         <td>
                                           <?php 
@@ -140,15 +146,15 @@
                                             <?php  
                                               $this->db->select("*");
                                               $this->db->from('major');
-                                              $this->db->order_by('major_ID', 'ASC');
+                                              $this->db->where('major_course_ID','1');
                                               $query2 = $this->db->get()->result_array();
                                               $last_category = '';
                                               foreach ($query2 as $row2):
                                             ?>
-                                              <option value="<?php echo $row2['course_ID'] ?>">
+                                              <option value="<?php echo $row2['major_ID'] ?>">
                                                 <?php echo $row2['major_name'];?>
                                               </option> 
-                                            <?php 
+                                            <?php  
                                               endforeach;
                                             ?>
                                           </select>
@@ -156,7 +162,7 @@
                                       </div>
                                       <div class="col-md-3">
                                         <div class="form-group">
-                                          <label class="bmd-label-static text-<?php echo $_SESSION['theme_color'] ?>">Year graduated</label>
+                                          <label  class="bmd-label-static text-<?php echo $_SESSION['theme_color'] ?>">Year graduated</label>
                                           <select id="alumni_grad_year" name="alumni_grad_year[]">
                                             <?php 
                                               for ($date = 2000; $date <= date('Y'); $date++) {   
@@ -180,7 +186,7 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Password</label>
-                                          <input type="text" class="form-control" name="alumni_password">
+                                          <input type="text"  class="form-control" name="alumni_password" required>
                                         </div>
                                       </div>
                                     </div>
@@ -189,19 +195,19 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Fist Name</label>
-                                          <input type="text" class="form-control" name="alumni_fname">
+                                          <input type="text" maxlength="15" class="form-control" name="alumni_fname" required>
                                         </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Middle Name</label>
-                                          <input type="text" class="form-control" name="alumni_mname">
+                                          <input type="text" maxlength="15" class="form-control" name="alumni_mname" required>
                                         </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Last Name</label>
-                                          <input type="text" class="form-control" name="alumni_lname">
+                                          <input type="text" maxlength="15" class="form-control" name="alumni_lname" required>
                                         </div>
                                       </div>
                                       <div class="col-md-3">
@@ -219,13 +225,13 @@
                                       <div class="col-md-12">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Address</label>
-                                          <input type="text" class="form-control" name="alumni_address">
+                                          <input type="text" maxlength="35" class="form-control" name="alumni_address" required>
                                         </div>
                                       </div>
                                       <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Email address</label>
-                                          <input type="email" class="form-control" name="alumni_email">
+                                          <input type="email" class="form-control" name="alumni_email" required>
                                         </div>
                                       </div>
                                     </div>
@@ -233,12 +239,12 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                           <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Mobile No.</label>
-                                          <input type="text" class="form-control" name="alumni_cno">
+                                          <input type="text" maxlength="11" class="form-control" name="alumni_cno" required>
                                         </div>
                                       </div>
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Landline No.</label>
+                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Landline No. (optional)</label>
                                           <input type="text" class="form-control" name="alumni_lno">
                                         </div>
                                       </div>
@@ -246,19 +252,19 @@
                                     <div class="row">
                                       <div class="col-md-4">
                                         <div class="form-group">
-                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Facebook</label>
+                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Facebook (optional)</label>
                                           <input type="text" class="form-control" name="alumni_facebook">
                                         </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
-                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">LinkedIn</label>
+                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">LinkedIn (optional)</label>
                                           <input type="text" class="form-control" name="alumni_linkedin">
                                         </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
-                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Website</label>
+                                          <label class="bmd-label-floating text-<?php echo $_SESSION['theme_color'] ?>">Website (optional)</label>
                                           <input type="text" class="form-control" name="alumni_website">
                                         </div>
                                       </div>

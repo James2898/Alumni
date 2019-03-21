@@ -86,6 +86,7 @@
                                   <?php  
                                     $this->db->select("*");
                                     $this->db->from('major');
+                                    $this->db->where('major_course_ID',$row['alumni_degree']);
                                     $this->db->order_by('major_ID', 'ASC');
                                     $query2 = $this->db->get()->result_array();
                                     $last_category = '';
@@ -105,19 +106,19 @@
                           	<div class="col-md-4 col-sm-12">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">First Name</label>
-                          			<input type="text" name="alumni_fname" class="form-control" value="<?php echo $row['alumni_fname'] ?>">
+                          			<input type="text" maxlength="15" name="alumni_fname" class="form-control" value="<?php echo $row['alumni_fname'] ?>" required>
                           		</div>
                           	</div>
                           	<div class="col-md-4 col-sm-12">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Middle Name</label>
-                          			<input type="text" name="alumni_mname" class="form-control" value="<?php echo $row['alumni_mname'] ?>">
+                          			<input type="text" maxlength="15" name="alumni_mname" class="form-control" value="<?php echo $row['alumni_mname'] ?>" required>
                           		</div>
                           	</div>
                           	<div class="col-md-4 col-sm-12">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Last Name</label>
-                          			<input type="text" name="alumni_lname" class="form-control" value="<?php echo $row['alumni_lname'] ?>">
+                          			<input type="text" maxlength="15" name="alumni_lname" class="form-control" value="<?php echo $row['alumni_lname'] ?>" required>
                           		</div>
                           	</div>
                           </div>
@@ -152,51 +153,51 @@
                             </div>
                           </div>
                           <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Address</label>
+                                <input type="text" maxlength="35" name="alumni_address" class="form-control" value="<?php echo $row['alumni_address'] ?>" required>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Email Address</label>
+                                <input type="text" name="alumni_email" class="form-control" value="<?php echo $row['alumni_email'] ?>">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
                           	<div class="col-md-6">
                           		<div class="form-group">
                           			<label class="bmd-label-floating">Mobile No.</label>
-                          			<input type="text" name="alumni_cno" class="form-control" value="<?php echo $row['alumni_cno'] ?>">
+                          			<input type="text" maxlength="11" name="alumni_cno" class="form-control" value="<?php echo $row['alumni_cno'] ?>" required>
                           		</div>
                           	</div>
                           	<div class="col-md-6">
                           		<div class="form-group">
-                          			<label class="bmd-label-floating">Landline No.</label>
-                          			<input type="text" name="alumni_lno" class="form-control" value="<?php echo $row['alumni_lno'] ?>">
-                          		</div>
-                          	</div>
-                          </div>
-                          <div class="row">
-                          	<div class="col-md-12">
-                          		<div class="form-group">
-                          			<label class="bmd-label-floating">Address</label>
-                          			<input type="text" name="alumni_address" class="form-control" value="<?php echo $row['alumni_address'] ?>">
-                          		</div>
-                          	</div>
-                          </div>
-                          <div class="row">
-                          	<div class="col-md-12">
-                          		<div class="form-group">
-                          			<label class="bmd-label-floating">Email</label>
-                          			<input type="text" name="alumni_email" class="form-control" value="<?php echo $row['alumni_email'] ?>">
+                          			<label class="bmd-label-floating">Landline No. (optional)</label>
+                          			<input type="text" maxlength="15" name="alumni_lno" class="form-control" value="<?php echo $row['alumni_lno'] ?>">
                           		</div>
                           	</div>
                           </div>
                           <div class="row">
                           	<div class="col-md-4">
                           		<div class="form-group">
-                          			<label class="bmd-label-floating">Facebook</label>
+                          			<label class="bmd-label-floating">Facebook (optional)</label>
                           			<input type="text" name="alumni_facebook" class="form-control" value="<?php echo $row['alumni_facebook'] ?>">
                           		</div>
                           	</div>
                           	<div class="col-md-4">
                           		<div class="form-group">
-                          			<label class="bmd-label-floating">LinkedIn</label>
+                          			<label class="bmd-label-floating">LinkedIn (optional)</label>
                           			<input type="text" name="alumni_linkedin" class="form-control" value="<?php echo $row['alumni_linkedin'] ?>">
                           		</div>
                           	</div>
                           	<div class="col-md-4">
                           		<div class="form-group">
-                          			<label class="bmd-label-floating">Website</label>
+                          			<label class="bmd-label-floating">Website (optional)</label>
                           			<input type="text" name="alumni_website" class="form-control" value="<?php echo $row['alumni_website'] ?>">
                           		</div>
                           	</div>
@@ -235,6 +236,9 @@
         															EDIT WORK INFO
         													###########################		
   	                      		-->
+                              <!-- <div class="tab-pane active" id="work">
+                                
+                              </div> -->
                               <div class="tab-pane active" id="work">
 			                      		<?php  
 				                          $this->db->select("*");
@@ -245,92 +249,92 @@
       														$query2 = $this->db->get()->result_array();
       						   								foreach ($query2 as $row2):
       													?>
-        													<?php echo form_open('admin/alumni/edit_work/'.$param1, 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
-						                      	<div class="row">
-        															<div class="col-md-6">
-        																<div class="form-group">
-        								                                    <label class="bmd-label-floating">Position</label>
-        								                                    <input type="text" name="work_alumni_position" class="form-control" value="<?php echo $row2['work_alumni_position'] ?>">
-        								                                </div>
-        															</div>
-        															<div class="col-md-6">
-        																<div class="form-group">
-			                                    <label class="bmd-label-floating">Company Name</label>
-			                                    <input type="text" name="work_company_name" class="form-control" value="<?php echo $row2['work_company_name'] ?>">
-				                                </div>
-        															</div>
-        														</div>
-        														<div class="row">
-        															<div class="col-md-12">
-        																<div class="form-group">
-			                                    <label class="bmd-label-floating">Company Address</label>
-			                                    <input type="text" name="work_company_address" class="form-control" value="<?php echo $row2['work_company_address'] ?>">
-				                                </div>
-        															</div>
-        														</div>
-        														<div class="row">
-        															<div class="col-md-12">
-        																<div class="form-group">
-        																	<label class="bmd-label-floating">Industry</label>
-                                          <select id="work_edit_industry" name="work_industry[]" searchable="Search here." >
-                                            <?php  
-                                              $this->db->select("*");
-                                              $this->db->from('industry');
-                                              $query3 = $this->db->get()->result_array();
-                                              foreach ($query3 as $row3):
-                                            ?>
-                                                <option value="<?php echo $row3['industry_ID'] ?>" <?php if($row2['work_industry'] == $row3['industry_ID']) echo "selected" ?>>
-                                                  <?php echo $row3['industry_title'] ?>
-                                                </option>
-                                            <?php  
-                                              endforeach;
-                                            ?>
-                                          </select>
-        																</div>
-        															</div>
-        														</div>
-        														<div class="row">
-        															<div class="col-md-12">
-        																<div class="form-group">
-        																	<label class="bmd-label-floating">Salary</label>
-                                          <select id="work_edit_alumni_salary_range" name="work_alumni_salary_range[]">
-                                            <?php  
-                                              $this->db->select("*");
-                                              $this->db->from('salary');
-                                              $query3 = $this->db->get()->result_array();
-                                                foreach ($query3 as $row3):
-                                            ?>
-                                              <option value="<?php echo $row3['salary_ID'] ?>" <?php if($row3['salary_ID'] == $row2['work_alumni_salary_range']) echo "selected"; ?>>
-                                                <?php echo $row3['salary_range'] ?>
+      													<?php echo form_open('admin/alumni/edit_work/'.$row2['work_ID'], 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
+					                      	<div class="row">
+      															<div class="col-md-6">
+      																<div class="form-group">
+			                                    <label class="bmd-label-floating">Position</label>
+			                                    <input type="text" name="work_alumni_position" class="form-control" value="<?php echo $row2['work_alumni_position'] ?>">
+			                                </div>
+      															</div>
+      															<div class="col-md-6">
+      																<div class="form-group">
+		                                    <label class="bmd-label-floating">Company Name</label>
+		                                    <input type="text" name="work_company_name" class="form-control" value="<?php echo $row2['work_company_name'] ?>">
+			                                </div>
+      															</div>
+      														</div>
+      														<div class="row">
+      															<div class="col-md-12">
+      																<div class="form-group">
+		                                    <label class="bmd-label-floating">Company Address</label>
+		                                    <input type="text" name="work_company_address" class="form-control" value="<?php echo $row2['work_company_address'] ?>">
+			                                </div>
+      															</div>
+      														</div>
+      														<div class="row">
+      															<div class="col-md-12">
+      																<div class="form-group">
+      																	<label class="bmd-label-floating">Industry</label>
+                                        <select class="work_edit_industry" name="work_industry[]" searchable="Search here." >
+                                          <?php  
+                                            $this->db->select("*");
+                                            $this->db->from('industry');
+                                            $query3 = $this->db->get()->result_array();
+                                            foreach ($query3 as $row3):
+                                          ?>
+                                              <option value="<?php echo $row3['industry_ID'] ?>" <?php if($row2['work_industry'] == $row3['industry_ID']) echo "selected" ?>>
+                                                <?php echo $row3['industry_title'] ?>
                                               </option>
-                                            <?php  
-                                              endforeach;
-                                            ?>
-                                          </select>
-        																</div>
-        															</div>
-        														</div>
-        														<div class="row">
-        															<div class="col-md-6">
-        																<div class="form-group">
-			                                    <label class="bmd-label-floating">Date Started</label>
-			                                    <input type="month" name="work_alumni_start" class="form-control" value="<?php echo $row2['work_alumni_start'] ?>">
-  			                                </div>
-        															</div>
-        															<div class="col-md-6">
-        																<div class="form-group">
-			                                    <label class="bmd-label-floating">Date Ended (Blank if employed)</label>
-			                                    <input type="month" name="work_alumni_end" class="form-control" value="<?php echo $row2['work_alumni_end'] ?>">
-				                                </div>
-        															</div>
-        														</div>
-        														<div class="row">
-        															<div class="col-md-12">
-        																<button class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Delete</button>
-        																<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Update</button>
-        															</div>
-        														</div>
-      													  <?php echo form_close(); ?>
+                                          <?php  
+                                            endforeach;
+                                          ?>
+                                        </select>
+      																</div>
+      															</div>
+      														</div>
+      														<div class="row">
+      															<div class="col-md-12">
+      																<div class="form-group">
+      																	<label class="bmd-label-floating">Salary</label>
+                                        <select class="work_edit_alumni_salary_range" name="work_alumni_salary_range[]">
+                                          <?php  
+                                            $this->db->select("*");
+                                            $this->db->from('salary');
+                                            $query3 = $this->db->get()->result_array();
+                                              foreach ($query3 as $row3):
+                                          ?>
+                                            <option value="<?php echo $row3['salary_ID'] ?>" <?php if($row3['salary_ID'] == $row2['work_alumni_salary_range']) echo "selected"; ?>>
+                                              <?php echo $row3['salary_range'] ?>
+                                            </option>
+                                          <?php  
+                                            endforeach;
+                                          ?>
+                                        </select>
+      																</div>
+      															</div>
+      														</div>
+      														<div class="row">
+      															<div class="col-md-6">
+      																<div class="form-group">
+		                                    <label class="bmd-label-floating">Date Started</label>
+		                                    <input type="month" name="work_alumni_start" class="form-control" value="<?php echo $row2['work_alumni_start'] ?>">
+			                                </div>
+      															</div>
+      															<div class="col-md-6">
+      																<div class="form-group">
+		                                    <label class="bmd-label-floating">Date Ended (Blank if employed)</label>
+		                                    <input type="month" name="work_alumni_end" class="form-control" value="<?php echo $row2['work_alumni_end'] ?>">
+			                                </div>
+      															</div>
+      														</div>
+      														<div class="row">
+      															<div class="col-md-12">
+      																<button class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Delete</button>
+      																<button type="submit" class="btn btn-<?php echo $_SESSION['theme_color'] ?> pull-right">Update</button>
+      															</div>
+      														</div>
+    													  <?php echo form_close(); ?>
 		                      			<?php 
 		                      				endforeach; 
 		                      			?>
@@ -439,23 +443,61 @@
                 format: 'MM/YYYY'
             });
         });
-        $(document).ready(function() {
+          $(document).ready(function() {
             $('#alumni_edit_degree').multiselect({
                 nonSelectedText: 'Alumni Degree',    
-                buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                 buttonWidth: '100%',
                 enableClickableOptGroups: true,
                 includeSelectAllOption: true,
                 maxHeight: 200,
                 enableFiltering: true,
-                filterPlaceholder: 'Search Degree ...'
+                filterPlaceholder: 'Search Degree ...',
+                onChange: function(options) {
+                    var value = $(options).val();
+                    //alert(value);
+                    //$('#shit').html('<?php echo base_url()?>index.php/admin/get_major/'+value);
+                    $.ajax({
+                        url: '<?php echo base_url()?>index.php/admin/get_major/'+value,
+                        success: function(response){
+                            $('#alumni_edit_major').multiselect('dataprovider', []);
+                            //$('#shit').append(response);
+                            
+                            var result = $.parseJSON(response);
+                            var alumni_major_options = [];
+                            
+                            /*jQuery.each(result, function(i, item) {
+                              alumni_major_options.push({
+                                'label' : item['label'],
+                                'value' : item['value']
+                              });
+                            });*/
+                            $.each(result, function(i, item) {
+                               alumni_major_options.push({
+                                  'label': item['label'],
+                                  'value': item['value']
+                               });
+                            });
+                            /*alert(response);
+                            console.log(result);
+                            console.log(alumni_major_options);*/
+
+                            $("#alumni_edit_major").multiselect('dataprovider',alumni_major_options);
+                            $("#alumni_edit_major").multiselect('refresh');
+
+                        },
+                        error: function (){ 
+                          //jQuery('#shit').html("ERROR"); 
+                        }
+                    });
+                }
 
             });
         });
         $(document).ready(function() {
             $('#alumni_edit_major').multiselect({
                 nonSelectedText: 'Alumni Major',    
-                buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                 buttonWidth: '100%',
                 enableClickableOptGroups: true,
                 includeSelectAllOption: true,
@@ -468,7 +510,7 @@
         $(document).ready(function() {
                 $('#alumni_edit_grad_year').multiselect({
                     nonSelectedText: 'Grad Year',    
-                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                     buttonWidth: '100%',
                     enableClickableOptGroups: true,
                     includeSelectAllOption: true,
@@ -478,7 +520,7 @@
             $(document).ready(function() {
                 $('#alumni_edit_gender').multiselect({
                     nonSelectedText: 'Alumni Gender',    
-                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                    buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                     buttonWidth: '100%',
                     enableClickableOptGroups: true,
                     includeSelectAllOption: true,
@@ -488,7 +530,17 @@
             $(document).ready(function() {
               $('#work_industry').multiselect({
                   nonSelectedText: 'Industry',    
-                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
+                  buttonWidth: '100%',
+                  enableClickableOptGroups: true,
+                  includeSelectAllOption: true,
+                  maxHeight: 200,
+                  enableFiltering: true,
+                  filterPlaceholder: 'Search Degree ...'
+              });
+              $('#work_alumni_salary_range').multiselect({
+                  nonSelectedText: 'Industry',    
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                   buttonWidth: '100%',
                   enableClickableOptGroups: true,
                   includeSelectAllOption: true,
@@ -497,31 +549,31 @@
                   filterPlaceholder: 'Search Degree ...'
 
               });
-              $('#work_alumni_salary_range').multiselect({
+              $('.work_edit_industry').multiselect({
                   nonSelectedText: 'Industry',    
-                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                   buttonWidth: '100%',
                   enableClickableOptGroups: true,
                   includeSelectAllOption: true,
                   maxHeight: 200,
                   enableFiltering: true,
-                  filterPlaceholder: 'Search Degree ...'
+                  filterPlaceholder: 'Search Industry ...'
 
               });
               $('#work_edit_industry').multiselect({
                   nonSelectedText: 'Industry',    
-                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                   buttonWidth: '100%',
                   enableClickableOptGroups: true,
                   includeSelectAllOption: true,
                   maxHeight: 200,
                   enableFiltering: true,
-                  filterPlaceholder: 'Search Degree ...'
+                  filterPlaceholder: 'Search Industry ...'
 
               });
-              $('#work_edit_alumni_salary_range').multiselect({
+              $('.work_edit_alumni_salary_range').multiselect({
                   nonSelectedText: 'Industry',    
-                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?>',
+                  buttonClass: 'btn btn-<?php echo $_SESSION['theme_color'] ?> btn-sm',
                   buttonWidth: '100%',
                   enableClickableOptGroups: true,
                   includeSelectAllOption: true,

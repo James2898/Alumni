@@ -27,13 +27,13 @@
                         <li class="nav-item <?php if($page_name == 'announcement') echo 'active' ?>">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/admin/announcement">
                                 <i class="material-icons <?php if($page_name != 'announcement') echo 'text-'.$_SESSION['theme_color'] ?>">announcement</i>
-                                <p>Announcement</p>
+                                <p>Announcements</p>
                             </a>
                         </li>
                         <li class="nav-item <?php if($page_name == 'appointment') echo 'active' ?>">
                             <a class="nav-link" href="<?php echo base_url();?>index.php/admin/appointment">
                                 <i class="material-icons <?php if($page_name != 'appointment') echo 'text-'.$_SESSION['theme_color'] ?>">event</i>
-                                <p>Appointment</p>
+                                <p>Appointments</p>
                             </a>
                         </li>
                     </ul>

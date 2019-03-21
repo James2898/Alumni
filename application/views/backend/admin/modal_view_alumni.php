@@ -3,10 +3,16 @@
     $this->db->select("*");
     $this->db->from('alumni');
     $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
+    $this->db->join('major', 'alumni.alumni_major = major.major_ID','left');
     $this->db->where('alumni_student_ID',$param1);
 
     $query = $this->db->get()->result_array();
     foreach ($query as $row):
+    	if(!empty($row['alumni_major'])){
+			$major = " Major in ".$row['major_name'];
+	    }else{
+	        $major = "";
+	    }
 ?>
     <div class="content bg-light" >
 	    <div class="container-fluid">
@@ -26,7 +32,7 @@
 	                      <?php echo $row['alumni_fname']." ".$row['alumni_mname']." ".$row['alumni_lname']?> 
 	                    </h3>
 	                    <h4>
-	                      <?php echo $row['course_description'] ?> Major in Network Administration
+	                      <?php echo $row['course_description'].$major?> 
 	                    </h4>
 	                </div>
 	                <div class="card">
@@ -142,7 +148,7 @@
 	                    		</div>
 	                    		<div class="tab-pane" id="work_experience">
 	                    			<div class="table-responsive">
-			                          	<table class="table text-center">
+			                          	<table class="table text-center" id="table2">
 			                            	<thead class="text-<?php echo $_SESSION['theme_color'] ?>">
 			                            		<th>Industry</th>
 				                              	<th>Position</th>
@@ -195,3 +201,10 @@
 <?php  
     endforeach;
 ?>
+<script>
+    $(document).ready(function() {
+        $('#table2').DataTable({
+          order: []
+        });
+    } );
+  </script>
