@@ -7,7 +7,7 @@
 		            					echo "Welcome, Admin ".ucwords($this->db->get_where('admin' , array('admin_ID' =>$_SESSION['user_ID']) )->row()->admin_fname)." | ".ucwords(str_replace("_", " ", $page_name));
 
 		            					//echo date('Y-m-d h:m:s');
-		            					//Print_r($_SESSION);
+		            					Print_r($_SESSION);
 		            					//echo phpinfo();
 		            				?>
 		            			</h4>

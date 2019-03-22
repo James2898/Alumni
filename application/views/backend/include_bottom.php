@@ -241,6 +241,19 @@
           ";
 
         }
+
+        if($_SESSION['flashdata'] == 'TIME START ERROR' || $_SESSION['flashdata'] == 'TIME END ERROR'){
+          $_SESSION['flashdata'] = '';
+          echo "
+            <script type='text/javascript'>
+              Swal.fire({
+                position: 'top-end',
+                type: 'error',
+                title: 'Chosen Time for the Appointment is already scheduled',
+              })
+            </script>
+          ";
+        }
 ?>
 
 <script type="text/javascript">

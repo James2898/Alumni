@@ -9,6 +9,7 @@
 			$this->load->database();
 			$this->load->library("sendemail");
 			$this->load->library("sendsms");
+			$this->load->model('checkdate_model');
 	       /*cache control*/
 			$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			$this->output->set_header('Pragma: no-cache');
@@ -137,55 +138,57 @@
                 ")->row()->ID;
 
 
-				$data['appointment_alumni_ID']	=	$_SESSION['user_ID'];
+				$alumni = $data['appointment_alumni_ID']	=	$_SESSION['user_ID'];
 				$date_start = $data['appointment_date_start']	=	$this->input->post('appointment_date_start');
 				$data['appointment_date_end']	=	$this->input->post('appointment_date_start');
 				$time_start = $data['appointment_time_start']	=	$this->input->post('appointment_time_start');
-				$data['appointment_time_end']	=	$this->input->post('appointment_time_end');
+				$time_end = $data['appointment_time_end']	=	$this->input->post('appointment_time_end');
 				$data['appointment_details']	=	$this->input->post('appointment_details');
 				$data['appointment_status']		=	"Waiting";
 
-				$ndata['notification_recieve_ID'] = '1';
-				$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
-				$ndata['notification_unread']	  =	"TRUE";
-				$ndata['notification_type']		  = "Appointment";
-				$ndata['notification_param']      = "Waiting";
-				$ndata['notification_type_ID']	  = $id;
-				$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
+				if($this->checkdate_model->check_date($date_start,$time_start,$time_end)){
+					$ndata['notification_recieve_ID'] = '1';
+					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$ndata['notification_unread']	  =	"TRUE";
+					$ndata['notification_type']		  = "Appointment";
+					$ndata['notification_param']      = "Waiting";
+					$ndata['notification_type_ID']	  = $id;
+					$ndata['notification_datetime']	  = date('Y-m-d h:m:s');
 
-				$subject = 'Appointment Request';
-            	$body = 'Alumni '.$alumni.' requests for an Appointment on '.$date_start.' at '.$time_start;
+					$subject = 'Appointment Request';
+			    	$body = 'Alumni '.$alumni.' requests for an Appointment on '.$date_start.' at '.$time_start;
 
-            	$is_sms = $this->db->get_where('settings' , array('settings_user_ID' => '1','settings_type' => 'sms'))->row()->settings_description;
-				$is_email = $this->db->get_where('settings' , array('settings_user_ID' => '1','settings_type' => 'email'))->row()->settings_description;
+			    	$is_sms = $this->db->get_where('settings' , array('settings_user_ID' => '1','settings_type' => 'sms'))->row()->settings_description;
+					$is_email = $this->db->get_where('settings' , array('settings_user_ID' => '1','settings_type' => 'email'))->row()->settings_description;
 
-				if($is_email == 'on'){
-					//EMAIL NOTIFICATION FOR ANNOUNCEMENT
-					$address = $this->db->get_where('admin' , array('admin_ID' => '1'))->row()->admin_email;
-					$this->sendemail->do_send($subject,$body,$address);
-				}
-
-				if($is_sms == 'on'){
-					//SMS NOTIFICATION FOR ANNOUCEMENT
-					$number = $this->db->get_where('admin' , array('admin_ID' => '1'))->row()->admin_cno;
-					$SMS_APICODE = "TR-FARAH257028_62V1F";
-					$result = $this->sendsms->itexmo($number,$subject." | ".$body,$SMS_APICODE);
-					
-					if ($result == ""){
-						$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
-						Please CONTACT US for help. ";	
-					}else if ($result == 0){
-						$_SESSION['error_log'] =  "Message Sent!";
+					if($is_email == 'on'){
+						//EMAIL NOTIFICATION FOR ANNOUNCEMENT
+						$address = $this->db->get_where('admin' , array('admin_ID' => '1'))->row()->admin_email;
+						$this->sendemail->do_send($subject,$body,$address);
 					}
-					else{	
-						$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
-					}
-				}
 
-				$this->db->insert('appointment',$data);
-				$this->db->insert('notification',$ndata);
-            	$_SESSION['flashdata']	=	'Data Added';
-            	$_SESSION['error_log']	=	$param2;
+					if($is_sms == 'on'){
+						//SMS NOTIFICATION FOR ANNOUCEMENT
+						$number = $this->db->get_where('admin' , array('admin_ID' => '1'))->row()->admin_cno;
+						$SMS_APICODE = "TR-FARAH257028_62V1F";
+						$result = $this->sendsms->itexmo($number,$subject." | ".$body,$SMS_APICODE);
+						
+						if ($result == ""){
+							$_SESSION['error_log'] = "iTexMo: No response from server!!! Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
+							Please CONTACT US for help. ";	
+						}else if ($result == 0){
+							$_SESSION['error_log'] =  "Message Sent!";
+						}
+						else{	
+							$_SESSION['error_log'] = "Error Num ". $result . " was encountered!";
+						}
+					}
+
+					$this->db->insert('appointment',$data);
+					$this->db->insert('notification',$ndata);
+			    	$_SESSION['flashdata']	=	'Data Added';
+			    	$_SESSION['error_log']	=	$param2;
+				}
             	session_write_close();
             	redirect(base_url().'index.php/alumni/appointment','refresh');
             	exit();
@@ -253,7 +256,7 @@
 					
 
 					$ndata['notification_recieve_ID'] = '1';
-					$ndata['notification_sender_ID']  = $_SESSION['user_ID'];
+					$alumni = $ndata['notification_sender_ID']  = $_SESSION['user_ID'];
 					$ndata['notification_unread']	  =	"TRUE";
 					$ndata['notification_type']		  = "Appointment";
 					$ndata['notification_param']      = "Cancelled";

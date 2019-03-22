@@ -1,7 +1,7 @@
 <?php  
 
   $scheduled = $this->db->get_where('appointment' , array('appointment_alumni_ID' => $_SESSION['user_ID'],'appointment_status' => 'Waiting'))->num_rows();
-  if($scheduled > 0){
+  if($scheduled > 3){
     $is_add = '';
   }else{
     $is_add = 'add';
