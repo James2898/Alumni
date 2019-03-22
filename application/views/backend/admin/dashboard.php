@@ -14,7 +14,8 @@
 			                		</div>
 			                		<div class="card-footer ">
 			                  			<div class="stats">
-				                    		<i class="material-icons">local_offer</i> Tracked from Github
+			                    			<i class="material-icons">school</i>
+			                    			<a href="<?php echo base_url()."index.php/admin/appointment" ?>" class="text-muted">View Alumni</a>
 			                  			</div>
 			                		</div>
 			              		</div>
@@ -34,7 +35,8 @@
 			                		</div>
 			                		<div class="card-footer">
 			                  			<div class="stats">
-				                    		<i class="material-icons">local_offer</i> Tracked from Github
+			                    			<i class="material-icons">school</i>
+			                    			<a href="<?php echo base_url()."index.php/admin/appointment" ?>" class="text-muted">View Alumni</a>
 			                  			</div>
 			                		</div>
 			              		</div>
@@ -55,7 +57,8 @@
 			                		</div>
 			                		<div class="card-footer">
 			                  			<div class="stats">
-				                    		<i class="material-icons">local_offer</i> Tracked from Github
+			                    			<i class="material-icons">school</i>
+			                    			<a href="<?php echo base_url()."index.php/admin/appointment" ?>" class="text-muted">View Alumni</a>
 			                  			</div>
 			                		</div>
 			              		</div>
@@ -76,7 +79,8 @@
 			                		</div>
 			                		<div class="card-footer">
 			                  			<div class="stats">
-				                    		<i class="material-icons">local_offer</i> Tracked from Github
+			                    			<i class="material-icons">school</i>
+			                    			<a href="<?php echo base_url()."index.php/admin/appointment" ?>" class="text-muted">View Alumni</a>
 			                  			</div>
 			                		</div>
 			              		</div>

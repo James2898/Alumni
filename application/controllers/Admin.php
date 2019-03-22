@@ -511,7 +511,42 @@
 			$page_data['page_name']		=	'appointment';
 			$this->load->view('backend/index',$page_data);
 		}
+		function check_date($date, $time_start, $time_end){
+    		$is_date = $this->db->query("
+                SELECT * 
+                FROM alumni.appointment 
+                WHERE appointment_date_start = '{$date}'
+                ")->num_rows();
+			if($is_date != 0){
 
+
+				//CHECK IF TIME START EXIST IN THE EXISTING DATE
+				$is_time_start = $this->db->query("
+	                SELECT * 
+	                FROM alumni.appointment 
+	                WHERE appointment_time_start = '{$time_start}' AND
+	                	  appointment_date_start = '{$date}'
+	                ")->num_rows();
+				if($is_time_start != 0){
+					return false;
+				}
+
+				$time_start_array = $this->db->query("
+	                SELECT * 
+	                FROM alumni.appointment
+	                WHERE appointment_date_start = '{$date}'
+	                ")->get()->result_array();
+				
+				for($time_start_array as $row){
+
+					if($time_start > $)
+
+				}
+
+
+			}
+
+		}
 		function profile(){
 			$page_data['page_name']		= 	'profile';
 			$this->load->view('backend/index', $page_data);

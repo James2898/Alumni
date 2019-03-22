@@ -19,7 +19,7 @@
               </div>
               <div class="card-body">
                 <div class="tab-content">
-					<div class="tab-pane" id="list">
+					<div class="tab-pane active" id="list">
 							<?php  
 						    	$this->db->select("*");
 						        $this->db->from('appointment');
@@ -29,6 +29,56 @@
 								foreach ($query as $row):
 							?>
 							<?php echo form_open('admin/appointment/edit/'.$param1, 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
+					          	<div class="row">
+					          		<div class="col-md-12">
+					          			<?php 
+			                        		$is_date = $this->db->query("
+								                SELECT * 
+								                FROM alumni.appointment 
+								                WHERE appointment_date_start = '{$row['appointment_date_start']}'
+								                ")->num_rows();
+											if($is_date != 0){
+												echo "DATE: ".$is_date;
+											}else{
+												echo $row['appointment_date_start'].' - '.$is_date;
+											}
+
+			                        		$is_time_start = $this->db->query("
+								                SELECT * 
+								                FROM alumni.appointment 
+								                WHERE appointment_time_start = '{$row['appointment_time_start']}' AND
+								                	  appointment_date_start = '{$row['appointment_date_start']}'
+								                ")->num_rows();
+											if($is_time_start != 0){
+												echo "TIME START: ".$is_time_start;
+
+												if($row['appointment_time_start'] < $row['appointment_time_end']){
+													echo "great";
+												}else{
+													echo "not great";
+												}
+
+											}else{
+												echo $row['appointment_time_start'].' - '.$is_time_start;
+											}
+
+
+			                        		$is_time_start = $this->db->query("
+								                SELECT * 
+								                FROM alumni.appointment 
+								                WHERE appointment_time_end = '{$row['appointment_time_end']}' AND
+								                	  appointment_date_start = '{$row['appointment_date_start']}'
+								                ")->num_rows();
+											if($is_time_start != 0){
+												echo "TIME END: ".$is_time_start;
+											}else{
+												echo $row['appointment_time_end'].' - '.$is_time_start;
+											}
+
+
+			                        	?>
+					          		</div>
+					          	</div>
 					          	<div class="row">
 					                <div class="col-md-12">
 					                    <div class="form-group">
