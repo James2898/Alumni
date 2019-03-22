@@ -29,10 +29,12 @@
                             echo "</div>";
                         ?>
                         <span class="login100-form-title p-b-43">
-                            Login to continue 
+                            <img src="<?php echo base_url()?>assets/img/logo.png" alt="">
                         </span>
                         <p>
-                            <?php print_r($_SESSION) ?>
+                            <?php 
+                                //print_r($_SESSION) 
+                            ?>
                         </p>
                         <div class="validate-input login100 form-input bg-white" data-validate = "Valid email is required">
                            <label class="bmd-label-floating text-center">User ID</label>

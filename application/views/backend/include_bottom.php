@@ -51,7 +51,7 @@
 
   <!-- Time Ago -->
   <script src="<?php echo base_url(); ?>assets/js/jquery-timeago.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/transition.js"></script>|
+  <script src="<?php echo base_url(); ?>assets/js/transition.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/collapse.js"></script>
   <script>
     $(document).ready(function() {
@@ -75,7 +75,35 @@
    <script>
     $(document).ready(function() {
         $('#table1').DataTable({
-          order: []
+          order: [],
+          dom: 'Bfrtip',
+          buttons: [
+            'excel', 'pdf', 'print'
+          ],
+          buttons: {
+            buttons: [
+              {
+                extend: 'excel',
+                text: 'Download Excel', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>'
+              },
+              {
+                extend: 'pdf',
+                text: 'Download PDF', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>'
+              },
+              {
+                extend: 'print',
+                text: 'Print', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>',
+                exportOptions: {
+                    columns: [0,1,2,3,4]
+                }
+              },
+
+
+            ]
+          }
         });
     } );
   </script>
@@ -83,6 +111,38 @@
     $(document).ready(function() {
         $('#table2').DataTable({
           order: [],
+        });
+    } );
+  </script>
+  <script>
+    $(document).ready(function() {
+        $('#table3').DataTable({
+          order: [],
+          dom: 'Bfrtip',
+          buttons: [
+            'excel', 'pdf', 'print'
+          ],
+          buttons: {
+            buttons: [
+              {
+                extend: 'excel',
+                text: 'Download Excel', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>'
+              },
+              {
+                extend: 'pdf',
+                text: 'Download PDF', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>'
+              },
+              {
+                extend: 'print',
+                text: 'Print', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>',
+              },
+
+
+            ]
+          }
         });
     } );
   </script>
@@ -363,7 +423,6 @@
         </script>
 
         <script type="text/javascript">
-
           function get_major(course_id) {
 
               $.ajax({
@@ -374,5 +433,74 @@
                 });
 
             }
-
         </script>
+         <script type="text/javascript">
+      $('input[type=radio][name=announcement_radio]').on('change', function() {
+           switch($(this).val()) {
+               case '1':
+                  alert("1")
+                  $('#announcement_alumni').multiselect('dataprovider', []);
+                  <?php  
+                    $this->db->select('*');
+                    $this->db->from('alumni');
+                    $this->db->join('courses', 'alumni.alumni_degree = courses.course_ID');
+                    $this->db->order_by('course_ID','ASC');
+                    $alumni_by_degree = $this->db->get()->result_array();
+                  ?>
+                  var optgroups = [
+                      <?php  
+                         $last_category = '';
+                        foreach($alumni_by_degree as $row):
+                          if($last_category != $row['alumni_degree'])
+                            echo "{label: '".$row['course_description']."',children: [";
+                      ?>
+                        
+                        {
+                          label: '<?php echo $row['alumni_student_ID']." -1 ".$row['alumni_fname']." ".$row['alumni_lname']; ?>',
+                          value: '<?php echo $row['alumni_student_ID'] ?>'
+                        }
+                      <?php 
+                          if($last_category != $row['alumni_degree'])
+                            echo "]},";
+                          $last_category = $row['alumni_degree'];
+                        endforeach;
+                      ?>
+                  ];
+                  $("#announcement_alumni").multiselect('dataprovider',optgroups);
+                  $("#announcement_alumni").multiselect('refresh');
+                  break;
+               case '2':
+               alert("2")
+                   $('#announcement_alumni').multiselect('dataprovider', []);
+                    <?php  
+                      $this->db->select('*');
+                      $this->db->from('alumni');
+                      $this->db->join('courses', 'alumni.alumni_degree = courses.course_ID');
+                      $this->db->order_by('alumni_grad_year','ASC');
+                      $alumni_by_degree = $this->db->get()->result_array();
+                    ?>
+                    var optgroups = [
+                        <?php  
+                           $last_category = '';
+                          foreach($alumni_by_degree as $row):
+                            if($last_category != $row['alumni_grad_year'])
+                              echo "{label: '".$row['alumni_grad_year']."',children: [";
+                        ?>
+                          
+                          {
+                            label: '<?php echo $row['alumni_student_ID']." -2 ".$row['alumni_fname']." ".$row['alumni_lname']; ?>',
+                            value: '<?php echo $row['alumni_student_ID'] ?>'
+                          },
+                        <?php 
+                            if($last_category != $row['alumni_grad_year'])
+                              echo "]},";
+                            $last_category = $row['alumni_grad_year'];
+                          endforeach;
+                        ?>
+                    ];
+                    $("#announcement_alumni").multiselect('dataprovider',optgroups);
+                    $("#announcement_alumni").multiselect('refresh');
+                   break;
+           }
+      });
+    </script>

@@ -19,7 +19,7 @@
               </div>
               <div class="card-body">
                 <div class="tab-content">
-					<div class="tab-pane active" id="list">
+					<div class="tab-pane" id="list">
 							<?php  
 						    	$this->db->select("*");
 						        $this->db->from('appointment');

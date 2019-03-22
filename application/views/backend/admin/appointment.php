@@ -29,13 +29,12 @@
 								<div id="calendar"></div>
 							</div>
 							<div class="tab-pane table-responsive" id="add">
-								<table class="table display nowrap" id="table1">
+								<table class="table display nowrap" id="table3">
 									<thead class="text-<?php echo $_SESSION['theme_color']?>">
 										<th>Date</th>
 										<th>Time</th>
 										<th>Alumni</th>
 										<th>Details</th>
-										<th></th>
 									</thead>
 									<tbody>
 										<?php 

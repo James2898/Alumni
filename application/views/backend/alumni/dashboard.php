@@ -1,221 +1,102 @@
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-6">
+							<div class="col-lg-4 col-md-6 col-sm-6">
 								<div class="card card-stats">
 									<div class="card-header card-header-warning card-header-icon">
 										<div class="card-icon">
 			                    			<i class="material-icons">event_note</i>
 			                  			</div>
+			                  			<?php  
+			                  				$today_appointment = $this->db->get_where('appointment', array('appointment_date_start' => date('Y-m-d')))->num_rows();
+			                  			?>
 			                  			<p class="card-category">Today's Appointment</p>
-			                  			<h3 class="card-title">1 Scheduled</h3>
+			                  			<h3 class="card-title"><?php echo $today_appointment ?> Scheduled</h3>
 			                		</div>
 			                		<div class="card-footer">
 			                  			<div class="stats">
 			                    			<i class="material-icons">date_range</i>
-			                    			<a href="#pablo" class="text-muted">View Appointments</a>
+			                    			<a href="<?php echo base_url()."index.php/admin/appointment" ?>" class="text-muted">View Appointments</a>
 			                  			</div>
 			                		</div>
 			              		</div>
 			            	</div>
 			            	<div class="col-lg-6 col-md-6 col-sm-6">
 			              		<div class="card card-stats">
-			                		<div class="card-header card-header-success card-header-icon">
-			                  			<div class="card-icon">
-			                    			<i class="material-icons">store</i>
+									<div class="card-header card-header-info card-header-icon">
+										<div class="card-icon">
+			                    			<i class="material-icons">event_note</i>
 			                  			</div>
-			                  			<p class="card-category">Revenue</p>
-				                  		<h3 class="card-title">$34,245</h3>
+			                  			<?php  
+			                  				$appointment_requests = $this->db->get_where('appointment', array('appointment_status' => 'Waiting','appointment_alumni_ID',$_SESSION['user_ID']))->num_rows();
+			                  			?>
+			                  			<p class="card-category">Appointment Requests</p>
+			                  			<h3 class="card-title"><?php echo $appointment_requests ?> Requests</h3>
 			                		</div>
 			                		<div class="card-footer">
 			                  			<div class="stats">
-				                    		<i class="material-icons">date_range</i> Last 24 Hours
-			                  			</div>
-			                		</div>
-			              		</div>
-			            	</div>
-			            	<div class="col-lg-6 col-md-6 col-sm-6">
-			              		<div class="card card-stats">
-			                		<div class="card-header card-header-danger card-header-icon">
-			                  			<div class="card-icon">
-			                    			<i class="material-icons">info_outline</i>
-			                  			</div>
-			                  			<p class="card-category">Fixed Issues</p>
-			                  			<h3 class="card-title">75</h3>
-			                		</div>
-			                		<div class="card-footer">
-			                  			<div class="stats">
-				                    		<i class="material-icons">local_offer</i> Tracked from Github
-			                  			</div>
-			                		</div>
-			              		</div>
-			            	</div>
-			            	<div class="col-lg-3 col-md-6 col-sm-6">
-			              		<div class="card card-stats">
-			                		<div class="card-header card-header-info card-header-icon">
-			                  			<div class="card-icon">
-			                    			<i class="fa fa-twitter"></i>
-			                  			</div>
-			                  			<p class="card-category">Followers</p>
-			                  			<h3 class="card-title">+245</h3>
-			                		</div>
-			                		<div class="card-footer">
-			                  			<div class="stats">
-			                    			<i class="material-icons">update</i> Just Updated
+			                    			<i class="material-icons">date_range</i>
+			                    			<a href="<?php echo base_url()."index.php/admin/appointment" ?>" class="text-muted">View Appointments</a>
 			                  			</div>
 			                		</div>
 			              		</div>
 			            	</div>
 			         	</div>
-			          	<div class="row">
-			            	<div class="col-md-4">
-			              		<div class="card card-chart">
-			                		<div class="card-header card-header-success">
-			                  			<div class="ct-chart" id="dailySalesChart"></div>
-			                		</div>
-			                		<div class="card-body">
-			                  			<h4 class="card-title">Daily Sales</h4>
-			                  			<p class="card-category">
-			                    			<span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
-			                    		</p>
-			                		</div>
-			                		<div class="card-footer">
-			                  			<div class="stats">
-			                    			<i class="material-icons">access_time</i> updated 4 minutes ago
-			                  			</div>
-			                		</div>
-			              		</div>
-			            	</div>
-			            	<div class="col-md-4">
-								<div class="card card-chart">
-				                	<div class="card-header card-header-warning">
-				                  		<div class="ct-chart" id="websiteViewsChart"></div>
-				                	</div>
-				                	<div class="card-body">
-				                		<h4 class="card-title">Email Subscriptions</h4>
-				                  		<p class="card-category">Last Campaign Performance</p>
-				                	</div>
-				                	<div class="card-footer">
-				                  		<div class="stats">
-				                    		<i class="material-icons">access_time</i> campaign sent 2 days ago
-				                  		</div>
-				                	</div>
-				              	</div>
-			            	</div>
-				            <div class="col-md-4">
-				              	<div class="card card-chart">
-				                	<div class="card-header card-header-danger">
-				                  		<div class="ct-chart" id="completedTasksChart"></div>
-				                	</div>
-				                	<div class="card-body">
-				                  		<h4 class="card-title">Completed Tasks</h4>
-				                  		<p class="card-category">Last Campaign Performance</p>
-				                	</div>
-				                	<div class="card-footer">
-				                  		<div class="stats">
-				                    		<i class="material-icons">access_time</i> campaign sent 2 days ago
-				                  		</div>
-				                	</div>
-				              	</div>
-				            </div>
-			        	</div>
 				        <div class="row">
-							<div class="col-lg-6 col-md-12">
-				            	<div class="card">
-				                	<div class="card-header card-header-tabs card-header-primary">
-				                  		<div class="nav-tabs-navigation">
-				                    		<div class="nav-tabs-wrapper">
-				                      			<span class="nav-tabs-title">Tasks:</span>
-				                      			<ul class="nav nav-tabs" data-tabs="tabs">
-				                        			<li class="nav-item">
-				                          				<a class="nav-link active" href="#profile" data-toggle="tab">
-				                            				<i class="material-icons">bug_report</i> Bugs
-				                            				<div class="ripple-container"></div>
-				                          				</a>
-				                        			</li>
-				                        			<li class="nav-item">
-				                          				<a class="nav-link" href="#messages" data-toggle="tab">
-				                            				<i class="material-icons">code</i> Website
-				                            				<div class="ripple-container"></div>
-				                          				</a>
-				                        			</li>
-				                        			<li class="nav-item">
-				                          				<a class="nav-link" href="#settings" data-toggle="tab">
-				                            				<i class="material-icons">cloud</i> Server
-				                            				<div class="ripple-container"></div>
-				                          				</a>
-				                        			</li>
-				                      			</ul>
-				                    		</div>
-				                  		</div>
-				                	</div><!-- End of Card Header -->
-					                <div class="card-body">
-					                  	<div class="tab-content">
-						                    <div class="tab-pane active" id="profile">
-					                      		<table class="table">
-					                        		<tbody>
-					                        		</tbody>
-					                      		</table>
-					                    	</div>
-					                    	<div class="tab-pane" id="messages">
-					                      		<table class="table">
-					                        		<tbody>
-					                        		</tbody>
-					                      		</table>
-					                    	</div>
-					                    	<div class="tab-pane" id="settings">
-					                      		<table class="table table-bordered">
-					                        		<tbody>
-					                        			<tr>
-					                        				<td>Sample</td>
-					                        			</tr>
-					                        		</tbody>
-					                      		</table>
-					                    	</div>
-					                  	</div><!-- End of Tab Content -->
-					                </div><!-- End of Card Body -->
-				              	</div>
-				            </div>
 				            <div class="col-lg-6 col-md-12">
 								<div class="card">
 					                <div class="card-header card-header-warning">
-				                  		<h4 class="card-title">Employees Stats</h4>
-				                  		<p class="card-category">New employees on 15th September, 2016</p>
+				                  		<h4 class="card-title">Latest Announcemnets</h4>
 				                	</div><!-- End of Card Header -->
 					                <div class="card-body table-responsive">
-					                  	<table class="table table-hover">
-					                    	<thead class="text-warning">
-					                      		<th>ID</th>
-					                      		<th>Name</th>
-					                      		<th>Salary</th>
-					                      		<th>Country</th>
-					                    	</thead>
-					                    	<tbody>
-					                      		<tr>
-					                        		<td>1</td>
-					                        		<td>Dakota Rice</td>
-					                        		<td>$36,738</td>
-					                        		<td>Niger</td>
-					                      		</tr>
-					                      		<tr>
-					                        		<td>2</td>
-					                        		<td>Minerva Hooper</td>
-					                        		<td>$23,789</td>
-					                        		<td>Curaçao</td>
-					                      		</tr>
-					                      		<tr>
-					                        		<td>3</td>
-					                        		<td>Sage Rodriguez</td>
-					                        		<td>$56,142</td>
-					                        		<td>Netherlands</td>
-					                      		</tr>
-					                      		<tr>
-					                        		<td>4</td>
-						                        	<td>Philip Chaney</td>
-					                        		<td>$38,735</td>
-					                        		<td>Korea, South</td>
-					                      		</tr>
-					                    	</tbody>
-					                  	</table>
+					                  	<table class="table">
+					                      <thead class="text-<?php echo $_SESSION['theme_color'] ?>">
+					                        <th></th>
+					                      </thead>
+					                      <tbody>
+					                        <?php  
+					                          $this->db->select("*");
+					                          $this->db->from('announcement');
+					                          $this->db->order_by('announcement_ID','DESC');
+					                          $this->db->limit('5');
+					                          $query = $this->db->get()->result_array();
+					                          
+					                          $last_category = '';
+					                          foreach($query as $row):
+					                        ?>
+					                          <tr>
+					                            <td>
+					                              <div class="col-lg-12 col-md-12 col-sm-12">
+					                                <div class="card card-stats">
+					                                  <div class="card-header card-header-warning card-header-icon">
+					                                    <div class="card-icon">
+					                                      <i class="material-icons">announcement</i>
+					                                    </div>
+					                                    <h4 class="card-title"><?php echo $row['announcement_title'] ?></h4>
+					                                    <p class="card-category"><?php echo $row['announcement_subject'] ?></p>
+					                                    <div class="btn-group-sm">
+					                                      <a href="#" class="btn btn-warning" onclick="showAjaxModal('<?php echo base_url();?>index.php/modal/popup/modal_edit_announcement/<?php echo $row['announcement_ID'] ?>')">
+					                                             View
+					                                      </a>
+					                                      <a href="#" class="btn btn-warning" onclick="confirmModal('<?php echo base_url();?>index.php/admin/announcement/delete/<?php echo $row['announcement_ID'] ?>')">
+					                                             Delete
+					                                      </a>
+					                                    </div>
+					                                  </div>
+					                                  <div class="card-footer">
+					                                    <div class="stats">
+					                                      <i class="material-icons">access_time</i>
+					                                      <a href="#" class="text-dark"><?php echo time_elapsed_string($row['announcement_date']); ?></a>
+					                                    </div>
+					                                  </div>
+					                                </div>
+					                              </div>
+					                            </td>
+					                        </tr>
+					                        <?php 
+					                          endforeach;
+					                        ?>
+					                      </tbody>
+					                    </table>
 					                </div><!-- End of Card Body -->
 				              	</div>
 				            </div>

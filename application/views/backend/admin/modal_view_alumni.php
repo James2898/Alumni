@@ -148,8 +148,9 @@
 	                    		</div>
 	                    		<div class="tab-pane" id="work_experience">
 	                    			<div class="table-responsive">
-			                          	<table class="table text-center" id="table2">
+			                          	<table class="table text-center" id="table3">
 			                            	<thead class="text-<?php echo $_SESSION['theme_color'] ?>">
+			                            		<th>#</th>
 			                            		<th>Industry</th>
 				                              	<th>Position</th>
 				                              	<th>Company</th>
@@ -165,11 +166,12 @@
 										    $this->db->join('salary','work.work_alumni_salary_range = salary.salary_ID');
 										    $this->db->join('industry','industry.industry_ID = work.work_industry');
 										    $this->db->where('alumni_student_ID',$param1);
-
+										    $x = 1;
 										    $query2 = $this->db->get()->result_array();
 		   									foreach ($query2 as $row2):
 			                              ?>
 			                            	<tr>
+			                            		<td><?php echo $x++ ?></td>
 			                            		<td><?php echo $row2['industry_title'] ?></td>
 				                              	<td><?php echo $row2['work_alumni_position'] ?></td>
 				                                <td><?php echo $row2['work_company_name'] ?></td>
@@ -201,10 +203,35 @@
 <?php  
     endforeach;
 ?>
-<script>
+	<script>
     $(document).ready(function() {
-        $('#table2').DataTable({
-          order: []
+        $('#table3').DataTable({
+          order: [],
+          dom: 'Bfrtip',
+          buttons: [
+            'excel', 'pdf', 'print'
+          ],
+          buttons: {
+            buttons: [
+              {
+                extend: 'excel',
+                text: 'Download Excel', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>'
+              },
+              {
+                extend: 'pdf',
+                text: 'Download PDF', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>'
+              },
+              {
+                extend: 'print',
+                text: 'Print', 
+                className: 'btn btn-sm btn-<?php echo $_SESSION['theme_color'] ?>',
+              },
+
+
+            ]
+          }
         });
     } );
   </script>

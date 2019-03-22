@@ -1,4 +1,4 @@
-    <div class="container">
+    <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
@@ -107,12 +107,29 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
+                            <!-- Default inline 1-->
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input rbutton" id="announcementDegree" name="announcement_radio" value="1" checked="">
+                              <label class="custom-control-label" for="announcementDegree">Send By Degree</label>
+                            </div>
+
+                            <!-- Default inline 2-->
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input rbutton" id="announcementBatch" name="announcement_radio" value="2">
+                              <label class="custom-control-label" for="announcementBatch">Send By Batch</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
                             <select id="announcement_alumni" name="announcement_reciepients[]" multiple="multiple" >
                               <?php  
                                 $this->db->select("*");
                                 $this->db->from('alumni');
                                 $this->db->join('courses','alumni.alumni_degree = courses.course_ID');
-                                $this->db->order_by('course_ID','ASC');
+                                $this->db->order_by('alumni_degree','ASC');
 
                                 $query = $this->db->get()->result_array();
                                 $last_category = '';
@@ -148,6 +165,19 @@
     <script type="text/javascript">
       jQuery(document).ready(function() {
         jQuery("time.timeago").timeago();
+      });
+    </script>
+
+    <script type="text/javascript">
+      $('input[type=radio][name=announcement_radio]').on('change', function() {
+           switch($(this).val()) {
+               case '1':
+                   alert("Allot Thai Gayo Bhai");
+                   break;
+               case '2':
+                   alert("Transfer Thai Gayo");
+                   break;
+           }
       });
     </script>
     <?php  

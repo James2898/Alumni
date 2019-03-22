@@ -8,7 +8,7 @@
                   <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
-                          <a href="#add" class="nav-link active" data-toggle="tab">
+                          <a class="nav-link" data-toggle="tab">
                             <i class="material-icons">add_comment</i> Add Appointment
                             <div class="ripple-container"></div>
                           </a>

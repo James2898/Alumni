@@ -141,6 +141,25 @@
 	        echo json_encode($return_major);
 	    }
 
+	    function get_by_degree(){
+	    	//$alumni_by_degree = $this->db->get('alumni')->join('courses','alumni.alumni_degree = courses.course_ID')->order_by('alumni_degree','DESC')->result_array();
+	    	$this->db->select('*');
+	    	$this->db->from('alumni');
+	    	$this->db->join('courses', 'alumni.alumni_degree = courses.course_ID');
+	    	$this->db->order_by('course_ID','ASC');
+
+	    	$alumni_by_degree = $this->db->get()->result_array();
+	    	$return_alumni_by_degree = array();
+	    	foreach ($alumni_by_degree as $row){
+	    		$alumni_by_degree_array['label'] = $row['alumni_student_ID']." - ".$row['alumni_fname']." ".$row['alumni_lname'];
+	    		$alumni_by_degree_array['value'] = $row['alumni_student_ID'];
+	    		$alumni_by_degree_array['degree'] = $row['alumni_degree'];
+	    		$alumni_by_degree_array['course_title'] = $row['course_description'];
+	    		array_push($return_alumni_by_degree,$alumni_by_degree_array);
+	    	}
+	    	echo json_encode($return_alumni_by_degree);
+	    }
+
 		function alumni($param1 = '', $param2 = ''){
 			if ($_SESSION['account_type'] != 'admin')
             	redirect(base_url(), 'refresh');

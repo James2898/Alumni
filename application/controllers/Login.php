@@ -29,6 +29,8 @@
 				if($_SESSION['account_type'] == 'alumni')
 					redirect(base_url().'index.php/alumni/dashboard','refresh');
 			}
+			$_SESSION['theme_color'] = '';
+			$_SESSION['account_type'] = '';
           	$this->load->view('backend/login');
         	
 		}
