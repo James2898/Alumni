@@ -75,7 +75,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 					                        <label class="bmd-label-floating">Appointment Details</label>
-					                        <textarea rows="5" class="form-control"name="appointment_details"></textarea>
+					                        <textarea rows="5" class="form-control"name="appointment_details" required></textarea>
 					                    </div>
 									</div>
 								</div>

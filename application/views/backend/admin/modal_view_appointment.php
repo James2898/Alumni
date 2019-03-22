@@ -29,7 +29,7 @@
 								foreach ($query as $row):
 							?>
 							<?php echo form_open('admin/appointment/edit/'.$param1, 'class="login100-form validate-form"','role="form"','id="form_login"'); ?>
-					          	<div class="row">
+					          	<!-- <div class="row">
 					          		<div class="col-md-12">
 					          			<?php 
 			                        		$is_date = $this->db->query("
@@ -78,7 +78,7 @@
 
 			                        	?>
 					          		</div>
-					          	</div>
+					          	</div> -->
 					          	<div class="row">
 					                <div class="col-md-12">
 					                    <div class="form-group">
@@ -134,7 +134,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 					                        <label class="bmd-label-floating">Appointment Details</label>
-					                        <textarea rows="5" class="form-control"name="appointment_details"><?php echo $row['appointment_details'] ?></textarea>
+					                        <textarea rows="5" class="form-control"name="appointment_details" required><?php echo $row['appointment_details'] ?></textarea>
 					                    </div>
 									</div>
 								</div>
