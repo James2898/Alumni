@@ -7,9 +7,9 @@
 			session_start();
 			$this->load->helper(array('form','url'));
 			$this->load->database();
-			$this->load->library("sendemail");
-			$this->load->library("sendsms");
-			$this->load->model('checkdate_model');
+			$this->load->library("SendEmail");
+			$this->load->library("SendSMS");
+			$this->load->model('CheckDate_model');
 	       /*cache control*/
 			$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			$this->output->set_header('Pragma: no-cache');
